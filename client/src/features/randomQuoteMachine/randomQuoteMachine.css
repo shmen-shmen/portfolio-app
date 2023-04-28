@@ -1,27 +1,56 @@
-.App {
-	text-align: center;
-}
-
 #quote-box {
 	position: absolute;
-	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+	transform: translate(-50%);
+	overflow: scroll;
+	margin-top: 2rem;
+
 	width: 400px;
 	height: 400px;
-	background-color: aliceblue;
+	padding: 1rem;
+
+	border: 2px solid blue;
 
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 }
+#quote-box > * {
+	margin: 0 auto;
+}
+
+.btn {
+	width: fit-content;
+	font-size: 1.25rem;
+
+	border: none;
+	background-color: white;
+	color: blue;
+
+	font-family: "Courier New", Courier, monospace;
+	font-weight: 900;
+}
+.btn:hover {
+	background-color: blue;
+	color: white;
+}
+.btn:active {
+	background-color: red;
+}
+.close-btn {
+	aspect-ratio: 1 / 1;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
 
 .share-links-wrapper {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
+	/* background-color: aqua; */
 }
-
 .share-links-row {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 }

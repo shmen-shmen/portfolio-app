@@ -7,20 +7,23 @@ function RandomQuoteMachine() {
 	const { display, quote } = useSelector((state) => state.randomQuote);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(getNewQuote());
-	}, []);
+	// 👇 TURN THIS BACK ON WHEN READY FOR PRODUCTION
+	// useEffect(() => {
+	// 	console.log("quote requested from RQM.js");
+	// 	dispatch(getNewQuote());
+	// }, []);
 
 	if (display) {
 		return (
 			<div className="random-quote-machine">
 				<main id="quote-box">
 					<button
+						className="btn close-btn"
 						onClick={() => {
 							dispatch(hideQuotes());
 						}}
 					>
-						X CLOSE WINDOW X
+						X
 					</button>
 					<div id="text">
 						<em>"{quote.quote}"</em>
@@ -30,6 +33,7 @@ function RandomQuoteMachine() {
 					</div>
 					<button
 						id="new-quote"
+						className="btn"
 						onClick={() => {
 							dispatch(getNewQuote());
 						}}
@@ -43,13 +47,22 @@ function RandomQuoteMachine() {
 								id="tweet-quote"
 								href="twitter.com/intent/tweet"
 								target={"_blank"}
+								className="share-link"
 							>
 								twitter
 							</a>
-							<a href="twitter.com/intent/tweet" target={"_blank"}>
+							<a
+								href="twitter.com/intent/tweet"
+								target={"_blank"}
+								className="share-link"
+							>
 								vkontakte
 							</a>
-							<a href="twitter.com/intent/tweet" target={"_blank"}>
+							<a
+								href="twitter.com/intent/tweet"
+								target={"_blank"}
+								className="share-link"
+							>
 								odnoklassniki
 							</a>
 						</div>

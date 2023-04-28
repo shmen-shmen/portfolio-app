@@ -1,5 +1,6 @@
 #nav {
-	position: absolute;
+	position: sticky;
+	top: 0;
 	width: 100%;
 	border-bottom: 2px solid blue;
 
@@ -16,11 +17,11 @@
 	font-weight: 900;
 	text-decoration: underline;
 }
-#nav button:hover {
+.nav-button:hover {
 	background-color: blue;
 	color: white;
 }
-#nav button:active {
+.nav-button:active {
 	background-color: red;
 }
 
