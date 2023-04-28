@@ -2,5 +2,5 @@
 export async function fetchQuote() {
 	const response = await fetch("/getQuote");
 	const data = await response.json();
-	return data;
+	return data[0];
 }

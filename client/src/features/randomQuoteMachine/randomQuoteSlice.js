@@ -4,8 +4,9 @@ import { fetchQuote } from "./quoteAPI";
 const initialState = {
 	display: true,
 	quote: {
-		text: "Yo Orystar Sheshen Am Qotaqtar Sap Sary Qotaq Sheshen Am Qaldyragan",
 		author: "Quazaq People",
+		quote:
+			"Yo Orystar Sheshen Am Qotaqtar Sap Sary Qotaq Sheshen Am Qaldyragan",
 	},
 };
 
@@ -17,8 +18,12 @@ const initialState = {
 export const getNewQuote = createAsyncThunk(
 	"randomQuotes/fetchQuote",
 	async () => {
-		const response = await fetchQuote();
-		console.log(response);
+		try {
+			const response = await fetchQuote();
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
 	}
 );
 
@@ -42,7 +47,9 @@ export const randomQuoteSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(getNewQuote.pending, (state) => {})
-			.addCase(getNewQuote.fulfilled, (state, action) => {});
+			.addCase(getNewQuote.fulfilled, (state, action) => {
+				state.quote = action.payload;
+			});
 	},
 });
 

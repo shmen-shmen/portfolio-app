@@ -15,17 +15,15 @@ app.get("/api", (req, res) => {
 });
 
 // Handle GET requests made by RANDOM QUOTE MACHINE
-const QUOTES_API_KEY = process.env.QUOTES_API_KEY;
-app.get("/getQuote", (req, res) => {
-	res.json(
-		// 	async () => {
-		// 	const response = await fetch("https://api.api-ninjas.com/v1/quotes", {
-		// 		headers: { QUOTES_API_KEY },
-		// 	});
-		// 	return response;
-		// }
-		{ message: "Hello from server!" }
-	);
+app.get("/getQuote", async (req, res) => {
+	const QUOTES_API_KEY = process.env.QUOTES_API_KEY;
+	const weatherApiUrl = "https://api.api-ninjas.com/v1/quotes";
+	const quote_response = await fetch(weatherApiUrl, {
+		headers: { "X-Api-Key": QUOTES_API_KEY },
+	});
+	const quote_JSON = await quote_response.json();
+	console.log(quote_JSON);
+	res.json(quote_JSON);
 });
 
 // All other GET requests not handled before will return our React app

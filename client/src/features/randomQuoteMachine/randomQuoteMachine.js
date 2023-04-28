@@ -1,4 +1,4 @@
-// import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { hideQuotes, getNewQuote } from "./randomQuoteSlice";
 import "./randomQuoteMachine.css";
@@ -7,19 +7,9 @@ function RandomQuoteMachine() {
 	const { display, quote } = useSelector((state) => state.randomQuote);
 	const dispatch = useDispatch();
 
-	// const quoteRefresh = async () => {
-	// 	fetch("https://api.api-ninjas.com/v1/quotes", {
-	// 		headers: { QUOTE_API_KEY: process.env.REACT_APP_API_KEY },
-	// 	})
-	// 		.then((response) => response.json())
-	// 		.then((data) => {
-	// 			console.log(data);
-	// 			// setPosts(data);
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err.message);
-	// 		});
-	// };
+	useEffect(() => {
+		dispatch(getNewQuote());
+	}, []);
 
 	if (display) {
 		return (
@@ -33,7 +23,7 @@ function RandomQuoteMachine() {
 						X CLOSE WINDOW X
 					</button>
 					<div id="text">
-						<em>"{quote.text}"</em>
+						<em>"{quote.quote}"</em>
 					</div>
 					<div id="author">
 						<strong>{quote.author}</strong>
