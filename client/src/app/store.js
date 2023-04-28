@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import appSelectorReducer from "../features/selector/appSelectorSlice";
+import randomQuoteSlice from "../features/randomQuoteMachine/randomQuoteSlice";
 
 export const store = configureStore({
 	reducer: {
-		appSelector: appSelectorReducer,
+		randomQuote: randomQuoteSlice,
 	},
 });

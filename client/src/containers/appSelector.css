@@ -1,0 +1,30 @@
+#nav {
+	position: absolute;
+	width: 100%;
+	border-bottom: 2px solid blue;
+
+	display: flex;
+	justify-content: space-around;
+}
+.nav-button {
+	border: none;
+	color: blue;
+	background-color: transparent;
+
+	font-family: "Courier New", Courier, monospace;
+	font-size: 1.5rem;
+	font-weight: 900;
+	text-decoration: underline;
+}
+#nav button:hover {
+	background-color: blue;
+	color: white;
+}
+#nav button:active {
+	background-color: red;
+}
+
+.inactive-button {
+	background-color: grey;
+	color: black;
+}

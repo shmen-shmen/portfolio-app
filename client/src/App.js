@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import RandomQuoteMachine from "./containers/random-quote-machine";
-import AppSelector from "./features/selector/appSelector";
+import RandomQuoteMachine from "./features/randomQuoteMachine/randomQuoteMachine.js";
+import AppSelector from "./containers/appSelector.js";
 import "./App.css";
 
 function App() {
@@ -12,14 +12,15 @@ function App() {
 	// 		.then((data) => setData(data.message));
 	// }, []);
 
-	let apps = Object.keys(useSelector((state) => state.appSelector));
+	// console.log(data);
+
 	const dispatch = useDispatch();
 
 	return (
 		<div className="App">
-			<RandomQuoteMachine />
+			<AppSelector />
 			<main>
-				<AppSelector />
+				<RandomQuoteMachine />
 			</main>
 		</div>
 	);
