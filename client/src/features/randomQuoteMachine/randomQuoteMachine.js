@@ -47,6 +47,7 @@ function RandomQuoteMachine() {
 					<p
 						id="new-quote-left"
 						onClick={() => {
+							console.log("CATEGORY IS " + category);
 							dispatch(getNewQuote(category));
 						}}
 					>

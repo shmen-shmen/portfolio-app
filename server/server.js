@@ -15,9 +15,12 @@ app.get("/api", (req, res) => {
 });
 
 // Handle GET requests made by RANDOM QUOTE MACHINE
-app.get("/getQuote", async (req, res) => {
+app.get("/getQuote/:category", async (req, res) => {
+	const { category } = req.params;
 	const QUOTES_API_KEY = process.env.QUOTES_API_KEY;
-	const weatherApiUrl = "https://api.api-ninjas.com/v1/quotes";
+	const weatherApiUrl =
+		"https://api.api-ninjas.com/v1/quotes" +
+		(category === "no-category" ? "" : "?category=" + category);
 	const quote_response = await fetch(weatherApiUrl, {
 		headers: { "X-Api-Key": QUOTES_API_KEY },
 	});

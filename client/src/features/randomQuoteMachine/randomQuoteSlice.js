@@ -10,7 +10,7 @@ const initialState = {
 			"Yo Orystar Sheshen Am Qotaqtar Sap Sary Qotaq Sheshen Am Qaldyragan",
 	},
 	categories,
-	category: "",
+	category: "no-category",
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -20,9 +20,9 @@ const initialState = {
 // typically used to make async requests.
 export const getNewQuote = createAsyncThunk(
 	"randomQuotes/fetchQuote",
-	async (keyword) => {
+	async (category) => {
 		try {
-			const response = await fetchQuote(keyword);
+			const response = await fetchQuote(category);
 			return response;
 		} catch (error) {
 			console.error(error);
