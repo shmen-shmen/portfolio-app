@@ -3,7 +3,7 @@ import { fetchQuote } from "./quoteAPI";
 import categories from "./categories";
 
 const initialState = {
-	display: true,
+	display: false,
 	quote: {
 		author: "Quazaq People",
 		quote:
