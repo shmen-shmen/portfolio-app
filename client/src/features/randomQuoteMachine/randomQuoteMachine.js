@@ -12,7 +12,7 @@ function RandomQuoteMachine() {
 	const [closeHover, setCloseBtnHover] = useState(false);
 	// 👇 TURN THIS BACK ON WHEN READY FOR PRODUCTION
 	useEffect(() => {
-		console.log("quote requested from RQM.js");
+		// console.log("quote requested from RQM.js");
 		dispatch(getNewQuote(category));
 	}, []);
 
@@ -47,7 +47,7 @@ function RandomQuoteMachine() {
 					<p
 						id="new-quote-left"
 						onClick={() => {
-							console.log("CATEGORY IS " + category);
+							// console.log("CATEGORY IS " + category);
 							dispatch(getNewQuote(category));
 						}}
 					>
