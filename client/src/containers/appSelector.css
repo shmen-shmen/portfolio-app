@@ -1,21 +1,24 @@
 #nav {
 	position: sticky;
+	z-index: 2;
 	top: 0;
 	width: 100%;
 	border-bottom: 2px solid blue;
 
 	display: flex;
 	justify-content: space-around;
+	height: 2rem;
+}
+.nav {
+	color: blue;
+	font-family: "Courier New", Courier, monospace;
+	margin: 0;
+	font-size: 1.5rem;
 }
 .nav-button {
 	border: none;
-	color: blue;
 	background-color: transparent;
-
-	font-family: "Courier New", Courier, monospace;
-	font-size: 1.5rem;
 	font-weight: 900;
-	text-decoration: underline;
 }
 .nav-button:hover {
 	background-color: blue;
@@ -26,6 +29,5 @@
 }
 
 .inactive-button {
-	background-color: grey;
 	color: black;
 }

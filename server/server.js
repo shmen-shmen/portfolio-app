@@ -22,7 +22,6 @@ app.get("/getQuote", async (req, res) => {
 		headers: { "X-Api-Key": QUOTES_API_KEY },
 	});
 	const quote_JSON = await quote_response.json();
-	console.log(quote_JSON);
 	res.json(quote_JSON);
 });
 

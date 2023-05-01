@@ -8,7 +8,7 @@ const AppSelector = () => {
 	return (
 		<nav id="nav">
 			<button
-				className="nav-button"
+				className="nav nav-button"
 				onClick={() => {
 					console.log("NAV BUTTON WAS PRESSED");
 					dispatch(showQuotes());
@@ -16,16 +16,19 @@ const AppSelector = () => {
 			>
 				quotes
 			</button>
+			{/* <p>◎●◦⦿❀⚈⚉⚆⚇</p> */}
+			<p className="nav">◎●◦⦿</p>
 			<button
-				className="inactive-button nav-button"
+				className="nav nav-button inactive-button "
 				onClick={() => {
 					console.log("NAV BUTTON WAS PRESSED");
 				}}
 			>
 				drums
 			</button>
+			<p className="nav">⚈⚉⚆⚇</p>
 			<button
-				className="inactive-button nav-button"
+				className="nav nav-button inactive-button"
 				onClick={() => {
 					console.log("NAV BUTTON WAS PRESSED");
 				}}
