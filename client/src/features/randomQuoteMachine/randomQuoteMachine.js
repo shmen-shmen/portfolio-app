@@ -11,10 +11,10 @@ function RandomQuoteMachine() {
 
 	const [closeHover, setCloseBtnHover] = useState(false);
 	// 👇 TURN THIS BACK ON WHEN READY FOR PRODUCTION
-	// useEffect(() => {
-	// 	console.log("quote requested from RQM.js");
-	// 	dispatch(getNewQuote());
-	// }, []);
+	useEffect(() => {
+		console.log("quote requested from RQM.js");
+		dispatch(getNewQuote());
+	}, []);
 
 	useEffect(() => {
 		setCloseBtnHover(false);
