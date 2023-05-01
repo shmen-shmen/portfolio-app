@@ -13,7 +13,7 @@ function RandomQuoteMachine() {
 	// 👇 TURN THIS BACK ON WHEN READY FOR PRODUCTION
 	useEffect(() => {
 		console.log("quote requested from RQM.js");
-		dispatch(getNewQuote());
+		dispatch(getNewQuote(category));
 	}, []);
 
 	useEffect(() => {
