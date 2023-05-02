@@ -1,24 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { hideQuotes, getNewQuote, selectCategory } from "./randomQuoteSlice";
 import "./randomQuoteMachine.css";
 
 function RandomQuoteMachine() {
-	const { display, quote, categories, category } = useSelector(
+	const { display, isLoading, quote, categories, category } = useSelector(
 		(state) => state.randomQuote
 	);
 	const dispatch = useDispatch();
-
-	const [closeHover, setCloseBtnHover] = useState(false);
+	const [closeBtnHover, setCloseBtnHover] = useState(false);
+	const upperRef = useRef();
 	// 👇 TURN THIS BACK ON WHEN READY FOR PRODUCTION
-	useEffect(() => {
-		// console.log("quote requested from RQM.js");
-		dispatch(getNewQuote(category));
-	}, []);
-
+	// useEffect(() => {
+	// 	dispatch(getNewQuote(category));
+	// }, []);
 	useEffect(() => {
 		setCloseBtnHover(false);
 	}, [display]);
+
+	useEffect(() => {
+		if (upperRef.current) {
+			upperRef.current.scrollTop = 0;
+		}
+	}, [quote]);
+
+	// useEffect(() => {
+	// 	upperRef.current.scrollTop = 0;
+	// }, [quote]);
 
 	if (display) {
 		return (
@@ -35,26 +43,56 @@ function RandomQuoteMachine() {
 						dispatch(hideQuotes());
 					}}
 				>
-					{closeHover ? "☒" : "☐"}
+					{closeBtnHover ? "☒" : "☐"}
 				</button>
-				<div className="upper">
+				{closeBtnHover ? (
+					<div id="about">
+						RANDOM QUOTE MACHINE:
+						<br />
+						<br />
+						The app renders a random quote from the internet onto the screen.
+						Additional functionality includes the ability to choose a quote of a
+						specific category from the given list and to share it on social
+						networks.
+						<br />
+						<br />
+						The design of the app aims to reflect it's meaninglessness. The
+						interface is made to be counterintuitive, frustrating and struggling
+						to use. Elements scroll off the screen, blink and disappear to annoy
+						and distract the user. The main substance: the text of a quote – is
+						hidden from the user, and the main element is the exit button, which
+						invites user not to waste any more time here.
+						<br />
+						<br />
+						On the other hand, the visuals are made to be appealing for a
+						potential reader of quotes – pieces of text stripped out of any
+						context and meaning, lowered to the level of content. If i were to
+						try and sell this app, I would use words like "minimalist", and
+						"thought provoking" in order to imply a deeper meaning, although
+						there is obviously no meaning at all.
+						<br />
+						<br />
+						Enjoy!
+					</div>
+				) : null}
+				<div className="upper" ref={upperRef}>
 					<div id="quote-container">
 						<p id="text">"{quote.quote}"</p>
 						<p id="author">{quote.author}</p>
 					</div>
 				</div>
-				<button id="new-quote">
+				<div id="new-quote">
 					<p
 						id="new-quote-left"
 						onClick={() => {
-							// console.log("CATEGORY IS " + category);
-							dispatch(getNewQuote(category));
+							isLoading || dispatch(getNewQuote(category));
 						}}
 					>
-						new quote
+						request new quote{" "}
+						{category === "no-category" ? null : <span>about {category}</span>}
 					</p>
-					<p id="new-quote-right">choose category</p>
-				</button>
+					<p id="new-quote-right">choose category:</p>
+				</div>
 				<div className="lower">
 					<div id="share-section">
 						<span>share this quote:</span>
