@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { showQuotes } from "../features/randomQuoteMachine/randomQuoteSlice";
+import { showMarkdown } from "../features/markdownPreviewer/markdownPreviewerSlice";
 import "./appSelector.css";
 
 const AppSelector = () => {
@@ -9,32 +10,27 @@ const AppSelector = () => {
 		<nav id="nav">
 			<button
 				className="nav nav-button"
+				id="quotes"
 				onClick={() => {
-					console.log("NAV BUTTON WAS PRESSED");
 					dispatch(showQuotes());
 				}}
 			>
 				quotes
 			</button>
-			{/* <p>◎●◦⦿❀⚈⚉⚆⚇</p> */}
+			<p className="nav">・•●◦</p>
+			<button
+				className="nav nav-button"
+				id="markdown"
+				onClick={() => {
+					dispatch(showMarkdown());
+				}}
+			>
+				markdown
+			</button>
 			<p className="nav">◎●◦⦿</p>
-			<button
-				className="nav nav-button inactive-button "
-				onClick={() => {
-					console.log("NAV BUTTON WAS PRESSED");
-				}}
-			>
-				drums
-			</button>
+			<button className="nav nav-button inactive-button ">drums</button>
 			<p className="nav">⚈⚉⚆⚇</p>
-			<button
-				className="nav nav-button inactive-button"
-				onClick={() => {
-					console.log("NAV BUTTON WAS PRESSED");
-				}}
-			>
-				tatari
-			</button>
+			<button className="nav nav-button inactive-button">tatari</button>
 		</nav>
 	);
 };

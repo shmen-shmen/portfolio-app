@@ -1,0 +1,28 @@
+#markdown-previewer {
+	width: 100%;
+	max-width: 666px;
+	margin: 0 auto;
+	background-color: rgba(0, 0, 255, 0.355);
+	font-family: "IBM ISO 9", monospace;
+}
+
+#editor {
+	width: 100%;
+	min-height: 200px;
+}
+#preview {
+	width: 100%;
+	min-height: 200px;
+}
+#preview * {
+	margin: 1rem 1rem 1rem 1rem;
+}
+#preview img {
+	max-width: calc(100% - 2rem);
+}
+#preview li {
+	margin-left: 2rem;
+}
+#preview ul {
+	margin-left: 0;
+}

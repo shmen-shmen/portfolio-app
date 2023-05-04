@@ -1,10 +1,9 @@
 const path = require("path");
 const express = require("express");
 require("dotenv").config();
-
 const PORT = process.env.PORT || 3001;
-
 const app = express();
+const fs = require("fs");
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "../client/build")));
@@ -25,16 +24,25 @@ app.get("/getQuote/:category", async (req, res) => {
 		const quote_response = await fetch(weatherApiUrl, {
 			headers: { "X-Api-Key": QUOTES_API_KEY },
 		});
-		console.log("penis", quote_response);
 		const quote_JSON = await quote_response.json();
 		res.json(quote_JSON);
+		return;
 	} catch (error) {
 		console.error(error);
-		return {
-			author: "shmin",
-			quote: "for some reason something went wrong somewhere 🥲",
-		};
+		return;
 	}
+});
+
+app.get("/getMarkdown", async (req, res) => {
+	fs.readFile("assets/initialMarkdown.txt", "utf8", (err, data) => {
+		if (err) {
+			console.error(err);
+			return;
+		}
+		const markdown = data;
+		res.json(markdown);
+		return;
+	});
 });
 
 // All other GET requests not handled before will return our React app

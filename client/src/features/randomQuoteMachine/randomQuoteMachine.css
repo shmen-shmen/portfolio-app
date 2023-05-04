@@ -1,7 +1,7 @@
 #quote-box {
 	color: black;
 	background-color: white;
-	font-family: "Courier New", Courier, monospace;
+	font-family: "IBM ISO 9", monospace;
 	display: flex;
 	flex-direction: column;
 	font-size: var(--quotes-large-font);
@@ -51,7 +51,7 @@
 }
 
 #new-quote {
-	font-family: "Courier New", Courier, monospace;
+	font-family: "IBM ISO 9", monospace;
 	color: white;
 	background-color: black;
 	border: none;

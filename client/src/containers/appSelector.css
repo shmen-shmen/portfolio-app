@@ -12,9 +12,9 @@
 }
 .nav {
 	color: blue;
-	font-family: "Courier New", Courier, monospace;
-	margin: 0;
+
 	font-size: 1.5rem;
+	font-family: "IBM ISO 9", monospace;
 }
 .nav-button {
 	border: none;
