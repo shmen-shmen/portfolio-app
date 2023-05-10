@@ -23,3 +23,11 @@
 	font-weight: normal;
 	font-style: normal;
 }
+@font-face {
+	font-family: "ComicMono";
+	src: url(../public/fonts/ComicMono.ttf);
+}
+@font-face {
+	font-family: "ComicMono-Bold";
+	src: url(../public/fonts/ComicMono-Bold.ttf);
+}

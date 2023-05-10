@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	hideMarkdown,
@@ -26,27 +26,55 @@ const MarkdownPreviewer = () => {
 		return { __html: output };
 	}
 
+	const [showEditor, setShowEditor] = useState(false);
+	const [showPreview, setShowPreview] = useState(false);
+
 	if (display) {
 		return (
 			<section id="markdown-previewer">
 				<h1
+					id="banner"
+					// onClick={() => {
+					// 	dispatch(hideMarkdown());
+					// }}
+				>
+					MARKDOWN PREVIEWER
+				</h1>
+
+				<h2
+					className="top-level"
 					onClick={() => {
-						dispatch(hideMarkdown());
+						setShowEditor(!showEditor);
 					}}
 				>
-					THIS IS MARKDOWN PREVIEWER
-				</h1>
-				<h2>this is editor:</h2>
-				<textarea
-					name=""
-					id="editor"
-					value={input}
-					onChange={(e) => {
-						dispatch(editing(e.target.value));
+					{showEditor ? "" : "edit"}
+				</h2>
+
+				{showEditor ? (
+					<textarea
+						name=""
+						id="editor"
+						value={input}
+						onChange={(e) => {
+							dispatch(editing(e.target.value));
+						}}
+					></textarea>
+				) : (
+					<div className="separator"></div>
+				)}
+				<h2
+					className="top-level"
+					onClick={() => {
+						setShowPreview(!showPreview);
 					}}
-				></textarea>
-				<h2>this is preview:</h2>
-				<div id="preview" dangerouslySetInnerHTML={createMarkup()} />
+				>
+					{showPreview ? "" : "preview"}
+				</h2>
+				{showPreview ? (
+					<div id="preview" dangerouslySetInnerHTML={createMarkup()} />
+				) : (
+					<div className="separator"></div>
+				)}
 			</section>
 		);
 	} else {

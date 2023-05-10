@@ -1,24 +1,59 @@
 #markdown-previewer {
 	width: 100%;
-	max-width: 666px;
+	min-height: calc(100vh - 32px);
 	margin: 0 auto;
-	background-color: rgba(0, 0, 255, 0.355);
 	font-family: "IBM ISO 9", monospace;
+	display: flex;
+}
+
+#banner {
+	background-color: white;
+	color: blue;
+	width: 140px;
+	font-size: 3rem;
+	padding-left: 0.25rem;
+	word-wrap: break-word;
+}
+
+.top-level {
+	background-color: blue;
+	color: aliceblue;
+	min-width: 1rem;
+	max-width: 70px;
+	word-wrap: break-word;
+	min-height: 100%;
 }
 
 #editor {
 	width: 100%;
-	min-height: 200px;
+	min-width: calc((100% - 140px - 70px - 70px) / 2);
+	max-width: 599px;
+	border: none;
+	font-family: "ComicMono";
+	font-size: 1rem;
+	overflow-y: scroll;
+}
+#editor {
+	padding: 1rem;
 }
 #preview {
 	width: 100%;
-	min-height: 200px;
+	min-width: calc((100% - 140px - 70px - 70px) / 2);
+	max-width: 599px;
+	overflow-y: scroll;
+	font-family: "ComicMono";
 }
+.separator {
+	width: 1rem;
+	min-height: 100%;
+}
+
 #preview * {
 	margin: 1rem 1rem 1rem 1rem;
 }
 #preview img {
-	max-width: calc(100% - 2rem);
+	width: calc(100% - 2rem);
+	max-width: 200px;
 }
 #preview li {
 	margin-left: 2rem;
