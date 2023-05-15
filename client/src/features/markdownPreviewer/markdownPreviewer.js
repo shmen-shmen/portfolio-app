@@ -32,14 +32,23 @@ const MarkdownPreviewer = () => {
 	if (display) {
 		return (
 			<section id="markdown-previewer">
-				<h1
+				<div
 					id="banner"
 					// onClick={() => {
 					// 	dispatch(hideMarkdown());
 					// }}
 				>
-					MARKDOWN PREVIEWER
-				</h1>
+					<h1>MARKDOWN PREVIEWER</h1>
+					<br />
+					<p
+						id="close-btn"
+						onClick={() => {
+							dispatch(hideMarkdown());
+						}}
+					>
+						✿✦⚛︎✕✞♱
+					</p>
+				</div>
 
 				<h2
 					className="top-level"

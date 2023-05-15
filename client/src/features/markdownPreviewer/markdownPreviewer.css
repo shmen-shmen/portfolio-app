@@ -1,63 +1,88 @@
 #markdown-previewer {
 	width: 100%;
-	min-height: calc(100vh - 32px);
-	margin: 0 auto;
+	height: calc(100vh - 32px);
 	font-family: "IBM ISO 9", monospace;
 	display: flex;
 }
 
 #banner {
-	background-color: white;
+	background-color: red;
 	color: blue;
 	width: 140px;
-	font-size: 3rem;
+	font-size: 2rem;
 	padding-left: 0.25rem;
-	word-wrap: break-word;
-}
-
-.top-level {
-	background-color: blue;
-	color: aliceblue;
-	min-width: 1rem;
-	max-width: 70px;
 	word-wrap: break-word;
 	min-height: 100%;
 }
 
-#editor {
+#close-btn {
 	width: 100%;
-	min-width: calc((100% - 140px - 70px - 70px) / 2);
-	max-width: 599px;
-	border: none;
-	font-family: "ComicMono";
-	font-size: 1rem;
-	overflow-y: scroll;
+	text-align: center;
 }
-#editor {
-	padding: 1rem;
+#close-btn:hover {
+	background-color: blue;
+	color: red;
 }
-#preview {
-	width: 100%;
-	min-width: calc((100% - 140px - 70px - 70px) / 2);
-	max-width: 599px;
-	overflow-y: scroll;
-	font-family: "ComicMono";
+#close-btn:active {
+	background-color: black;
+	color: white;
+}
+
+.top-level {
+	background-color: blue;
+	color: white;
+	min-width: 1rem;
+	width: fit-content;
+	word-wrap: break-word;
+	min-height: 100%;
 }
 .separator {
 	width: 1rem;
 	min-height: 100%;
 }
 
+#editor {
+	width: 100%;
+	min-width: calc((100% - 140px - 2rem) / 2);
+	border: none;
+	font-size: 1rem;
+	overflow-y: scroll;
+	padding: 1rem;
+}
+
+#preview {
+	width: 100%;
+	min-width: calc((100% - 140px - 2rem) / 2);
+	color: rgba(100, 50, 100);
+	overflow: scroll;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
 #preview * {
 	margin: 1rem 1rem 1rem 1rem;
 }
-#preview img {
-	width: calc(100% - 2rem);
-	max-width: 200px;
+#preview code {
+	background-color: rgba(255, 200, 255, 0.78);
+	font-size: large;
+	font-weight: bold;
+}
+#preview td,
+th {
+	border: 1px solid black;
+	width: fit-content;
+	padding: 5px;
+}
+#preview table {
+	border: 1px solid black;
+	max-width: 100%;
 }
 #preview li {
 	margin-left: 2rem;
 }
 #preview ul {
 	margin-left: 0;
+}
+#preview img {
+	width: calc(100% - 2rem);
+	max-width: 200px;
 }

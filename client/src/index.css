@@ -1,10 +1,38 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	--quotes-large-font: 50px;
+	--quotes-small-font: 1rem;
+}
 body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
-
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-		monospace;
+@font-face {
+	font-family: "IBM VGA 8x14";
+	src: url(../public/fonts/WebPlus_IBM_VGA_8x14.woff) format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "IBM ISO 9";
+	src: url(../public/fonts/Web437_IBM_DOS_ISO9.woff) format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "IBM ISO 9-2x";
+	src: url(../public/fonts/Web437_IBM_DOS_ISO9-2x.woff) format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "ComicMono";
+	src: url(../public/fonts/ComicMono.ttf);
+}
+@font-face {
+	font-family: "ComicMono-Bold";
+	src: url(../public/fonts/ComicMono-Bold.ttf);
 }
