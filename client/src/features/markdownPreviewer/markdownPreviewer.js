@@ -28,62 +28,80 @@ const MarkdownPreviewer = () => {
 
 	const [showEditor, setShowEditor] = useState(false);
 	const [showPreview, setShowPreview] = useState(false);
+	const [arrangement, setArrangement] = useState("row");
 
 	if (display) {
 		return (
 			<section id="markdown-previewer">
-				<div
-					id="banner"
-					// onClick={() => {
-					// 	dispatch(hideMarkdown());
-					// }}
-				>
+				<div id="banner">
 					<h1>MARKDOWN PREVIEWER</h1>
 					<br />
-					<p
+					<button
+						className="btn"
 						id="close-btn"
 						onClick={() => {
 							dispatch(hideMarkdown());
 						}}
 					>
 						✿✦⚛︎✕✞♱
-					</p>
-				</div>
-
-				<h2
-					className="top-level"
-					onClick={() => {
-						setShowEditor(!showEditor);
-					}}
-				>
-					{showEditor ? "" : "edit"}
-				</h2>
-
-				{showEditor ? (
-					<textarea
-						name=""
-						id="editor"
-						value={input}
-						onChange={(e) => {
-							dispatch(editing(e.target.value));
+					</button>
+					<br />
+					<br />
+					<button
+						className="btn"
+						id="turn-btn"
+						onClick={() => {
+							arrangement == "row"
+								? setArrangement("column")
+								: setArrangement("row");
 						}}
-					></textarea>
-				) : (
-					<div className="separator"></div>
-				)}
-				<h2
-					className="top-level"
-					onClick={() => {
-						setShowPreview(!showPreview);
-					}}
-				>
-					{showPreview ? "" : "preview"}
-				</h2>
-				{showPreview ? (
-					<div id="preview" dangerouslySetInnerHTML={createMarkup()} />
-				) : (
-					<div className="separator"></div>
-				)}
+					>
+						{arrangement == "row" ? "☟☟☟☟☟" : "☞☞☞☞☞"}
+					</button>
+				</div>
+				<div id={"work-area-" + arrangement}>
+					<button
+						id="show-editor"
+						className={`top-level ${"top-level-" + arrangement} ${
+							showEditor ? "top-level-narrow" : "top-level-wide"
+						}`}
+						onClick={() => {
+							setShowEditor(!showEditor);
+						}}
+					>
+						{showEditor ? "hide editor" : "show editor"}
+					</button>
+					{showEditor ? (
+						<textarea
+							className={`editor ${"editor-" + arrangement} `}
+							value={input}
+							onChange={(e) => {
+								dispatch(editing(e.target.value));
+							}}
+						></textarea>
+					) : (
+						<div className={"separator-" + arrangement}></div>
+					)}
+					<button
+						id="show-preview"
+						className={`top-level ${"top-level-" + arrangement} ${
+							showPreview ? "top-level-narrow" : "top-level-wide"
+						}`}
+						onClick={() => {
+							setShowPreview(!showPreview);
+						}}
+					>
+						{showPreview ? "hide preview" : "show preview"}
+					</button>
+					{showPreview ? (
+						<div
+							className={`preview ${"preview-" + arrangement}`}
+							dangerouslySetInnerHTML={createMarkup()}
+						/>
+					) : (
+						<div className="separator"></div>
+					)}
+				</div>
 			</section>
 		);
 	} else {

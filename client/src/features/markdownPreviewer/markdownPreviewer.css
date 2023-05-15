@@ -15,9 +15,23 @@
 	min-height: 100%;
 }
 
-#close-btn {
+#work-area-row {
+	min-width: calc(100vw - 140px);
+	display: flex;
+}
+#work-area-column {
+	min-width: calc(100vw - 140px);
+	display: flex;
+	flex-direction: column;
+}
+
+.btn {
 	width: 100%;
 	text-align: center;
+	background-color: transparent;
+	color: blue;
+	border: none;
+	font-size: 2rem;
 }
 #close-btn:hover {
 	background-color: blue;
@@ -27,62 +41,100 @@
 	background-color: black;
 	color: white;
 }
+#turn-btn:hover {
+	background-color: blue;
+	color: red;
+}
+#turn-btn:active {
+	background-color: black;
+	color: white;
+}
 
 .top-level {
 	background-color: blue;
 	color: white;
-	min-width: 1rem;
-	width: fit-content;
 	word-wrap: break-word;
+	border: none;
+	font-size: 1.25rem;
+	font-family: "IBM ISO 9", monospace;
+}
+.top-level-row {
+	background-color: blue;
 	min-height: 100%;
 }
-.separator {
+.top-level-column {
+	background-color: blue;
+	width: 100%;
+}
+.top-level-row.top-level-narrow {
+	max-width: 1rem;
+}
+.top-level-row.top-level-wide {
+	width: 5rem;
+}
+
+.separator-row {
 	width: 1rem;
 	min-height: 100%;
 }
-
-#editor {
+.separator-column {
 	width: 100%;
-	min-width: calc((100% - 140px - 2rem) / 2);
+	min-height: 1rem;
+}
+
+.editor {
 	border: none;
 	font-size: 1rem;
 	overflow-y: scroll;
 	padding: 1rem;
+	width: 100%;
+}
+.editor-row {
+	min-width: calc((100% - 140px - 2rem) / 2);
+}
+.editor-column {
+	min-height: calc((100vh - 140px - 2rem) / 2);
 }
 
-#preview {
+.preview {
 	width: 100%;
-	min-width: calc((100% - 140px - 2rem) / 2);
 	color: rgba(100, 50, 100);
 	overflow: scroll;
 	font-family: Arial, Helvetica, sans-serif;
 }
+.preview-row {
+	min-width: calc((100% - 140px - 2rem) / 2);
+}
+.preview-column {
+	width: 100%;
+	min-height: calc((100vh - 140px - 2rem) / 2);
+}
 
-#preview * {
+.preview * {
 	margin: 1rem 1rem 1rem 1rem;
 }
-#preview code {
+.preview code {
 	background-color: rgba(255, 200, 255, 0.78);
 	font-size: large;
 	font-weight: bold;
 }
-#preview td,
+.preview td,
 th {
 	border: 1px solid black;
 	width: fit-content;
 	padding: 5px;
 }
-#preview table {
+.preview table {
 	border: 1px solid black;
 	max-width: 100%;
 }
-#preview li {
+.preview li {
 	margin-left: 2rem;
 }
-#preview ul {
+.preview ul {
 	margin-left: 0;
 }
-#preview img {
+.preview img {
 	width: calc(100% - 2rem);
 	max-width: 200px;
 }
