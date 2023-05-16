@@ -28,7 +28,7 @@ const markdownTranslator = (markdown) => {
 };
 
 const initialState = {
-	display: true,
+	display: false,
 	isLoading: false,
 	input: "",
 	output: "",

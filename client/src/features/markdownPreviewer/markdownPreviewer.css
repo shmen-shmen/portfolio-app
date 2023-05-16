@@ -6,15 +6,19 @@
 }
 
 #banner {
-	background-color: red;
-	color: blue;
+	background-color: white;
+	color: black;
 	width: 140px;
 	font-size: 2rem;
-	padding-left: 0.25rem;
 	word-wrap: break-word;
 	min-height: 100%;
+	border-right: 2px solid black;
+	box-sizing: content-box;
+	position: relative;
 }
-
+#markdown-header {
+	padding-left: 0.25rem;
+}
 #work-area-row {
 	min-width: calc(100vw - 140px);
 	display: flex;
@@ -24,34 +28,26 @@
 	display: flex;
 	flex-direction: column;
 }
-
-.btn {
+.markdown-btn {
 	width: 100%;
+	left: -0.25rem;
 	text-align: center;
 	background-color: transparent;
-	color: blue;
+	color: black;
 	border: none;
 	font-size: 2rem;
+	height: 3rem;
 }
-#close-btn:hover {
-	background-color: blue;
-	color: red;
-}
-#close-btn:active {
+#markdown-close-btn:hover {
 	background-color: black;
 	color: white;
 }
-#turn-btn:hover {
-	background-color: blue;
-	color: red;
-}
-#turn-btn:active {
+#markdown-turn-btn:hover {
 	background-color: black;
 	color: white;
 }
-
 .top-level {
-	background-color: blue;
+	background-color: black;
 	color: white;
 	word-wrap: break-word;
 	border: none;
@@ -59,11 +55,9 @@
 	font-family: "IBM ISO 9", monospace;
 }
 .top-level-row {
-	background-color: blue;
 	min-height: 100%;
 }
 .top-level-column {
-	background-color: blue;
 	width: 100%;
 }
 .top-level-row.top-level-narrow {
@@ -71,6 +65,7 @@
 }
 .top-level-row.top-level-wide {
 	width: 5rem;
+	text-align: right;
 }
 
 .separator-row {
@@ -93,6 +88,7 @@
 	min-width: calc((100% - 140px - 2rem) / 2);
 }
 .editor-column {
+	height: 100%;
 	min-height: calc((100vh - 140px - 2rem) / 2);
 }
 
@@ -106,7 +102,7 @@
 	min-width: calc((100% - 140px - 2rem) / 2);
 }
 .preview-column {
-	width: 100%;
+	height: 100%;
 	min-height: calc((100vh - 140px - 2rem) / 2);
 }
 

@@ -34,29 +34,26 @@ const MarkdownPreviewer = () => {
 		return (
 			<section id="markdown-previewer">
 				<div id="banner">
-					<h1>MARKDOWN PREVIEWER</h1>
-					<br />
 					<button
-						className="btn"
-						id="close-btn"
+						className="markdown-btn"
+						id="markdown-close-btn"
 						onClick={() => {
 							dispatch(hideMarkdown());
 						}}
 					>
 						✿✦⚛︎✕✞♱
 					</button>
-					<br />
-					<br />
+					<h1 id="markdown-header">MARKDOWN PREVIEWER</h1>
 					<button
-						className="btn"
-						id="turn-btn"
+						className="markdown-btn"
+						id="markdown-turn-btn"
 						onClick={() => {
 							arrangement == "row"
 								? setArrangement("column")
 								: setArrangement("row");
 						}}
 					>
-						{arrangement == "row" ? "☟☟☟☟☟" : "☞☞☞☞☞"}
+						{arrangement == "row" ? "☟☟☟☟" : "☞☞☞☞"}
 					</button>
 				</div>
 				<div id={"work-area-" + arrangement}>
@@ -69,7 +66,7 @@ const MarkdownPreviewer = () => {
 							setShowEditor(!showEditor);
 						}}
 					>
-						{showEditor ? "hide editor" : "show editor"}
+						{showEditor ? "editor" : "editor"}
 					</button>
 					{showEditor ? (
 						<textarea
@@ -91,7 +88,8 @@ const MarkdownPreviewer = () => {
 							setShowPreview(!showPreview);
 						}}
 					>
-						{showPreview ? "hide preview" : "show preview"}
+						{/* {showPreview ? "hide preview" : "show preview"} */}
+						{showPreview ? "preview" : "preview"}
 					</button>
 					{showPreview ? (
 						<div
@@ -99,7 +97,7 @@ const MarkdownPreviewer = () => {
 							dangerouslySetInnerHTML={createMarkup()}
 						/>
 					) : (
-						<div className="separator"></div>
+						<div className={"separator" + arrangement}></div>
 					)}
 				</div>
 			</section>
