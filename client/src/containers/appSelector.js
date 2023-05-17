@@ -1,7 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { showQuotes } from "../features/randomQuoteMachine/randomQuoteSlice";
-import { showMarkdown } from "../features/markdownPreviewer/markdownPreviewerSlice";
+import {
+	showQuotes,
+	hideQuotes,
+} from "../features/randomQuoteMachine/randomQuoteSlice";
+import {
+	showMarkdown,
+	hideMarkdown,
+} from "../features/markdownPreviewer/markdownPreviewerSlice";
 import "./appSelector.css";
 
 const AppSelector = () => {
@@ -13,6 +19,7 @@ const AppSelector = () => {
 				id="quotes"
 				onClick={() => {
 					dispatch(showQuotes());
+					dispatch(hideMarkdown());
 				}}
 			>
 				quotes
@@ -23,6 +30,7 @@ const AppSelector = () => {
 				id="markdown"
 				onClick={() => {
 					dispatch(showMarkdown());
+					dispatch(hideQuotes());
 				}}
 			>
 				markdown
