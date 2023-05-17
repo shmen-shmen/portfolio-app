@@ -4,14 +4,24 @@ import {
 	hideMarkdown,
 	editing,
 	parsing,
+	editorToggle,
+	previewToggle,
+	flipArrangement,
+	wideMenuToggle,
 	getMarkdown,
 } from "./markdownPreviewerSlice";
 import "./markdownPreviewer.css";
 
 const MarkdownPreviewer = () => {
-	const { display, input, output } = useSelector(
-		(state) => state.markdownPreviewer
-	);
+	const {
+		display,
+		showEditor,
+		showPreview,
+		arrangement,
+		wideMenu,
+		input,
+		output,
+	} = useSelector((state) => state.markdownPreviewer);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -25,11 +35,6 @@ const MarkdownPreviewer = () => {
 	function createMarkup() {
 		return { __html: output };
 	}
-
-	const [showEditor, setShowEditor] = useState(false);
-	const [showPreview, setShowPreview] = useState(false);
-	const [arrangement, setArrangement] = useState("row");
-	const [wideMenu, setwideMenu] = useState(true);
 
 	if (display) {
 		return (
@@ -52,7 +57,7 @@ const MarkdownPreviewer = () => {
 						<h1
 							id="markdown-header"
 							onClick={() => {
-								setwideMenu(!wideMenu);
+								dispatch(wideMenuToggle());
 							}}
 						>
 							MARKDOWN PREVIEWER
@@ -61,9 +66,7 @@ const MarkdownPreviewer = () => {
 							id="markdown-turn-btn"
 							className="markdown-btn"
 							onClick={() => {
-								arrangement == "row"
-									? setArrangement("column")
-									: setArrangement("row");
+								dispatch(flipArrangement());
 							}}
 						>
 							{arrangement == "row"
@@ -83,7 +86,7 @@ const MarkdownPreviewer = () => {
 							showEditor ? "submenu-btn-narrow" : "submenu-btn-wide"
 						}`}
 						onClick={() => {
-							setShowEditor(!showEditor);
+							dispatch(editorToggle());
 						}}
 					>
 						EDIT
@@ -105,7 +108,7 @@ const MarkdownPreviewer = () => {
 							showPreview ? "submenu-btn-narrow" : "submenu-btn-wide"
 						}`}
 						onClick={() => {
-							setShowPreview(!showPreview);
+							dispatch(previewToggle());
 						}}
 					>
 						PREVIEW

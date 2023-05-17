@@ -33,6 +33,7 @@ const initialState = {
 	showEditor: false,
 	showPreview: false,
 	arrangement: "row",
+	wideMenu: "false",
 	input: "",
 	output: "",
 };
@@ -53,6 +54,20 @@ const markdownSlice = createSlice({
 		parsing: (state) => {
 			state.output = markdownTranslator(state.input);
 		},
+		editorToggle: (state) => {
+			state.showEditor = !state.showEditor;
+		},
+		previewToggle: (state) => {
+			state.showPreview = !state.showPreview;
+		},
+		flipArrangement: (state) => {
+			state.arrangement === "row"
+				? (state.arrangement = "column")
+				: (state.arrangement = "row");
+		},
+		wideMenuToggle: (state) => {
+			state.wideMenu = !state.wideMenu;
+		},
 	},
 
 	extraReducers: (builder) => {
@@ -67,7 +82,15 @@ const markdownSlice = createSlice({
 	},
 });
 
-export const { showMarkdown, hideMarkdown, editing, parsing } =
-	markdownSlice.actions;
+export const {
+	showMarkdown,
+	hideMarkdown,
+	editing,
+	parsing,
+	editorToggle,
+	previewToggle,
+	flipArrangement,
+	wideMenuToggle,
+} = markdownSlice.actions;
 
 export default markdownSlice.reducer;
