@@ -30,6 +30,9 @@ const markdownTranslator = (markdown) => {
 const initialState = {
 	display: false,
 	isLoading: false,
+	showEditor: false,
+	showPreview: false,
+	arrangement: "row",
 	input: "",
 	output: "",
 };

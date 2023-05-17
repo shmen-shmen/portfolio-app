@@ -29,44 +29,64 @@ const MarkdownPreviewer = () => {
 	const [showEditor, setShowEditor] = useState(false);
 	const [showPreview, setShowPreview] = useState(false);
 	const [arrangement, setArrangement] = useState("row");
+	const [wideMenu, setwideMenu] = useState(true);
 
 	if (display) {
 		return (
 			<section id="markdown-previewer">
-				<div id="banner">
-					<button
-						className="markdown-btn"
-						id="markdown-close-btn"
-						onClick={() => {
-							dispatch(hideMarkdown());
-						}}
-					>
-						✿✦⚛︎✕✞♱
-					</button>
-					<h1 id="markdown-header">MARKDOWN PREVIEWER</h1>
-					<button
-						className="markdown-btn"
-						id="markdown-turn-btn"
-						onClick={() => {
-							arrangement == "row"
-								? setArrangement("column")
-								: setArrangement("row");
-						}}
-					>
-						{arrangement == "row" ? "☟☟☟☟" : "☞☞☞☞"}
-					</button>
-				</div>
+				<aside
+					className={`markdown-menu ${
+						wideMenu ? "wide-markdown-menu" : "narrow-markdown-menu"
+					}`}
+				>
+					<div className="menu-wrapper">
+						<button
+							id="markdown-close-btn"
+							className="markdown-btn"
+							onClick={() => {
+								dispatch(hideMarkdown());
+							}}
+						>
+							{wideMenu ? "✿✦⚛︎✕✞♱" : "✕"}
+						</button>
+						<h1
+							id="markdown-header"
+							onClick={() => {
+								setwideMenu(!wideMenu);
+							}}
+						>
+							MARKDOWN PREVIEWER
+						</h1>
+						<button
+							id="markdown-turn-btn"
+							className="markdown-btn"
+							onClick={() => {
+								arrangement == "row"
+									? setArrangement("column")
+									: setArrangement("row");
+							}}
+						>
+							{arrangement == "row"
+								? wideMenu
+									? "☟☟☟☟"
+									: "☟"
+								: wideMenu
+								? "☞☞☞☞"
+								: "☞"}
+						</button>
+					</div>
+				</aside>
 				<div id={"work-area-" + arrangement}>
 					<button
 						id="show-editor"
-						className={`top-level ${"top-level-" + arrangement} ${
-							showEditor ? "top-level-narrow" : "top-level-wide"
+						className={`submenu-btn ${"submenu-btn-" + arrangement} ${
+							showEditor ? "submenu-btn-narrow" : "submenu-btn-wide"
 						}`}
 						onClick={() => {
 							setShowEditor(!showEditor);
 						}}
 					>
-						{showEditor ? "editor" : "editor"}
+						EDIT
 					</button>
 					{showEditor ? (
 						<textarea
@@ -81,24 +101,21 @@ const MarkdownPreviewer = () => {
 					)}
 					<button
 						id="show-preview"
-						className={`top-level ${"top-level-" + arrangement} ${
-							showPreview ? "top-level-narrow" : "top-level-wide"
+						className={`submenu-btn ${"submenu-btn-" + arrangement} ${
+							showPreview ? "submenu-btn-narrow" : "submenu-btn-wide"
 						}`}
 						onClick={() => {
 							setShowPreview(!showPreview);
 						}}
 					>
-						{/* {showPreview ? "hide preview" : "show preview"} */}
-						{showPreview ? "preview" : "preview"}
+						PREVIEW
 					</button>
 					{showPreview ? (
 						<div
 							className={`preview ${"preview-" + arrangement}`}
 							dangerouslySetInnerHTML={createMarkup()}
 						/>
-					) : (
-						<div className={"separator" + arrangement}></div>
-					)}
+					) : null}
 				</div>
 			</section>
 		);
