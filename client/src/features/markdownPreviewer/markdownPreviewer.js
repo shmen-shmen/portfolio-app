@@ -60,7 +60,7 @@ const MarkdownPreviewer = () => {
 								dispatch(wideMenuToggle());
 							}}
 						>
-							MARKDOWN PREVIEWER
+							MARKDOWN PREVIEWERrrrr
 						</h1>
 						<button
 							id="markdown-turn-btn"
