@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { marked } from "marked";
 import fetchMarkdown from "./markdownAPI.js";
+import DOMPurify from "dompurify";
 
 export const getMarkdown = createAsyncThunk(
 	"randomQuotes/getMarkdown",
@@ -22,8 +23,10 @@ const parseOptions = {
 marked.use(parseOptions);
 
 const markdownTranslator = (markdown) => {
-	return marked.parse(
-		markdown.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, "")
+	return DOMPurify.sanitize(
+		marked.parse(
+			markdown.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, "")
+		)
 	);
 };
 
