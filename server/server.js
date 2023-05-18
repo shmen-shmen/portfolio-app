@@ -1,12 +1,20 @@
-const path = require("path");
-const express = require("express");
-require("dotenv").config();
+// import express, { static } from "express";
+import express from "express";
+import * as dotenv from "dotenv";
+dotenv.config();
 const PORT = process.env.PORT || 3001;
 const app = express();
-const fs = require("fs");
+import { readFile } from "fs";
+import { resolve } from "path";
 
 // Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, "../client/build")));
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+app.use(express.static(resolve(__dirname, "../client/build")));
 
 // Handle GET requests to /api route
 app.get("/api", (req, res) => {
@@ -34,7 +42,7 @@ app.get("/getQuote/:category", async (req, res) => {
 });
 
 app.get("/getMarkdown", async (req, res) => {
-	fs.readFile("assets/initialMarkdown.txt", "utf8", (err, data) => {
+	readFile("assets/initialMarkdown.txt", "utf8", (err, data) => {
 		if (err) {
 			console.error(err);
 			return;
@@ -47,7 +55,7 @@ app.get("/getMarkdown", async (req, res) => {
 
 // All other GET requests not handled before will return our React app
 app.get("*", (req, res) => {
-	res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+	res.sendFile(resolve(__dirname, "../client/build", "index.html"));
 });
 
 app.listen(PORT, () => {
