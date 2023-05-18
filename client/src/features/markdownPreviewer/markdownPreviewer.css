@@ -1,8 +1,10 @@
 #markdown-previewer {
 	width: 100%;
 	height: calc(100vh - 32px);
-	font-family: "IBM ISO 9", monospace;
 	display: flex;
+}
+#markdown-previewer > * {
+	font-family: "IBM ISO 9", monospace;
 }
 
 .markdown-menu {
@@ -104,6 +106,7 @@
 	padding: 1rem;
 	width: 100%;
 	min-width: calc((100% - 2.5rem) / 2);
+	font-family: "Courier New", Courier, monospace;
 }
 .editor-column {
 	height: 100%;
@@ -114,10 +117,10 @@
 	min-width: calc((100% - 2.5rem) / 2);
 	color: rgba(100, 50, 100);
 	overflow-y: scroll;
-	font-family: Arial, Helvetica, sans-serif;
 }
 .preview * {
 	margin: 1rem 1rem 1rem 1rem;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
 .preview code {

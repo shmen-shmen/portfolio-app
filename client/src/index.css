@@ -4,6 +4,7 @@
 	box-sizing: border-box;
 	--quotes-large-font: 50px;
 	--quotes-small-font: 1rem;
+	font-family: "IBM ISO 9", monospace;
 }
 body {
 	margin: 0;
