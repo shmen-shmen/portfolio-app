@@ -1,23 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-	display: false,
+	displayName: "FM synthesizer",
+	display: true,
 };
 
 export const fmSynthSlice = createSlice({
 	name: "fmSynth",
 	initialState,
 	reducers: {
-		showSynth: (state) => {
+		show_fmSynth: (state) => {
 			state.display = true;
 		},
-		hideSynth: (state) => {
+		hide_fmSynth: (state) => {
 			state.display = false;
 		},
 	},
 });
 
-export const { showSynth, hideSynth } = fmSynthSlice.actions;
+export const { show_fmSynth, hide_fmSynth } = fmSynthSlice.actions;
 
 // // The function below is called a selector and allows us to select a value from
 // // the state. Selectors can also be defined inline where they're used instead of

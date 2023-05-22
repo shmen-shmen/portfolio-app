@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { hideQuotes, getNewQuote, selectCategory } from "./randomQuoteSlice";
+import {
+	hide_randomQuote,
+	getNewQuote,
+	selectCategory,
+} from "./randomQuoteSlice";
 import "./randomQuoteMachine.css";
 
 function RandomQuoteMachine() {
@@ -40,7 +44,7 @@ function RandomQuoteMachine() {
 						setCloseBtnHover(false);
 					}}
 					onClick={() => {
-						dispatch(hideQuotes());
+						dispatch(hide_randomQuote());
 					}}
 				>
 					{closeBtnHover ? "☒" : "☐"}

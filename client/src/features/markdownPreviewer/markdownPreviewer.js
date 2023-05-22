@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-	hideMarkdown,
+	hide_markdownPreviewer,
 	editing,
 	parsing,
 	editorToggle,
@@ -49,7 +49,7 @@ const MarkdownPreviewer = () => {
 							id="markdown-close-btn"
 							className="markdown-btn"
 							onClick={() => {
-								dispatch(hideMarkdown());
+								dispatch(hide_markdownPreviewer());
 							}}
 						>
 							{wideMenu ? "✿✦⚛︎✕✞♱" : "✕"}

@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import {} from "./fmSynthSlice";
+import { hide_fmSynth } from "./fmSynthSlice";
 import "./fmSynth.css";
 
 const FmSynth = () => {
 	const { display } = useSelector((state) => state.fmSynth);
+	const dispatch = useDispatch();
 
 	let context = new AudioContext();
 	let o = context.createOscillator();
@@ -14,6 +15,13 @@ const FmSynth = () => {
 	if (display) {
 		return (
 			<div className="startstop">
+				<button
+					onClick={() => {
+						dispatch(hide_fmSynth());
+					}}
+				>
+					x
+				</button>
 				<button
 					id="start"
 					onClick={() => {
