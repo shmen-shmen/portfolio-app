@@ -1,0 +1,24 @@
+#drum-machine {
+	min-height: calc(100vh - 2rem);
+	background-color: aliceblue;
+}
+
+.pad-bank {
+	aspect-ratio: 1 / 1;
+	width: 500px;
+	display: grid;
+	background-color: white;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 0.5rem;
+}
+
+.drum-pad {
+	font-size: 5rem;
+}
+
+.drum-pad-false {
+	background-color: red;
+}
+.drum-pad-true {
+	background-color: aliceblue;
+}

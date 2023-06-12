@@ -1,14 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	showQuotes,
-	hideQuotes,
-} from "../features/randomQuoteMachine/randomQuoteSlice";
-import {
-	showMarkdown,
-	hideMarkdown,
-} from "../features/markdownPreviewer/markdownPreviewerSlice";
-import { showSynth, hideSynth } from "../features/fmSynth/fmSynthSlice";
+// import {
+// 	showQuotes,
+// 	hideQuotes,
+// } from "../features/randomQuoteMachine/randomQuoteSlice";
+// import {
+// 	showMarkdown,
+// 	hideMarkdown,
+// } from "../features/markdownPreviewer/markdownPreviewerSlice";
+// import {
+// 	showdrumMachine,
+// 	hidedrumMachine,
+// } from "../features/drumMachine/drumMachineSlice";
 import "./appSelector.css";
 
 const AppSelector = () => {
@@ -44,6 +47,7 @@ const AppSelector = () => {
 				return (
 					<button
 						id={feature["name"]}
+						key={feature["name"] + "-key"}
 						className="nav nav-button"
 						onClick={() => {
 							toggleFeature(feature["showFunction"]);

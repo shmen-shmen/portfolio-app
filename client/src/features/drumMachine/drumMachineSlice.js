@@ -1,24 +1,51 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-	displayName: "FM synthesizer",
+	displayName: "Drum Machine",
 	display: true,
+	pads: {
+		Q: false,
+		W: false,
+		E: false,
+		A: false,
+		S: false,
+		D: false,
+		Z: false,
+		X: false,
+		C: false,
+	},
+	sounds: {
+		Q: "",
+	},
 };
 
-export const fmSynthSlice = createSlice({
-	name: "fmSynth",
+export const drumMachineSlice = createSlice({
+	name: "drumMachine",
 	initialState,
 	reducers: {
-		show_fmSynth: (state) => {
+		show_drumMachine: (state) => {
 			state.display = true;
 		},
-		hide_fmSynth: (state) => {
+		hide_drumMachine: (state) => {
 			state.display = false;
+		},
+		padPress: (state, action) => {
+			const pad = action.payload.replace(/^Key/, "");
+			if (pad in state.pads) {
+				state.pads[pad] = true;
+			}
+		},
+		padRelease: (state, action) => {
+			const pad = action.payload.replace(/^Key/, "");
+			if (pad in state.pads) {
+				state.pads[pad] = false;
+			}
 		},
 	},
 });
 
-export const { show_fmSynth, hide_fmSynth } = fmSynthSlice.actions;
+export const { show_drumMachine, hide_drumMachine, padPress, padRelease } =
+	drumMachineSlice.actions;
 
 // // The function below is called a selector and allows us to select a value from
 // // the state. Selectors can also be defined inline where they're used instead of
@@ -34,4 +61,4 @@ export const { show_fmSynth, hide_fmSynth } = fmSynthSlice.actions;
 // 	}
 // };
 
-export default fmSynthSlice.reducer;
+export default drumMachineSlice.reducer;
