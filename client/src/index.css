@@ -37,3 +37,7 @@ body {
 	font-family: "ComicMono-Bold";
 	src: url(../public/fonts/ComicMono-Bold.ttf);
 }
+@font-face {
+	font-family: "NotoEmoji";
+	src: url(../public/fonts/NotoEmoji-Regular.ttf);
+}

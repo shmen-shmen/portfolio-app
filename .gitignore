@@ -1,4 +1,3 @@
 .env
 .DS_Store
 # don't forget to put back
-client/public/sounds

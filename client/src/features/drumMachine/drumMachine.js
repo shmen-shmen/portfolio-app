@@ -1,12 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
 import { hide_drumMachine, padPress, padRelease } from "./drumMachineSlice";
 import "./drumMachine.css";
+import { useEffect, useRef } from "react";
 
 const DrumMachine = () => {
+	const dispatch = useDispatch();
 	const { display, pads, nowPlaying } = useSelector(
 		(state) => state.drumMachine
 	);
-	const dispatch = useDispatch();
+	const padsRef = useRef(null);
+	useEffect(() => {
+		if (display) {
+			console.log("pads in focus");
+			padsRef.current.focus();
+		}
+	}, [display]);
 
 	const handlePadPress = (e) => {
 		let padId;
@@ -38,6 +46,7 @@ const DrumMachine = () => {
 		return (
 			<section
 				id="drum-machine"
+				ref={padsRef}
 				tabIndex={0}
 				onKeyDown={handlePadPress}
 				onKeyUp={handlePadPress}
@@ -66,7 +75,7 @@ const DrumMachine = () => {
 								<audio
 									className="clip"
 									id={pad}
-									src={`/sounds/pads/${pads[pad]["sample"]}.wav`}
+									src={`/sounds/tortTulikMal/${pads[pad]["sample"]}.wav`}
 								></audio>
 							</div>
 						);
