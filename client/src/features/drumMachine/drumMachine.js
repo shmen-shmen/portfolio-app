@@ -1,6 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { hide_drumMachine, padPress, padRelease } from "./drumMachineSlice";
-import "./drumMachine.css";
+import {
+	hide_drumMachine,
+	padPress,
+	padRelease,
+	sampleEnd,
+} from "./drumMachineSlice";
+import "./drumMachine.scss";
 import { useEffect, useRef } from "react";
 
 const DrumMachine = () => {
@@ -11,7 +16,6 @@ const DrumMachine = () => {
 	const padsRef = useRef(null);
 	useEffect(() => {
 		if (display) {
-			console.log("pads in focus");
 			padsRef.current.focus();
 		}
 	}, [display]);
@@ -31,8 +35,10 @@ const DrumMachine = () => {
 					break;
 				case "keyup":
 					dispatch(padRelease(padId));
+					dispatch(sampleEnd(padId));
 					document.getElementById(padId).pause();
 					document.getElementById(padId).load();
+					break;
 				case "mouseup":
 					dispatch(padRelease(padId));
 					break;
@@ -40,6 +46,11 @@ const DrumMachine = () => {
 					break;
 			}
 		}
+	};
+
+	const handleSampleEnd = (e) => {
+		const padId = e.target.id;
+		dispatch(sampleEnd(padId));
 	};
 
 	if (display) {
@@ -60,6 +71,11 @@ const DrumMachine = () => {
 				>
 					✕
 				</button>
+				<div id="display">
+					{nowPlaying.map((emoji) => {
+						return <span className="now-playing">{emoji}</span>;
+					})}
+				</div>
 				<div className="pad-bank">
 					{Object.keys(pads).map((pad) => {
 						const status = pads[pad]["press"];
@@ -71,17 +87,17 @@ const DrumMachine = () => {
 								onMouseUp={handlePadPress}
 								className={`drum-pad drum-pad-${status}`}
 							>
-								{pad}
+								<span className="center">{`${pad}`}</span>
 								<audio
 									className="clip"
 									id={pad}
 									src={`/sounds/tortTulikMal/${pads[pad]["sample"]}.wav`}
+									onEnded={handleSampleEnd}
 								></audio>
 							</div>
 						);
 					})}
 				</div>
-				<div id="display">{nowPlaying}</div>
 			</section>
 		);
 	} else {

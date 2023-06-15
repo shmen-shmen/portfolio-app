@@ -1,0 +1,83 @@
+@import "../../index.scss";
+
+#drum-machine {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	top: 50%;
+	left: calc(50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+#drum-machine:focus {
+	outline: none;
+}
+
+#drums-close-btn {
+	position: absolute;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	-ms-transform: translate(100%, 0);
+	transform: translate(-100%, 0);
+	font-size: 3rem;
+	border: none;
+	background-color: black;
+	color: white;
+}
+#drums-close-btn:hover {
+	background-color: white;
+	color: black;
+}
+#drums-close-btn:active {
+	background-color: red;
+	color: black;
+}
+
+#display {
+	width: 70vw;
+	max-width: 600px;
+	min-height: 3rem;
+	text-align: justify;
+	background-color: rgba(30, 0, 0, 0.7);
+}
+
+.now-playing {
+	font-size: clamp(1rem, 4vw, 2rem);
+	line-height: clamp(1rem, 4vw, 4rem);
+	text-align: justify;
+	font-family: "NotoEmoji";
+	color: rgb(255, 217, 0);
+}
+
+.pad-bank {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	width: 70vw;
+	max-width: 600px;
+	font-size: 3rem;
+}
+
+.drum-pad {
+	position: relative;
+	aspect-ratio: 1/1;
+}
+.drum-pad span {
+	position: absolute;
+	top: 50%;
+	left: calc(50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	background-color: white;
+}
+
+.drum-pad-false {
+	background-color: rgba(30, 0, 0, 0.7);
+	background-color: rgba(0, 255, 60, 0.372);
+	color: black;
+}
+.drum-pad-true {
+	background-color: transparent;
+	color: red;
+}
