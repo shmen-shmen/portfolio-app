@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import pads from "./pads";
 
 const initialState = {
-	displayName: "drum machine",
-	display: true,
+	displayName: "farm machine",
+	display: false,
 	pads,
 	nowPlaying: [],
 };
