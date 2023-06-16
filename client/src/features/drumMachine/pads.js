@@ -14,7 +14,7 @@ const pads = {
 	E: {
 		press: false,
 		sample: "cows",
-		emoji: `🐄🐄`,
+		emoji: `🐄`,
 		link: "https://freesound.org/s/585445/",
 	},
 	A: {

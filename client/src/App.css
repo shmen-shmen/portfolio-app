@@ -1,11 +1,5 @@
 main {
-	position: absolute;
-	top: 2rem;
-	left: 0;
+	position: relative;
 	min-width: 100vw;
 	min-height: calc(100vh - 2rem);
-	background-image: url(../public/images/background-image.jpg);
-	background-size: cover;
-	background-color: rgba(16, 25, 31, 0.706);
-	background-blend-mode: color-dodge;
 }

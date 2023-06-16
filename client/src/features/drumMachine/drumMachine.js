@@ -31,13 +31,11 @@ const DrumMachine = () => {
 				case "keydown":
 				case "mousedown":
 					dispatch(padPress(padId));
+					document.getElementById(padId).load();
 					document.getElementById(padId).play();
 					break;
 				case "keyup":
 					dispatch(padRelease(padId));
-					dispatch(sampleEnd(padId));
-					document.getElementById(padId).pause();
-					document.getElementById(padId).load();
 					break;
 				case "mouseup":
 					dispatch(padRelease(padId));
@@ -62,21 +60,21 @@ const DrumMachine = () => {
 				onKeyDown={handlePadPress}
 				onKeyUp={handlePadPress}
 			>
-				<button
-					id="drums-close-btn"
-					className="drums-btn"
-					onClick={() => {
-						dispatch(hide_drumMachine());
-					}}
-				>
-					✕
-				</button>
-				<div id="display">
-					{nowPlaying.map((emoji) => {
-						return <span className="now-playing">{emoji}</span>;
-					})}
-				</div>
 				<div className="pad-bank">
+					<button
+						id="drums-close-btn"
+						className="drums-btn"
+						onClick={() => {
+							dispatch(hide_drumMachine());
+						}}
+					>
+						✕
+					</button>
+					<div id="display">
+						{nowPlaying.map((emoji) => {
+							return <span className="now-playing">{emoji}</span>;
+						})}
+					</div>
 					{Object.keys(pads).map((pad) => {
 						const status = pads[pad]["press"];
 						return (

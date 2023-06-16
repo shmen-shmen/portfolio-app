@@ -10,6 +10,11 @@ body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	background-image: url(../public/images/background-image.jpg);
+	background-color: rgba(16, 25, 31, 0.706);
+	background-blend-mode: color-dodge;
+	background-repeat: no-repeat;
+	background-size: auto;
 }
 @font-face {
 	font-family: "IBM VGA 8x14";

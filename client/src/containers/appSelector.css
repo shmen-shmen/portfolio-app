@@ -4,11 +4,10 @@
 	top: 0;
 	width: 100%;
 	border-bottom: 2px solid blue;
-
 	display: flex;
 	justify-content: space-around;
 	height: 2rem;
-	background-color: transparent;
+	background-color: white;
 }
 .nav {
 	color: blue;
@@ -18,8 +17,8 @@
 }
 .nav-button {
 	border: none;
-	background-color: transparent;
 	font-weight: 900;
+	background-color: transparent;
 }
 .nav-button:hover {
 	background-color: blue;
