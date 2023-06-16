@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "/static/css/main.ffc804ab.css",
-    "main.js": "/static/js/main.7d8721cb.js",
+    "main.css": "/static/css/main.ae6e502d.css",
+    "main.js": "/static/js/main.c6541413.js",
     "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/NotoEmoji-Regular.ttf": "/static/media/NotoEmoji-Regular.80256edd659d49474211.ttf",
     "static/media/background-image.jpg": "/static/media/background-image.b5f55912b4607caa2702.jpg",
     "static/media/WebPlus_IBM_VGA_8x14.woff": "/static/media/WebPlus_IBM_VGA_8x14.2b4c743a07770349100e.woff",
     "static/media/ComicMono-Bold.ttf": "/static/media/ComicMono-Bold.89221652a0a5435c0d76.ttf",
@@ -10,12 +11,12 @@
     "static/media/Web437_IBM_DOS_ISO9-2x.woff": "/static/media/Web437_IBM_DOS_ISO9-2x.f39da238b8316f19d539.woff",
     "static/media/Web437_IBM_DOS_ISO9.woff": "/static/media/Web437_IBM_DOS_ISO9.02ce57d033d06c83ddbe.woff",
     "index.html": "/index.html",
-    "main.ffc804ab.css.map": "/static/css/main.ffc804ab.css.map",
-    "main.7d8721cb.js.map": "/static/js/main.7d8721cb.js.map",
+    "main.ae6e502d.css.map": "/static/css/main.ae6e502d.css.map",
+    "main.c6541413.js.map": "/static/js/main.c6541413.js.map",
     "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ffc804ab.css",
-    "static/js/main.7d8721cb.js"
+    "static/css/main.ae6e502d.css",
+    "static/js/main.c6541413.js"
   ]
 }

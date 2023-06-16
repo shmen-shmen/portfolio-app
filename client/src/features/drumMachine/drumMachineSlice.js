@@ -11,6 +11,7 @@ const initialState = {
 export const drumMachineSlice = createSlice({
 	name: "drumMachine",
 	initialState,
+
 	reducers: {
 		show_drumMachine: (state) => {
 			state.display = true;

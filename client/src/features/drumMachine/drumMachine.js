@@ -13,7 +13,9 @@ const DrumMachine = () => {
 	const { display, pads, nowPlaying } = useSelector(
 		(state) => state.drumMachine
 	);
+
 	const padsRef = useRef(null);
+
 	useEffect(() => {
 		if (display) {
 			padsRef.current.focus();
@@ -27,12 +29,13 @@ const DrumMachine = () => {
 			: (padId = e.target.id.replace(/^pad-/, ""));
 
 		if (padId in pads) {
+			const sample = document.getElementById(padId);
 			switch (e.type) {
 				case "keydown":
 				case "mousedown":
 					dispatch(padPress(padId));
-					document.getElementById(padId).load();
-					document.getElementById(padId).play();
+					sample.load();
+					sample.play();
 					break;
 				case "keyup":
 					dispatch(padRelease(padId));
