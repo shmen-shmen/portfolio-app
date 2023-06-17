@@ -1,17 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import {
-// 	showQuotes,
-// 	hideQuotes,
-// } from "../features/randomQuoteMachine/randomQuoteSlice";
-// import {
-// 	showMarkdown,
-// 	hideMarkdown,
-// } from "../features/markdownPreviewer/markdownPreviewerSlice";
-// import {
-// 	showdrumMachine,
-// 	hidedrumMachine,
-// } from "../features/drumMachine/drumMachineSlice";
 import "./appSelector.css";
 
 const AppSelector = () => {
@@ -26,34 +14,42 @@ const AppSelector = () => {
 	);
 
 	// Generate feature objects dynamically based on imported reducers
-	const features = featureContext.keys().map((key) => {
+	const features = {};
+	featureContext.keys().map((key) => {
 		const featureName = key.match(/\/([a-zA-Z0-9]+)Slice\.js$/)[1];
 
 		const featureSlice = featureContext(key);
-		return {
-			name: state[featureName]["displayName"],
+		const name = state[featureName]["displayName"];
+		features[name] = {
+			display: state[featureName]["display"],
 			showFunction: featureSlice[`show_${featureName}`],
 			hideFunction: featureSlice[`hide_${featureName}`],
 		};
 	});
 
-	const toggleFeature = (showFunction) => {
-		dispatch(showFunction());
+	const toggleFeature = (featureName) => {
+		Object.keys(features).map((feature) => {
+			if (feature == featureName) {
+				if (features[feature].display) {
+					dispatch(features[feature].hideFunction());
+				} else dispatch(features[feature].showFunction());
+			} else dispatch(features[feature].hideFunction());
+		});
 	};
 
 	return (
 		<nav id="nav">
-			{features.map((feature) => {
+			{Object.keys(features).map((featureName) => {
 				return (
 					<button
-						id={feature["name"]}
-						key={feature["name"] + "-key"}
+						id={featureName}
+						key={featureName + "-key"}
 						className="nav nav-button"
 						onClick={() => {
-							toggleFeature(feature["showFunction"]);
+							toggleFeature(featureName);
 						}}
 					>
-						{feature["name"]}
+						{featureName}
 					</button>
 				);
 			})}
