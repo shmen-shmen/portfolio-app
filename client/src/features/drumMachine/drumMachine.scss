@@ -50,16 +50,19 @@
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	width: 100vw;
-	max-width: 900px;
+	max-width: 600px;
 	margin: auto;
 	position: relative;
 }
 
 #display {
 	grid-column: 1 / span 3;
-	height: 4rem;
+	height: 3rem;
 	text-align: justify;
 	background-color: rgba(30, 0, 0, 0.7);
+	@include for-tablet-portrait-up {
+		height: 5rem;
+	}
 }
 
 .now-playing {
