@@ -4,6 +4,7 @@ import {
 	padPress,
 	padRelease,
 	sampleEnd,
+	appClose,
 } from "./drumMachineSlice";
 import "./drumMachine.scss";
 import { useEffect, useRef } from "react";
@@ -21,6 +22,11 @@ const DrumMachine = () => {
 			padsRef.current.focus();
 		}
 	}, [display]);
+
+	const handleExit = () => {
+		dispatch(hide_drumMachine());
+		dispatch(appClose());
+	};
 
 	const handlePadPress = (e) => {
 		let padId;
@@ -67,9 +73,7 @@ const DrumMachine = () => {
 					<button
 						id="drums-close-btn"
 						className="drums-btn"
-						onClick={() => {
-							dispatch(hide_drumMachine());
-						}}
+						onClick={handleExit}
 					>
 						✕
 					</button>

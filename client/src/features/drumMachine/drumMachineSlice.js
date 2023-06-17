@@ -40,6 +40,9 @@ export const drumMachineSlice = createSlice({
 				(element) => element !== emoji
 			);
 		},
+		appClose: (state) => {
+			state.nowPlaying = initialState.nowPlaying;
+		},
 	},
 });
 
@@ -49,6 +52,7 @@ export const {
 	padPress,
 	padRelease,
 	sampleEnd,
+	appClose,
 } = drumMachineSlice.actions;
 
 export default drumMachineSlice.reducer;
