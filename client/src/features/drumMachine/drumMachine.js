@@ -4,7 +4,6 @@ import {
 	padPress,
 	padRelease,
 	sampleEnd,
-	appClose,
 } from "./drumMachineSlice";
 import "./drumMachine.scss";
 import { useEffect, useRef } from "react";
@@ -25,7 +24,6 @@ const DrumMachine = () => {
 
 	const handleExit = () => {
 		dispatch(hide_drumMachine());
-		dispatch(appClose());
 	};
 
 	const handlePadPress = (e) => {
