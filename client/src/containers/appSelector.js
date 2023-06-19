@@ -42,7 +42,7 @@ const AppSelector = () => {
 			{Object.keys(features).map((featureName) => {
 				return (
 					<button
-						id={featureName}
+						id={featureName + "-id"}
 						key={featureName + "-key"}
 						className="nav nav-button"
 						onClick={() => {

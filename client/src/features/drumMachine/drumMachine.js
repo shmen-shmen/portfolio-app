@@ -75,7 +75,7 @@ const DrumMachine = () => {
 					>
 						✕
 					</button>
-					<div id="display">
+					<div id="drums-display">
 						{nowPlaying.map((emoji) => {
 							return (
 								<span className="now-playing" key={emoji + "key"}>

@@ -2,6 +2,7 @@ import RandomQuoteMachine from "./features/randomQuoteMachine/randomQuoteMachine
 import MarkdownPreviewer from "./features/markdownPreviewer/markdownPreviewer.js";
 import DrumMachine from "./features/drumMachine/drumMachine.js";
 import AppSelector from "./containers/appSelector.js";
+import Calculator from "./features/calculator/calculator.js";
 import "./App.css";
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
 		<div id="App">
 			<AppSelector />
 			<main>
+				<Calculator />
 				<MarkdownPreviewer />
 				<RandomQuoteMachine />
 				<DrumMachine />
