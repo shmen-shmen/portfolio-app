@@ -15,17 +15,16 @@ const initialState = {
 		seven: 7,
 		eight: 8,
 		nine: 9,
-		decimal: ".",
+		clear: "AC",
 		zero: 0,
+		decimal: ".",
 	},
 	controls: {
-		clear: { name: "AC", func: "clear" },
-		equals: { name: "=", func: null },
-		add: { name: "+", func: null },
-		subtract: { name: "-", func: null },
+		divide: { name: "/", func: "/" },
 		multiply: { name: "*", func: null },
-		divide: { name: "/", func: null },
-		hide: { name: "OFF", func: "hide" },
+		subtract: { name: "-", func: null },
+		add: { name: "+", func: null },
+		equals: { name: "=", func: null },
 	},
 };
 
@@ -37,7 +36,7 @@ export const calculatorSlice = createSlice({
 		show_calculator: (state) => {
 			state.display = true;
 		},
-		hide: (state) => {
+		hide_calculator: (state) => {
 			state.display = false;
 		},
 		clear: (state) => {
@@ -47,10 +46,13 @@ export const calculatorSlice = createSlice({
 		typing: (state, action) => {
 			state.input = state.input + action.payload;
 		},
+		equals: (state) => {
+			state.input = eval(state.input);
+		},
 	},
 });
 
-export const { show_calculator, hide_calculator, typing } =
+export const { show_calculator, hide_calculator, clear, typing, equals } =
 	calculatorSlice.actions;
 
 export default calculatorSlice.reducer;

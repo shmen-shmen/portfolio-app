@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { hide_calculator, typing } from "./calculatorSlice";
+import { hide_calculator, typing, clear, equals } from "./calculatorSlice";
 import "./calculator.scss";
 
 const Calculator = () => {
@@ -14,12 +14,16 @@ const Calculator = () => {
 
 	const handleNumberPress = (e) => {
 		const amount = e.target.innerText;
-		dispatch(typing(amount));
+		if (amount == "AC") {
+			dispatch(clear());
+		} else if (amount == "=") {
+			dispatch(equals());
+		} else dispatch(typing(amount));
 	};
 
-	const handleControlPress = (action, payload) => {
-		dispatch({ type: `calculator/${action}`, payload: payload || null });
-	};
+	// const handleControlPress = (action, payload) => {
+	// 	dispatch({ type: `calculator/${action}`, payload: payload || null });
+	// };
 
 	return display ? (
 		<section id="calculator-container">
@@ -51,9 +55,7 @@ const Calculator = () => {
 									id={control}
 									key={control + "-key"}
 									className="calc-control-btn"
-									onClick={() => {
-										handleControlPress(func);
-									}}
+									onClick={handleNumberPress}
 								>
 									<span>{name}</span>
 								</button>
