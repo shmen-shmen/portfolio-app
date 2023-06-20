@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	displayName: "calculator",
 	display: true,
-	input: 0,
-	output: 0,
+	input: "",
+	// output: 0,
 	numbers: {
 		one: 1,
 		two: 2,
@@ -15,16 +15,17 @@ const initialState = {
 		seven: 7,
 		eight: 8,
 		nine: 9,
+		decimal: ".",
 		zero: 0,
 	},
 	controls: {
-		equals: "=",
-		add: "+",
-		subtract: "-",
-		multiply: "*",
-		divide: "/",
-		decimal: ".",
-		clear: "AC",
+		clear: { name: "AC", func: "clear" },
+		equals: { name: "=", func: null },
+		add: { name: "+", func: null },
+		subtract: { name: "-", func: null },
+		multiply: { name: "*", func: null },
+		divide: { name: "/", func: null },
+		hide: { name: "OFF", func: "hide" },
 	},
 };
 
@@ -36,17 +37,20 @@ export const calculatorSlice = createSlice({
 		show_calculator: (state) => {
 			state.display = true;
 		},
-		hide_calculator: (state) => {
+		hide: (state) => {
 			state.display = false;
 		},
-		clear_calculator: (state) => {
+		clear: (state) => {
 			state.input = initialState.input;
 			state.output = initialState.output;
+		},
+		typing: (state, action) => {
+			state.input = state.input + action.payload;
 		},
 	},
 });
 
-export const { show_calculator, hide_calculator, clear_calculator } =
+export const { show_calculator, hide_calculator, typing } =
 	calculatorSlice.actions;
 
 export default calculatorSlice.reducer;

@@ -6,15 +6,17 @@
 	--quotes-small-font: 1rem;
 	font-family: "IBM ISO 9", monospace;
 }
+html {
+	image-rendering: pixelated;
+}
 body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	background-image: url(../public/images/background-image.jpg);
+	background-image: url(../public/images/background-image-hifi-less-green-smaller.jpg);
 	background-color: rgba(16, 25, 31, 0.706);
-	background-blend-mode: color-dodge;
 	background-repeat: no-repeat;
-	background-size: auto;
+	background-size: cover;
 }
 @font-face {
 	font-family: "IBM VGA 8x14";

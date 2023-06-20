@@ -1,5 +1,5 @@
 #calculator-container {
-	min-height: 100vh;
+	min-height: calc(100vh - 2rem);
 	width: 400px;
 	margin: 0 auto;
 	display: flex;
@@ -30,7 +30,7 @@
 }
 
 #display {
-	width: 100vw;
+	width: 100%;
 	margin: 0.25rem;
 	height: 2.5rem;
 	line-height: 2.5rem;

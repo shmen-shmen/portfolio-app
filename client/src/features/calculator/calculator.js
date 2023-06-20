@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
-import { hide_calculator, clear_calculator } from "./calculatorSlice";
+import { hide_calculator, typing } from "./calculatorSlice";
 import "./calculator.scss";
 
 const Calculator = () => {
-	const { display, numbers, controls, output } = useSelector(
+	const { display, numbers, controls, input } = useSelector(
 		(state) => state.calculator
 	);
 	const dispatch = useDispatch();
@@ -12,16 +12,13 @@ const Calculator = () => {
 		dispatch(hide_calculator());
 	};
 
-	const handleControlPress = (e) => {
-		const { id } = e.target;
-		switch (id) {
-			case "AC":
-				dispatch(clear_calculator());
-				break;
+	const handleNumberPress = (e) => {
+		const amount = e.target.innerText;
+		dispatch(typing(amount));
+	};
 
-			default:
-				break;
-		}
+	const handleControlPress = (action, payload) => {
+		dispatch({ type: `calculator/${action}`, payload: payload || null });
 	};
 
 	return display ? (
@@ -30,7 +27,7 @@ const Calculator = () => {
 				<button className="calc-close-btn" onClick={handleCalcExit}>
 					X
 				</button>
-				<div id="display">{output}</div>
+				<div id="display">{input}</div>
 				<div id="buttons">
 					<div id="numpad">
 						{Object.keys(numbers).map((num) => {
@@ -39,6 +36,7 @@ const Calculator = () => {
 									id={num}
 									key={num + "-key"}
 									className="calc-control-btn"
+									onClick={handleNumberPress}
 								>
 									{numbers[num]}
 								</button>
@@ -47,14 +45,17 @@ const Calculator = () => {
 					</div>
 					<div id="controls">
 						{Object.keys(controls).map((control) => {
+							const { name, func } = controls[control];
 							return (
 								<button
 									id={control}
 									key={control + "-key"}
 									className="calc-control-btn"
-									onClick={handleControlPress}
+									onClick={() => {
+										handleControlPress(func);
+									}}
 								>
-									<span>{controls[control]}</span>
+									<span>{name}</span>
 								</button>
 							);
 						})}
