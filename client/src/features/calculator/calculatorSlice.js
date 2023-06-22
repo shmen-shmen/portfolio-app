@@ -84,7 +84,7 @@ export const calculatorSlice = createSlice({
 			} else {
 				const inputString = state.output.join("");
 				console.log(inputString);
-				state.output = eval(inputString);
+				state.output = [eval(inputString)];
 			}
 		},
 	},
