@@ -1,9 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
-import { hide_calculator, typing, clear, equals } from "./calculatorSlice";
+import {
+	hide_calculator,
+	typingOperands,
+	typingOperators,
+	clear,
+	equals,
+	clearInput,
+} from "./calculatorSlice";
 import "./calculator.scss";
+import { useEffect } from "react";
 
 const Calculator = () => {
-	const { display, numbers, controls, input } = useSelector(
+	const { display, numbers, controls, output } = useSelector(
 		(state) => state.calculator
 	);
 	const dispatch = useDispatch();
@@ -12,18 +20,24 @@ const Calculator = () => {
 		dispatch(hide_calculator());
 	};
 
-	const handleNumberPress = (e) => {
-		const amount = e.target.innerText;
-		if (amount == "AC") {
+	const handleOperands = (e) => {
+		const payload = e.target.innerText;
+		if (payload == "AC") {
 			dispatch(clear());
-		} else if (amount == "=") {
-			dispatch(equals());
-		} else dispatch(typing(amount));
+		} else dispatch(typingOperands(payload));
 	};
 
-	// const handleControlPress = (action, payload) => {
-	// 	dispatch({ type: `calculator/${action}`, payload: payload || null });
-	// };
+	const handleOperators = (e) => {
+		const payload = e.target.innerText;
+		if (payload == "=") {
+			dispatch(equals());
+		} else dispatch(typingOperators(payload));
+	};
+
+	useEffect(() => {
+		console.log(output);
+		// console.log(output.join(""));
+	}, [output]);
 
 	return display ? (
 		<section id="calculator-container">
@@ -31,7 +45,7 @@ const Calculator = () => {
 				<button className="calc-close-btn" onClick={handleCalcExit}>
 					X
 				</button>
-				<div id="display">{input}</div>
+				<div id="display">{output}</div>
 				<div id="buttons">
 					<div id="numpad">
 						{Object.keys(numbers).map((num) => {
@@ -40,7 +54,7 @@ const Calculator = () => {
 									id={num}
 									key={num + "-key"}
 									className="calc-control-btn"
-									onClick={handleNumberPress}
+									onClick={handleOperands}
 								>
 									{numbers[num]}
 								</button>
@@ -55,9 +69,9 @@ const Calculator = () => {
 									id={control}
 									key={control + "-key"}
 									className="calc-control-btn"
-									onClick={handleNumberPress}
+									onClick={handleOperators}
 								>
-									<span>{name}</span>
+									{name}
 								</button>
 							);
 						})}

@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	displayName: "calculator",
 	display: true,
-	input: "",
-	// output: 0,
+	input: 0,
+	output: [0],
 	numbers: {
 		one: 1,
 		two: 2,
@@ -31,7 +31,6 @@ const initialState = {
 export const calculatorSlice = createSlice({
 	name: "calculator",
 	initialState,
-
 	reducers: {
 		show_calculator: (state) => {
 			state.display = true;
@@ -43,16 +42,62 @@ export const calculatorSlice = createSlice({
 			state.input = initialState.input;
 			state.output = initialState.output;
 		},
-		typing: (state, action) => {
-			state.input = state.input + action.payload;
+		clearInput: (state) => {
+			state.input = initialState.input;
+		},
+		typingOperands: (state, action) => {
+			const regex = /^[+\-*/]$/;
+
+			let lastIndex = state.output.length - 1;
+			let last = state.output[lastIndex];
+
+			if (regex.test(last)) {
+				state.output.push(action.payload);
+			} else if (last == 0) {
+				last = action.payload;
+			} else if (last.includes(".") && action.payload == ".") {
+				return state;
+			} else last += action.payload;
+
+			state.output[lastIndex] = last;
+		},
+		typingOperators: (state, action) => {
+			const regex = /^[+\-*/]$/;
+
+			const lastIndex = state.output.length - 1;
+			let last = state.output[lastIndex];
+
+			if (regex.test(last)) {
+				if (action.payload == "-" && last !== "-") {
+					state.output.push(action.payload);
+				} else state.output[lastIndex] = action.payload;
+			}
+			// if (action.payload == last) {
+			// 	state.output[lastIndex] = action.payload;
+			// }
+			else state.output.push(action.payload);
 		},
 		equals: (state) => {
-			state.input = eval(state.input);
+			const regex = /^[+\-*/]$/;
+			if (regex.test(state.output[state.output.length - 1])) {
+				return state;
+			} else {
+				const inputString = state.output.join("");
+				console.log(inputString);
+				state.output = eval(inputString);
+			}
 		},
 	},
 });
 
-export const { show_calculator, hide_calculator, clear, typing, equals } =
-	calculatorSlice.actions;
+export const {
+	show_calculator,
+	hide_calculator,
+	clear,
+	typingOperands,
+	typingOperators,
+	clearInput,
+	equals,
+} = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;
