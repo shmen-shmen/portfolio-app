@@ -4,7 +4,7 @@ const initialState = {
 	displayName: "calculator",
 	display: true,
 	input: 0,
-	output: [0],
+	output: ["0"],
 	numbers: {
 		one: 1,
 		two: 2,
@@ -35,22 +35,22 @@ export const calculatorSlice = createSlice({
 		show_calculator: (state) => {
 			state.display = true;
 		},
+
 		hide_calculator: (state) => {
 			state.display = false;
 		},
+
 		clear: (state) => {
 			state.input = initialState.input;
 			state.output = initialState.output;
 		},
-		clearInput: (state) => {
-			state.input = initialState.input;
-		},
+
 		typingOperands: (state, action) => {
 			const regex = /^[+\-*/]$/;
 
 			let lastIndex = state.output.length - 1;
 			let last = state.output[lastIndex];
-
+			// console.log(last);
 			if (regex.test(last)) {
 				state.output.push(action.payload);
 			} else if (last == 0) {
@@ -61,6 +61,7 @@ export const calculatorSlice = createSlice({
 
 			state.output[lastIndex] = last;
 		},
+
 		typingOperators: (state, action) => {
 			const regex = /^[+\-*/]$/;
 
@@ -68,23 +69,33 @@ export const calculatorSlice = createSlice({
 			let last = state.output[lastIndex];
 
 			if (regex.test(last)) {
-				if (action.payload == "-" && last !== "-") {
+				// if (action.payload == "-" && last !== "-") {
+				if (action.payload !== last) {
 					state.output.push(action.payload);
 				} else state.output[lastIndex] = action.payload;
-			}
-			// if (action.payload == last) {
-			// 	state.output[lastIndex] = action.payload;
-			// }
-			else state.output.push(action.payload);
+			} else state.output.push(action.payload);
 		},
+
 		equals: (state) => {
 			const regex = /^[+\-*/]$/;
 			if (regex.test(state.output[state.output.length - 1])) {
 				return state;
 			} else {
-				const inputString = state.output.join("");
-				console.log(inputString);
-				state.output = [eval(inputString)];
+				const evalArr = [];
+				let queuedEl = "";
+				state.output.map((el) => {
+					if (!["+", "*", "/", "-"].includes(el)) {
+						if (queuedEl) {
+							evalArr.push(queuedEl);
+						}
+						evalArr.push(el);
+						queuedEl = "";
+					} else if (el == "-") {
+						queuedEl = queuedEl + el;
+					} else queuedEl = el;
+				});
+				console.log(evalArr);
+				state.output = [eval(evalArr.join("")).toString()];
 			}
 		},
 	},
@@ -96,7 +107,6 @@ export const {
 	clear,
 	typingOperands,
 	typingOperators,
-	clearInput,
 	equals,
 } = calculatorSlice.actions;
 

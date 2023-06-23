@@ -5,7 +5,6 @@ import {
 	typingOperators,
 	clear,
 	equals,
-	clearInput,
 } from "./calculatorSlice";
 import "./calculator.scss";
 import { useEffect } from "react";
@@ -34,10 +33,10 @@ const Calculator = () => {
 		} else dispatch(typingOperators(payload));
 	};
 
-	useEffect(() => {
-		console.log(output);
-		// console.log(output.join(""));
-	}, [output]);
+	// useEffect(() => {
+	// 	console.log(output);
+	// 	// console.log(output.join(""));
+	// }, [output]);
 
 	return display ? (
 		<section id="calculator-container">
