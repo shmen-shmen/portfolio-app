@@ -1,4 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
+import CalcControls from "./calcControls";
+import CalcNumpad from "./calcNumpad";
 import {
 	hide_calculator,
 	typingOperands,
@@ -7,13 +9,13 @@ import {
 	equals,
 } from "./calculatorSlice";
 import "./calculator.scss";
-import { useEffect } from "react";
 
 const Calculator = () => {
+	const dispatch = useDispatch();
+
 	const { display, numbers, controls, output } = useSelector(
 		(state) => state.calculator
 	);
-	const dispatch = useDispatch();
 
 	const handleCalcExit = () => {
 		dispatch(hide_calculator());
@@ -33,11 +35,6 @@ const Calculator = () => {
 		} else dispatch(typingOperators(payload));
 	};
 
-	// useEffect(() => {
-	// 	console.log(output);
-	// 	// console.log(output.join(""));
-	// }, [output]);
-
 	return display ? (
 		<section id="calculator-container">
 			<div id="calculator">
@@ -46,35 +43,8 @@ const Calculator = () => {
 				</button>
 				<div id="display">{output}</div>
 				<div id="buttons">
-					<div id="numpad">
-						{Object.keys(numbers).map((num) => {
-							return (
-								<button
-									id={num}
-									key={num + "-key"}
-									className="calc-control-btn"
-									onClick={handleOperands}
-								>
-									{numbers[num]}
-								</button>
-							);
-						})}
-					</div>
-					<div id="controls">
-						{Object.keys(controls).map((control) => {
-							const { name, func } = controls[control];
-							return (
-								<button
-									id={control}
-									key={control + "-key"}
-									className="calc-control-btn"
-									onClick={handleOperators}
-								>
-									{name}
-								</button>
-							);
-						})}
-					</div>
+					<CalcNumpad numbers={numbers} handleOperands={handleOperands} />
+					<CalcControls controls={controls} handleOperators={handleOperators} />
 				</div>
 			</div>
 		</section>

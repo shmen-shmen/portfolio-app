@@ -17,9 +17,11 @@ export const drumMachineSlice = createSlice({
 			state.nowPlaying = initialState.nowPlaying;
 			state.display = true;
 		},
+
 		hide_drumMachine: (state) => {
 			state.display = false;
 		},
+
 		padPress: (state, action) => {
 			const pad = action.payload;
 			state.pads[pad].press = true;
@@ -28,12 +30,14 @@ export const drumMachineSlice = createSlice({
 				state.nowPlaying.push(emoji);
 			}
 		},
+
 		padRelease: (state, action) => {
 			const pad = action.payload;
 			if (pad in state.pads) {
 				state.pads[pad].press = false;
 			}
 		},
+
 		sampleEnd: (state, action) => {
 			const pad = action.payload;
 			const emoji = state.pads[pad]["emoji"];

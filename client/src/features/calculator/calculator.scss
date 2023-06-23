@@ -6,15 +6,15 @@
 	flex-direction: column;
 }
 #calculator {
-	aspect-ratio: 3 / 4;
 	margin: auto 0;
-	background-color: white;
 }
 
 .calc-close-btn {
 	position: absolute;
+	width: 2.5rem;
+	height: 2.5rem;
+	line-height: 2.5rem;
 	font-size: 2rem;
-	width: 2rem;
 	transform: translateX(-100%);
 	background-color: red;
 	text-align: center;
@@ -31,12 +31,12 @@
 
 #display {
 	width: 100%;
-	margin: 0.25rem;
 	height: 2.5rem;
 	line-height: 2.5rem;
 	font-size: 2rem;
 	text-align: right;
 	padding: 0 0.5rem 0 0.5rem;
+	background-color: white;
 }
 #buttons {
 	display: flex;

@@ -3,8 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
 	displayName: "calculator",
 	display: true,
-	input: 0,
-	output: ["0"],
 	numbers: {
 		one: 1,
 		two: 2,
@@ -20,12 +18,13 @@ const initialState = {
 		decimal: ".",
 	},
 	controls: {
-		divide: { name: "/", func: "/" },
-		multiply: { name: "*", func: null },
-		subtract: { name: "-", func: null },
-		add: { name: "+", func: null },
-		equals: { name: "=", func: null },
+		divide: "/",
+		multiply: "*",
+		subtract: "-",
+		add: "+",
+		equals: "=",
 	},
+	output: ["0"],
 };
 
 export const calculatorSlice = createSlice({
@@ -41,46 +40,53 @@ export const calculatorSlice = createSlice({
 		},
 
 		clear: (state) => {
-			state.input = initialState.input;
 			state.output = initialState.output;
 		},
 
 		typingOperands: (state, action) => {
-			const regex = /^[+\-*/]$/;
+			// look at last element in expression
+			let last = state.output[state.output.length - 1];
 
-			let lastIndex = state.output.length - 1;
-			let last = state.output[lastIndex];
-			// console.log(last);
-			if (regex.test(last)) {
-				state.output.push(action.payload);
-			} else if (last == 0) {
-				last = action.payload;
-			} else if (last.includes(".") && action.payload == ".") {
-				return state;
-			} else last += action.payload;
-
-			state.output[lastIndex] = last;
+			switch (true) {
+				// check if it is an operator:
+				case ["+", "*", "/", "-"].includes(last):
+					// if so, then start typing new operand:
+					state.output.push(action.payload);
+					break;
+				// prevents numbers starting with 0:
+				case last == 0:
+					state.output[state.output.length - 1] = action.payload;
+					break;
+				// prevents numbers having multiple decimal points: 1.2.3.4
+				case last.includes(".") && action.payload == ".":
+					return state;
+				default:
+					// otherwise keep typing
+					last += action.payload;
+					state.output[state.output.length - 1] = last;
+			}
 		},
 
 		typingOperators: (state, action) => {
-			const regex = /^[+\-*/]$/;
+			let last = state.output[state.output.length - 1];
 
-			const lastIndex = state.output.length - 1;
-			let last = state.output[lastIndex];
-
-			if (regex.test(last)) {
-				// if (action.payload == "-" && last !== "-") {
-				if (action.payload !== last) {
-					state.output.push(action.payload);
-				} else state.output[lastIndex] = action.payload;
+			if (action.payload == last) {
+				// prevents entering multiple same operators like '///' '+++' etc
+				state.output[state.output.length - 1] = action.payload;
 			} else state.output.push(action.payload);
 		},
 
 		equals: (state) => {
-			const regex = /^[+\-*/]$/;
-			if (regex.test(state.output[state.output.length - 1])) {
+			// first check if the expression is complete
+			if (
+				["+", "*", "/", "-"].includes(state.output[state.output.length - 1])
+			) {
 				return state;
 			} else {
+				// this weirdness is needed to pass this test:
+				// If 2 or more operators are entered consecutively,
+				// the operation performed should be the last operator
+				// entered (excluding the negative (-) sign.
 				const evalArr = [];
 				let queuedEl = "";
 				state.output.map((el) => {
@@ -94,7 +100,7 @@ export const calculatorSlice = createSlice({
 						queuedEl = queuedEl + el;
 					} else queuedEl = el;
 				});
-				console.log(evalArr);
+
 				state.output = [eval(evalArr.join("")).toString()];
 			}
 		},
