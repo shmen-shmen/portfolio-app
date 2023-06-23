@@ -1,12 +1,12 @@
 const CalcControls = ({ controls, handleOperators }) => {
 	return (
-		<div id="controls">
+		<div className="right-button-column">
 			{Object.keys(controls).map((control) => {
 				return (
 					<button
 						id={control}
 						key={control + "-key"}
-						className="calc-control-btn"
+						className="calc-btn calc-operator-btn"
 						onClick={handleOperators}
 					>
 						{controls[control]}

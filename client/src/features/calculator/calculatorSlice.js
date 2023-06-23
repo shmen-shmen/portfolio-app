@@ -17,12 +17,20 @@ const initialState = {
 		zero: 0,
 		decimal: ".",
 	},
-	controls: {
+	basicOperators: {
 		divide: "/",
 		multiply: "*",
 		subtract: "-",
 		add: "+",
 		equals: "=",
+	},
+	additionalOperators: {
+		OFF: "OFF",
+		sqrt: "√",
+		percent: "%",
+		MRC: "MRC",
+		"M+": "M+",
+		"M-": "M-",
 	},
 	output: ["0"],
 };
