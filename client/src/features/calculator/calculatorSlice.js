@@ -51,7 +51,7 @@ export const calculatorSlice = createSlice({
 			state.output = initialState.output;
 		},
 
-		typingOperands: (state, action) => {
+		typingNumbers: (state, action) => {
 			// look at last element in expression
 			let last = state.output[state.output.length - 1];
 
@@ -87,7 +87,9 @@ export const calculatorSlice = createSlice({
 		equals: (state) => {
 			// first check if the expression is complete
 			if (
-				["+", "*", "/", "-"].includes(state.output[state.output.length - 1])
+				["+", "*", "/", "-", "."].includes(
+					state.output[state.output.length - 1]
+				)
 			) {
 				return state;
 			} else {
@@ -119,7 +121,7 @@ export const {
 	show_calculator,
 	hide_calculator,
 	clear,
-	typingOperands,
+	typingNumbers,
 	typingOperators,
 	equals,
 } = calculatorSlice.actions;

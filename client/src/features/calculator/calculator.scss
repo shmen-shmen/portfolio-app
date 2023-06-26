@@ -1,6 +1,6 @@
 #calculator-container {
 	min-height: calc(100vh - 2rem);
-	width: 400px;
+	width: fit-content;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
@@ -8,65 +8,83 @@
 #calculator {
 	margin: auto 0;
 	background-color: rgb(0, 77, 155);
-}
-.calc-close-btn {
-	position: absolute;
-	width: 2.5rem;
-	height: 2.5rem;
-	line-height: 2.5rem;
-	font-size: 2rem;
-	transform: translateX(-100%);
-	background-color: red;
-	text-align: center;
-	color: white;
+	padding: 1.5rem;
+	border-radius: 1rem;
+	box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.85);
 }
 
 #display {
-	width: 75%;
-	margin: 0 auto;
-	height: 3.5rem;
 	line-height: 3.5rem;
-	font-size: 3rem;
+	font-size: 2rem;
 	text-align: right;
-	padding: 0 0.5rem 0 0.5rem;
-	border: 0.3rem solid rgb(80, 80, 80);
-	background-color: rgb(202, 202, 202);
+	padding: 0 0.25rem 0 0.25rem;
+	margin: 0 0.25rem 0 0.25rem;
+	border-radius: 5px;
+	background-color: rgb(204, 204, 204);
+	box-shadow: 1px 1px 2px 2px rgb(46, 46, 46) inset;
 }
 #kabashi-logo {
-	color: silver;
-	font-size: 2rem;
+	color: rgb(233, 233, 233);
+	font-size: 1.5rem;
+	text-align: left;
+	margin: 0.75rem 0 0.75rem 0.5rem;
 }
+
 #buttons {
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
+	display: grid;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	box-shadow: 0px 0px 2px 2px rgb(0, 32, 63);
+}
+#top-button-row {
+	display: grid;
+	grid-template-rows: repeat(2, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 }
 #numpad {
-	flex-basis: 66%;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	background-color: transparent;
+	grid-column: 1 / span 3;
 }
 .right-button-column {
-	width: min-content;
+	margin-left: 1rem;
+	display: grid;
+	grid-template-rows: repeat(6, 1fr);
+	grid-column: 4;
+	grid-row: 1 / span 6;
+	height: fit-content;
 }
-.top-button-row {
-	position: absolute;
-	display: flex;
-	width: 100px;
+#equals {
+	grid-row: span 2;
+	height: calc(100% - 0.5rem);
 }
 
 .calc-btn {
 	margin: 0.25rem;
+	position: relative;
 	aspect-ratio: 4/3;
 	width: 4rem;
-	color: white;
 	font-size: 1.5rem;
-	text-align: left;
+	border: 2px;
+	border-radius: 4px;
+	box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.85);
+
+	&:active {
+		transform: translate(1px, 1px);
+		box-shadow: 1px 1px 2px rgba(0, 0, 0, 1) inset;
+	}
+}
+
+.calc-btn span {
+	position: absolute;
+	top: 0.25rem;
+	left: 0.5rem;
 }
 .calc-num-btn {
 	color: rgb(0, 77, 155);
 }
-.calc-operator-btn {
+.calc-operator-btn,
+.calc-secondary-btn {
 	background-color: red;
+	color: white;
 }

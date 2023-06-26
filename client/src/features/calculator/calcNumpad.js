@@ -1,4 +1,18 @@
-const CalcNumpad = ({ numbers, handleOperands }) => {
+import { useSelector, useDispatch } from "react-redux";
+import { typingNumbers, clear } from "./calculatorSlice";
+
+const CalcNumpad = () => {
+	const dispatch = useDispatch();
+
+	const handleNumbers = (e) => {
+		const payload = e.target.innerText;
+		if (payload == "AC") {
+			dispatch(clear());
+		} else dispatch(typingNumbers(payload));
+	};
+
+	const { numbers } = useSelector((state) => state.calculator);
+
 	return (
 		<div id="numpad">
 			{Object.keys(numbers).map((num) => {
@@ -7,12 +21,14 @@ const CalcNumpad = ({ numbers, handleOperands }) => {
 					<button
 						id={num}
 						key={num + "-key"}
-						className={`calc-btn ${
+						className={`calc-btn  ${
 							name == "AC" ? "calc-operator-btn" : "calc-num-btn"
 						} `}
-						onClick={handleOperands}
+						onClick={(e) => {
+							handleNumbers(e);
+						}}
 					>
-						{name}
+						<span>{name}</span>
 					</button>
 				);
 			})}
