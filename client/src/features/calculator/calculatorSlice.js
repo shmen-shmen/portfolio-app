@@ -110,8 +110,10 @@ export const calculatorSlice = createSlice({
 						queuedEl = queuedEl + el;
 					} else queuedEl = el;
 				});
-
-				state.output = [eval(evalArr.join("")).toString()];
+				const result = eval(evalArr.join(""));
+				state.output = [
+					Math.round((result + Number.EPSILON) * 100000) / (100000).toString(),
+				];
 			}
 		},
 	},
