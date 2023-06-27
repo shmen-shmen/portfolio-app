@@ -52,36 +52,41 @@ export const calculatorSlice = createSlice({
 		},
 
 		typingNumbers: (state, action) => {
-			// look at last element in expression
-			let last = state.output[state.output.length - 1];
-
-			switch (true) {
-				// check if it is an operator:
-				case ["+", "*", "/", "-"].includes(last):
-					// if so, then start typing new operand:
-					state.output.push(action.payload);
-					break;
-				// prevents numbers starting with 0:
-				case last == 0:
-					state.output[state.output.length - 1] = action.payload;
-					break;
-				// prevents numbers having multiple decimal points: 1.2.3.4
-				case last.includes(".") && action.payload == ".":
-					return state;
-				default:
-					// otherwise keep typing
-					last += action.payload;
-					state.output[state.output.length - 1] = last;
-			}
+			// first check if expresson fits the screen
+			if (state.output.join("").length < 17) {
+				// look at last element in expression
+				let last = state.output[state.output.length - 1];
+				switch (true) {
+					// check if it is an operator:
+					case ["+", "*", "/", "-"].includes(last):
+						// if so, then start typing new operand:
+						state.output.push(action.payload);
+						break;
+					// prevents numbers starting with 0:
+					case last == 0:
+						state.output[state.output.length - 1] = action.payload;
+						break;
+					// prevents numbers having multiple decimal points: 1.2.3.4
+					case last.includes(".") && action.payload == ".":
+						return state;
+					default:
+						// otherwise keep typing
+						last += action.payload;
+						state.output[state.output.length - 1] = last;
+				}
+			} else return state;
 		},
 
 		typingOperators: (state, action) => {
-			let last = state.output[state.output.length - 1];
+			// first check if expresson fits the screen
+			if (state.output.join("").length < 17) {
+				let last = state.output[state.output.length - 1];
 
-			if (action.payload == last) {
-				// prevents entering multiple same operators like '///' '+++' etc
-				state.output[state.output.length - 1] = action.payload;
-			} else state.output.push(action.payload);
+				if (action.payload == last) {
+					// prevents entering multiple same operators like '///' '+++' etc
+					state.output[state.output.length - 1] = action.payload;
+				} else state.output.push(action.payload);
+			} else return state;
 		},
 
 		equals: (state) => {

@@ -19,23 +19,27 @@ body {
 	background-size: cover;
 }
 @font-face {
+	// from https://int10h.org/oldschool-pc-fonts/
 	font-family: "IBM VGA 8x14";
 	src: url(../public/fonts/WebPlus_IBM_VGA_8x14.woff) format("woff");
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
+	// from https://int10h.org/oldschool-pc-fonts/
 	font-family: "IBM ISO 9";
 	src: url(../public/fonts/Web437_IBM_DOS_ISO9.woff) format("woff");
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
+	// from https://int10h.org/oldschool-pc-fonts/
 	font-family: "IBM ISO 9-2x";
 	src: url(../public/fonts/Web437_IBM_DOS_ISO9-2x.woff) format("woff");
 	font-weight: normal;
 	font-style: normal;
 }
+
 @font-face {
 	font-family: "ComicMono";
 	src: url(../public/fonts/ComicMono.ttf);
@@ -47,6 +51,12 @@ body {
 @font-face {
 	font-family: "NotoEmoji";
 	src: url(../public/fonts/NotoEmoji-Regular.ttf);
+}
+
+@font-face {
+	// by https://github.com/keshikan/DSEG
+	font-family: "DSEG7-Classic-Mini-Bold-Italic.woff";
+	src: url(../public/fonts/DSEG7ClassicMini-BoldItalic.woff);
 }
 
 @mixin for-phone-only {
