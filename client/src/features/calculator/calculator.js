@@ -3,9 +3,14 @@ import CalcControls from "./calcControls";
 import CalcNumpad from "./calcNumpad";
 import CalcAdditionalOperators from "./moreOperators";
 import "./calculator.scss";
+import { useEffect } from "react";
 
 const Calculator = () => {
 	const { display, output } = useSelector((state) => state.calculator);
+
+	useEffect(() => {
+		console.log(output);
+	}, [output]);
 
 	return display ? (
 		<section id="calculator-container">

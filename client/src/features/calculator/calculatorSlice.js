@@ -77,6 +77,18 @@ export const calculatorSlice = createSlice({
 			} else return state;
 		},
 
+		squareRoot: (state) => {
+			if (
+				!["+", "*", "/", "-"].includes(state.output[state.output.length - 1])
+			) {
+				let root = Math.sqrt(state.output[state.output.length - 1]);
+				root = (
+					Math.round((root + Number.EPSILON) * 100000) / 100000
+				).toString();
+				state.output[state.output.length - 1] = root;
+			} else return state;
+		},
+
 		typingOperators: (state, action) => {
 			// first check if expresson fits the screen
 			if (state.output.join("").length < 17) {
@@ -124,7 +136,7 @@ export const calculatorSlice = createSlice({
 				const result = eval(state.output.join(""));
 				// round to 5th decimal and show answer
 				state.output = [
-					Math.round((result + Number.EPSILON) * 100000) / (100000).toString(),
+					(Math.round((result + Number.EPSILON) * 100000) / 100000).toString(),
 				];
 			}
 		},
@@ -138,6 +150,7 @@ export const {
 	typingNumbers,
 	typingOperators,
 	equals,
+	squareRoot,
 } = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;
