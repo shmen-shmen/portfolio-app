@@ -53,7 +53,7 @@ export const calculatorSlice = createSlice({
 
 		typingNumbers: (state, action) => {
 			// first check if expresson fits the screen
-			if (state.output.join("").length < 17) {
+			if (state.output.join("").length < 34) {
 				// look at last element in expression
 				let last = state.output[state.output.length - 1];
 				switch (true) {
@@ -91,7 +91,7 @@ export const calculatorSlice = createSlice({
 
 		typingOperators: (state, action) => {
 			// first check if expresson fits the screen
-			if (state.output.join("").length < 17) {
+			if (state.output.join("").length < 34) {
 				// then prevent entering multiple same operators like '///' '+++' etc
 				if (action.payload == state.output[state.output.length - 1]) {
 					state.output[state.output.length - 1] = action.payload;
