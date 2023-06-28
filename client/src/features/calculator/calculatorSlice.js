@@ -28,9 +28,9 @@ const initialState = {
 		OFF: "OFF",
 		sqrt: "√",
 		percent: "%",
-		MRC: "MRC",
-		"M+": "M+",
-		"M-": "M-",
+		// MRC: "MRC",
+		// "M+": "M+",
+		// "M-": "M-",
 	},
 	output: ["0"],
 };
@@ -80,12 +80,34 @@ export const calculatorSlice = createSlice({
 		typingOperators: (state, action) => {
 			// first check if expresson fits the screen
 			if (state.output.join("").length < 17) {
-				let last = state.output[state.output.length - 1];
-
-				if (action.payload == last) {
-					// prevents entering multiple same operators like '///' '+++' etc
+				// then prevent entering multiple same operators like '///' '+++' etc
+				if (action.payload == state.output[state.output.length - 1]) {
 					state.output[state.output.length - 1] = action.payload;
-				} else state.output.push(action.payload);
+					return state;
+				} else if (
+					// if last element is an operator
+					["+", "*", "/", "-"].includes(state.output[state.output.length - 1])
+				) {
+					// and you type '-'
+					if (action.payload == "-") {
+						// '-' gets added
+						state.output.push(action.payload);
+					}
+					// else string of operatos gets replaced
+					else {
+						for (let i = state.output.length - 1; i >= 0; i--) {
+							if (["+", "*", "/", "-"].includes(state.output[i])) {
+								state.output.splice(i, 1);
+							} else {
+								state.output.push(action.payload);
+								return state;
+							}
+						}
+					}
+				} // if last element is not an operator, then keep typing
+				else {
+					state.output.push(action.payload);
+				}
 			} else return state;
 		},
 
@@ -98,24 +120,9 @@ export const calculatorSlice = createSlice({
 			) {
 				return state;
 			} else {
-				// this weirdness is needed to pass this test:
-				// If 2 or more operators are entered consecutively,
-				// the operation performed should be the last operator
-				// entered (excluding the negative (-) sign.
-				const evalArr = [];
-				let queuedEl = "";
-				state.output.map((el) => {
-					if (!["+", "*", "/", "-"].includes(el)) {
-						if (queuedEl) {
-							evalArr.push(queuedEl);
-						}
-						evalArr.push(el);
-						queuedEl = "";
-					} else if (el == "-") {
-						queuedEl = queuedEl + el;
-					} else queuedEl = el;
-				});
-				const result = eval(evalArr.join(""));
+				// eval input array
+				const result = eval(state.output.join(""));
+				// round to 5th decimal and show answer
 				state.output = [
 					Math.round((result + Number.EPSILON) * 100000) / (100000).toString(),
 				];
