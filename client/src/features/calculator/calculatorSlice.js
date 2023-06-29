@@ -78,14 +78,30 @@ export const calculatorSlice = createSlice({
 		},
 
 		squareRoot: (state) => {
+			// check that last element is a number
 			if (
 				!["+", "*", "/", "-"].includes(state.output[state.output.length - 1])
 			) {
+				// calculate
 				let root = Math.sqrt(state.output[state.output.length - 1]);
+				// rouns to 5th decimal
 				root = (
 					Math.round((root + Number.EPSILON) * 100000) / 100000
 				).toString();
+				// and replace last els with new number
 				state.output[state.output.length - 1] = root;
+			}
+			// otherwise nothing
+			else return state;
+		},
+
+		percent: (state) => {
+			// procedure same as with squareRoot
+			if (
+				!["+", "*", "/", "-"].includes(state.output[state.output.length - 1])
+			) {
+				let percent = state.output[state.output.length - 1] / 100;
+				state.output[state.output.length - 1] = percent;
 			} else return state;
 		},
 
@@ -149,8 +165,9 @@ export const {
 	clear,
 	typingNumbers,
 	typingOperators,
-	equals,
 	squareRoot,
+	percent,
+	equals,
 } = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;

@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { hide_calculator, squareRoot } from "./calculatorSlice";
+import { hide_calculator, squareRoot, percent } from "./calculatorSlice";
 
 const CalcAdditionalOperators = () => {
 	const dispatch = useDispatch();
@@ -13,6 +13,9 @@ const CalcAdditionalOperators = () => {
 				break;
 			case "sqrt":
 				dispatch(squareRoot());
+				break;
+			case "percent":
+				dispatch(percent());
 				break;
 			default:
 				break;
