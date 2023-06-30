@@ -1,16 +1,21 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CalcControls from "./calcControls";
 import CalcNumpad from "./calcNumpad";
 import CalcAdditionalOperators from "./moreOperators";
 import "./calculator.scss";
 import { useEffect } from "react";
+import { clear } from "./calculatorSlice";
 
 const Calculator = () => {
 	const { display, output } = useSelector((state) => state.calculator);
 
+	const dispatch = useDispatch();
+
 	useEffect(() => {
-		console.log(output);
-	}, [output]);
+		if (display) {
+			return;
+		} else dispatch(clear());
+	}, [display]);
 
 	return display ? (
 		<section id="calculator-container">

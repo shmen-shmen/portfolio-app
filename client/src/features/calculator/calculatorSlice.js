@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	displayName: "calculator",
-	display: true,
+	display: false,
 	numbers: {
 		one: 1,
 		two: 2,
@@ -28,9 +28,6 @@ const initialState = {
 		OFF: "OFF",
 		sqrt: "√",
 		percent: "%",
-		// MRC: "MRC",
-		// "M+": "M+",
-		// "M-": "M-",
 	},
 	output: ["0"],
 };
