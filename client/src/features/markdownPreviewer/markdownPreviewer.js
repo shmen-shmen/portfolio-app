@@ -11,6 +11,7 @@ import {
 	getMarkdown,
 } from "./markdownPreviewerSlice";
 import "./markdownPreviewer.css";
+import { show_appSelector } from "../appSelector/appSelectorSlice";
 
 const MarkdownPreviewer = () => {
 	const {
@@ -36,6 +37,11 @@ const MarkdownPreviewer = () => {
 		return { __html: output };
 	}
 
+	const handleExit = () => {
+		dispatch(hide_markdownPreviewer());
+		dispatch(show_appSelector());
+	};
+
 	if (display) {
 		return (
 			<section id="markdown-previewer">
@@ -48,9 +54,7 @@ const MarkdownPreviewer = () => {
 						<button
 							id="markdown-close-btn"
 							className="markdown-btn"
-							onClick={() => {
-								dispatch(hide_markdownPreviewer());
-							}}
+							onClick={handleExit()}
 						>
 							{wideMenu ? "✿✦⚛︎✕✞♱" : "✕"}
 						</button>

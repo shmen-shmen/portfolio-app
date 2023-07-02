@@ -1,14 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./appSelector.css";
+import "./appSelector.scss";
 
 const AppSelector = () => {
 	const state = useSelector((state) => state);
+
+	const { display } = useSelector((state) => state.appSelector);
+
 	const dispatch = useDispatch();
 
 	// Dynamically import reducers
 	const featureContext = require.context(
-		"../features",
+		"../../features",
 		true,
 		/.*\/[a-zA-Z0-9]+Slice\.js$/ // Assuming the reducers are named as "<featureName>Slice.js"
 	);
@@ -37,24 +40,28 @@ const AppSelector = () => {
 		});
 	};
 
-	return (
-		<nav id="nav">
-			{Object.keys(features).map((featureName) => {
-				return (
-					<button
-						id={featureName + "-id"}
-						key={featureName + "-key"}
-						className="nav nav-button"
-						onClick={() => {
-							toggleFeature(featureName);
-						}}
-					>
-						{featureName}
-					</button>
-				);
-			})}
-		</nav>
-	);
+	return display ? (
+		<div id="nav-wrapper">
+			<nav id="nav">
+				{Object.keys(features).map((featureName) => {
+					if (featureName !== "appSelector")
+						return (
+							<button
+								id={featureName + "-id"}
+								key={featureName + "-key"}
+								className="nav nav-button"
+								onClick={() => {
+									console.log("penis");
+									toggleFeature(featureName);
+								}}
+							>
+								{featureName}
+							</button>
+						);
+				})}
+			</nav>
+		</div>
+	) : null;
 };
 
 export default AppSelector;

@@ -6,6 +6,7 @@ import {
 	selectCategory,
 } from "./randomQuoteSlice";
 import "./randomQuoteMachine.css";
+import { show_appSelector } from "../appSelector/appSelectorSlice";
 
 function RandomQuoteMachine() {
 	const { display, isLoading, quote, categories, category } = useSelector(
@@ -28,9 +29,10 @@ function RandomQuoteMachine() {
 		}
 	}, [quote]);
 
-	// useEffect(() => {
-	// 	upperRef.current.scrollTop = 0;
-	// }, [quote]);
+	const handleExit = () => {
+		dispatch(hide_randomQuote());
+		dispatch(show_appSelector());
+	};
 
 	if (display) {
 		return (
@@ -43,9 +45,7 @@ function RandomQuoteMachine() {
 					onMouseLeave={() => {
 						setCloseBtnHover(false);
 					}}
-					onClick={() => {
-						dispatch(hide_randomQuote());
-					}}
+					onClick={handleExit()}
 				>
 					{closeBtnHover ? "☒" : "☐"}
 				</button>

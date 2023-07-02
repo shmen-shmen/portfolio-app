@@ -1,19 +1,32 @@
-#nav {
-	position: sticky;
-	z-index: 2;
-	top: 0;
-	width: 100%;
-	border-bottom: 2px solid blue;
+@import "../../index.scss";
+#nav-wrapper {
+	min-height: 100vh;
 	display: flex;
+	flex-direction: column;
+	align-content: center;
+	width: 100%;
+	margin: 0 auto;
+	@include for-tablet-portrait-up {
+		width: 600px;
+	}
+}
+#nav {
+	margin: auto 0;
+	width: 100%;
+	border: 2px solid blue;
+	display: flex;
+	flex-direction: column;
 	justify-content: space-around;
-	height: 2rem;
 	background-color: white;
 }
+
 .nav {
 	color: blue;
 
 	font-size: 1.5rem;
 	font-family: "IBM ISO 9", monospace;
+	text-align: right;
+	padding: 1rem;
 }
 .nav-button {
 	border: none;

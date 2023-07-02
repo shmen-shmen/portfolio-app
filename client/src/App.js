@@ -1,21 +1,21 @@
+import AppSelector from "./features/appSelector/appSelector";
 import RandomQuoteMachine from "./features/randomQuoteMachine/randomQuoteMachine.js";
 import MarkdownPreviewer from "./features/markdownPreviewer/markdownPreviewer.js";
 import DrumMachine from "./features/drumMachine/drumMachine.js";
-import AppSelector from "./containers/appSelector.js";
 import Calculator from "./features/calculator/calculator.js";
+import TwentyFiveClock from "./features/twentyFiveClock/twentyFiveClock.js";
 import "./App.css";
 
 function App() {
 	return (
-		<div id="App">
+		<main id="App">
 			<AppSelector />
-			<main>
-				<Calculator />
-				<MarkdownPreviewer />
-				<RandomQuoteMachine />
-				<DrumMachine />
-			</main>
-		</div>
+			<Calculator />
+			<MarkdownPreviewer />
+			<RandomQuoteMachine />
+			<DrumMachine />
+			<TwentyFiveClock />
+		</main>
 	);
 }
 
