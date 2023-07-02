@@ -1,0 +1,43 @@
+@import "../../index.scss";
+
+#twentyFiveClock-container {
+	height: 100vh;
+	width: 100%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+
+	@include for-tablet-portrait-up {
+		width: 600px;
+	}
+}
+
+#twentyFiveClock {
+	margin: auto 0;
+	background-color: aliceblue;
+	height: 100vh;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+
+	font-size: 2rem;
+	@include for-tablet-portrait-up {
+		height: 400px;
+	}
+}
+
+#twentyFiveClock-label {
+	text-align: center;
+}
+
+.clock-control {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	background-color: aqua;
+}
+.clock-control-label {
+	grid-column: span 3;
+}
+
+#timer {
+	grid-column: span 1;
+}
