@@ -14,30 +14,52 @@
 
 #twentyFiveClock {
 	margin: auto 0;
-	background-color: aliceblue;
+
 	height: 100vh;
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 
 	font-size: 2rem;
 	@include for-tablet-portrait-up {
-		height: 400px;
+		height: fit-content;
 	}
 }
 
 #twentyFiveClock-label {
 	text-align: center;
+	font-size: 7rem;
+	overflow: hidden;
+	background-color: rgba(255, 255, 255, 0.295);
+	color: rgb(0, 0, 0);
 }
 
 .clock-control {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	background-color: aqua;
+	background-color: rgba(255, 255, 255, 0.791);
+	position: relative;
+
+	&:is(.clock-btn) {
+		background-color: transparent;
+	}
 }
+
 .clock-control-label {
 	grid-column: span 3;
 }
+.clock-btn {
+	background-color: transparent;
+	border: none;
+	font-size: 2rem;
 
+	&:hover {
+		background-color: transparent;
+	}
+}
+.clock-numbers {
+	overflow: hidden;
+	font-size: 4rem;
+}
 #timer {
 	grid-column: span 1;
 }

@@ -26,9 +26,13 @@ const TwentyFiveClock = () => {
 					<div id="timer-label" className="clock-control-label">
 						Session:
 					</div>
-					<button id="start_stop">start</button>
-					<div id="time-left">{sessionLength}</div>
-					<button id="reset" onClick={resetHandler}>
+					<button id="start_stop" className="clock-btn">
+						start
+					</button>
+					<div id="time-left" className="clock-numbers">
+						{sessionLength}
+					</div>
+					<button id="reset" className="clock-btn" onClick={resetHandler}>
 						reset
 					</button>
 				</div>
@@ -36,11 +40,21 @@ const TwentyFiveClock = () => {
 					<div id="break-label" className="clock-control-label">
 						Break Length:
 					</div>
-					<button id="break-increment" onClick={intervalControlHandler}>
+					<button
+						id="break-increment"
+						className="clock-btn"
+						onClick={intervalControlHandler}
+					>
 						↑
 					</button>
-					<div id="break-length">{breakLength}</div>
-					<button id="break-decrement" onClick={intervalControlHandler}>
+					<div id="break-length" className="clock-numbers">
+						{breakLength}
+					</div>
+					<button
+						id="break-decrement"
+						className="clock-btn"
+						onClick={intervalControlHandler}
+					>
 						↓
 					</button>
 				</div>
@@ -48,11 +62,21 @@ const TwentyFiveClock = () => {
 					<div id="session-label" className="clock-control-label">
 						Session Length:
 					</div>
-					<button id="session-increment" onClick={intervalControlHandler}>
+					<button
+						id="session-increment"
+						className="clock-btn"
+						onClick={intervalControlHandler}
+					>
 						↑
 					</button>
-					<div id="session-length">{sessionLength}</div>
-					<button id="session-decrement" onClick={intervalControlHandler}>
+					<div id="session-length" className="clock-numbers">
+						{sessionLength}
+					</div>
+					<button
+						id="session-decrement"
+						className="clock-btn"
+						onClick={intervalControlHandler}
+					>
 						↓
 					</button>
 				</div>
