@@ -52,7 +52,6 @@ export const twentyFiveClockSlice = createSlice({
 		reset: () => initialState,
 
 		start: (state, action) => {
-			state.timeRemaining = state.sessionLength;
 			state.intervalId = action.payload;
 			state.startStop = "stop";
 		},

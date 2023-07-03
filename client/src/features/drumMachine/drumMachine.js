@@ -40,6 +40,7 @@ const DrumMachine = () => {
 				case "keydown":
 				case "mousedown":
 					dispatch(padPress(padId));
+					// sample.currentTime = 0;
 					sample.load();
 					sample.play();
 					break;

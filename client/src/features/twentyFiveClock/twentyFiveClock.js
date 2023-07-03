@@ -7,6 +7,7 @@ import {
 	stop,
 } from "./twentyFiveClockSlice";
 import "./twentyFiveClock.scss";
+import { useEffect } from "react";
 
 const TwentyFiveClock = () => {
 	const {
@@ -48,9 +49,40 @@ const TwentyFiveClock = () => {
 			dispatch(stop());
 		}
 	};
+	const alarm = document.getElementById("alarm");
+	const dialog = document.getElementById("clock-dialog");
+
+	const dialogHandler = () => {
+		alarm.pause();
+		alarm.currentTime = 0;
+	};
+
+	useEffect(() => {
+		if (intervalId != 0) {
+			alarm.play();
+			dialog.show();
+		}
+	}, [sessionBreak]);
 
 	return display ? (
 		<section id="twentyFiveClock-container">
+			<dialog id="clock-dialog" open>
+				<div id="clock-dialog-content">
+					<p>
+						<span>{sessionBreak}</span>
+						<span> has begun!</span>
+						<span id="clock-dialog-emoji">
+							{sessionBreak == "session" ? "💪" : "😌"}
+						</span>
+					</p>
+					<form method="dialog">
+						<button onClick={dialogHandler} className="clock-btn">
+							OK
+						</button>
+					</form>
+				</div>
+			</dialog>
+			<audio id="alarm" src={"sounds/tortTulikMal/sheep.wav"}></audio>
 			<div id="twentyFiveClock">
 				<h1 id="twentyFiveClock-label">{displayName}</h1>
 				<div id="timer" className="clock-control">
