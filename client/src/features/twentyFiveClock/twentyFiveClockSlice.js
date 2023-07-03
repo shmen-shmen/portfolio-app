@@ -5,7 +5,8 @@ const initialState = {
 	display: true,
 	sessionLength: 25,
 	breakLength: 5,
-	timeRemaining: 0,
+	timeRemaining: 25,
+	startStop: "start",
 	intervalId: 0,
 };
 
@@ -27,12 +28,18 @@ export const twentyFiveClockSlice = createSlice({
 				case "increment":
 					if (state[interval + "Length"] < 60) {
 						state[interval + "Length"] = state[interval + "Length"] + 1;
+						if (interval == "session") {
+							state.timeRemaining = state.sessionLength;
+						}
 						break;
 					} else return state;
 
 				case "decrement":
 					if (state[interval + "Length"] > 1) {
 						state[interval + "Length"] = state[interval + "Length"] - 1;
+						if (interval == "session") {
+							state.timeRemaining = state.sessionLength;
+						}
 						break;
 					} else return state;
 
@@ -50,14 +57,16 @@ export const twentyFiveClockSlice = createSlice({
 		start: (state, action) => {
 			state.timeRemaining = state.sessionLength;
 			state.intervalId = action.payload;
-		},
-
-		tick: (state) => {
-			state.timeRemaining = state.timeRemaining - 1;
+			state.startStop = "stop";
 		},
 
 		stop: (state) => {
 			state.intervalId = initialState.intervalId;
+			state.startStop = initialState.startStop;
+		},
+
+		tick: (state) => {
+			state.timeRemaining = state.timeRemaining - 1;
 		},
 	},
 });

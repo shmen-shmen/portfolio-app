@@ -16,6 +16,7 @@ const TwentyFiveClock = () => {
 		breakLength,
 		timeRemaining,
 		intervalId,
+		startStop,
 	} = useSelector((state) => state.twentyFiveClock);
 
 	const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const TwentyFiveClock = () => {
 						Session:
 					</div>
 					<button id="start_stop" className="clock-btn" onClick={startHandler}>
-						start
+						{startStop}
 					</button>
 					<div id="time-left" className="clock-numbers">
 						{timeRemaining}
