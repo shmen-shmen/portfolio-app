@@ -21,12 +21,19 @@ const TwentyFiveClock = () => {
 	const dispatch = useDispatch();
 
 	const intervalControlHandler = (e) => {
-		const [interval, operation] = e.target.id.split("-");
-		dispatch(intervalControl({ interval, operation }));
+		if (intervalId == 0) {
+			const [interval, operation] = e.target.id.split("-");
+			dispatch(intervalControl({ interval, operation }));
+			return;
+		} else return;
 	};
 
 	const resetHandler = () => {
-		dispatch(intervalReset());
+		if (intervalId !== 0) {
+			clearInterval(intervalId);
+			dispatch(stop());
+			dispatch(intervalReset());
+		} else dispatch(intervalReset());
 	};
 
 	const startHandler = () => {
@@ -36,7 +43,6 @@ const TwentyFiveClock = () => {
 			}, 1000);
 			dispatch(start(interval));
 		} else {
-			console.log(intervalId);
 			clearInterval(intervalId);
 			dispatch(stop());
 		}
