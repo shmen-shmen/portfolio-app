@@ -7,6 +7,7 @@ const initialState = {
 	breakLength: 5,
 	timeRemaining: 25,
 	startStop: "start",
+	sessionBreak: "session",
 	intervalId: 0,
 };
 
@@ -48,11 +49,7 @@ export const twentyFiveClockSlice = createSlice({
 			}
 		},
 
-		intervalReset: (state) => {
-			state.sessionLength = initialState.sessionLength;
-			state.timeRemaining = state.sessionLength;
-			state.breakLength = initialState.breakLength;
-		},
+		reset: () => initialState,
 
 		start: (state, action) => {
 			state.timeRemaining = state.sessionLength;
@@ -66,6 +63,15 @@ export const twentyFiveClockSlice = createSlice({
 		},
 
 		tick: (state) => {
+			if (state.timeRemaining == 0) {
+				if (state.sessionBreak == "session") {
+					state.timeRemaining = state.breakLength + 1;
+					state.sessionBreak = "break";
+				} else if (state.sessionBreak == "break") {
+					state.timeRemaining = state.sessionLength + 1;
+					state.sessionBreak = "session";
+				}
+			}
 			state.timeRemaining = state.timeRemaining - 1;
 		},
 	},
@@ -75,7 +81,7 @@ export const {
 	show_twentyFiveClock,
 	hide_twentyFiveClock,
 	intervalControl,
-	intervalReset,
+	reset,
 	start,
 	stop,
 	tick,

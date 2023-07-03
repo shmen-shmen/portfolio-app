@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
 	intervalControl,
-	intervalReset,
+	reset,
 	start,
 	tick,
 	stop,
@@ -17,6 +17,7 @@ const TwentyFiveClock = () => {
 		timeRemaining,
 		intervalId,
 		startStop,
+		sessionBreak,
 	} = useSelector((state) => state.twentyFiveClock);
 
 	const dispatch = useDispatch();
@@ -32,9 +33,8 @@ const TwentyFiveClock = () => {
 	const resetHandler = () => {
 		if (intervalId !== 0) {
 			clearInterval(intervalId);
-			dispatch(stop());
-			dispatch(intervalReset());
-		} else dispatch(intervalReset());
+		}
+		dispatch(reset());
 	};
 
 	const startHandler = () => {
@@ -55,7 +55,7 @@ const TwentyFiveClock = () => {
 				<h1 id="twentyFiveClock-label">{displayName}</h1>
 				<div id="timer" className="clock-control">
 					<div id="timer-label" className="clock-control-label">
-						Session:
+						{sessionBreak}:
 					</div>
 					<button id="start_stop" className="clock-btn" onClick={startHandler}>
 						{startStop}
