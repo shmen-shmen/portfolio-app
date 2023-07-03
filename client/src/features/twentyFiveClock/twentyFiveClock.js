@@ -1,11 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
-import { intervalControl, intervalReset } from "./twentyFiveClockSlice";
+import {
+	intervalControl,
+	intervalReset,
+	start,
+	tick,
+	stop,
+} from "./twentyFiveClockSlice";
 import "./twentyFiveClock.scss";
 
 const TwentyFiveClock = () => {
-	const { display, displayName, sessionLength, breakLength } = useSelector(
-		(state) => state.twentyFiveClock
-	);
+	const {
+		display,
+		displayName,
+		sessionLength,
+		breakLength,
+		timeRemaining,
+		intervalId,
+	} = useSelector((state) => state.twentyFiveClock);
 
 	const dispatch = useDispatch();
 
@@ -18,6 +29,19 @@ const TwentyFiveClock = () => {
 		dispatch(intervalReset());
 	};
 
+	const startHandler = () => {
+		if (intervalId == 0) {
+			let interval = setInterval(() => {
+				dispatch(tick());
+			}, 1000);
+			dispatch(start(interval));
+		} else {
+			console.log(intervalId);
+			clearInterval(intervalId);
+			dispatch(stop());
+		}
+	};
+
 	return display ? (
 		<section id="twentyFiveClock-container">
 			<div id="twentyFiveClock">
@@ -26,11 +50,11 @@ const TwentyFiveClock = () => {
 					<div id="timer-label" className="clock-control-label">
 						Session:
 					</div>
-					<button id="start_stop" className="clock-btn">
+					<button id="start_stop" className="clock-btn" onClick={startHandler}>
 						start
 					</button>
 					<div id="time-left" className="clock-numbers">
-						{sessionLength}
+						{timeRemaining}
 					</div>
 					<button id="reset" className="clock-btn" onClick={resetHandler}>
 						reset
