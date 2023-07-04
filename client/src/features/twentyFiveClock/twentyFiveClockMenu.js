@@ -8,36 +8,56 @@ const TwentyFiveClockMenu = () => {
 		(state) => state.twentyFiveClock
 	);
 
-	const showMenu = () => {
+	const showAlarmMenu = () => {
 		dispatch(toggleAlarmMenu(true));
 	};
 
-	const hideMenu = () => {
+	const hideAlarmMenu = () => {
 		dispatch(toggleAlarmMenu(false));
 	};
 
-	const selectAlarmHandler = (e) => {
+	const selectAlarmSound = (e) => {
 		dispatch(selectAlarm(e.target.id));
+	};
+
+	const checkAlarmSound = (e) => {
+		const alarmCheck = document.getElementById(e.target.id + "-audio");
+		alarmCheck.play();
+	};
+	const stopCheckAlarmSound = (e) => {
+		const alarmCheck = document.getElementById(e.target.id + "-audio");
+		alarmCheck.pause();
+		alarmCheck.currentTime = 0;
 	};
 
 	return (
 		<div
 			id="clock-label-menu"
-
-			// onMouseOver={showMenu} onMouseLeave={hideMenu}
+			onMouseOver={showAlarmMenu}
+			onMouseLeave={hideAlarmMenu}
 		>
 			{alarmMenu ? (
 				<div id="alarm-menu">
 					{alarms.map((alarm) => {
 						return (
-							<span
+							<div
 								id={alarm}
-								className={alarm == activeAlarm ? "active-alarm" : null}
+								className={
+									alarm == activeAlarm
+										? "alarm-menu-item alarm-menu-item-active"
+										: "alarm-menu-item"
+								}
 								key={alarm + "-key"}
-								onDoubleClick={selectAlarmHandler}
+								onDoubleClick={selectAlarmSound}
+								onClick={checkAlarmSound}
+								onMouseLeave={stopCheckAlarmSound}
 							>
 								{alarm}
-							</span>
+								<audio
+									id={alarm + "-audio"}
+									src={`sounds/tortTulikMal/${alarm}.wav`}
+								></audio>
+							</div>
 						);
 					})}
 				</div>

@@ -1,10 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const actx = new AudioContext();
-const alarmVolume = actx.createGain();
-alarmVolume.gain.value = 0.5;
-const out = actx.destination;
-alarmVolume.connect(out);
+// const actx = new AudioContext();
+// const alarmVolume = actx.createGain();
+// alarmVolume.gain.value = 0.5;
+// const out = actx.destination;
+// alarmVolume.connect(out);
+// const alarmSource = actx.createBufferSource();
 
 const initialState = {
 	displayName: "25+5 Clock",
@@ -29,6 +30,16 @@ const initialState = {
 		"sheep",
 	],
 };
+
+// const playAlarm = createAsyncThunk("fetchAlarmFile", async (state) => {
+// 	const alarm = state.activeAlarm;
+// 	const response = await fetch(`sounds/tortTulikMal/${alarm}.wav`);
+// 	const soundBuffer = await response.arrayBuffer();
+// 	const alarmBuffer = await actx.decodeAudioData(soundBuffer);
+// 	alarmSource.buffer = alarmBuffer;
+// 	alarmSource.connect(alarmVolume);
+// 	alarmSource.start();
+// });
 
 export const twentyFiveClockSlice = createSlice({
 	name: "twentyFiveClock",
@@ -97,7 +108,7 @@ export const twentyFiveClockSlice = createSlice({
 			state.alarmMenu = action.payload;
 		},
 
-		selectAlarm: async (state, action) => {
+		selectAlarm: (state, action) => {
 			state.activeAlarm = action.payload;
 		},
 	},
