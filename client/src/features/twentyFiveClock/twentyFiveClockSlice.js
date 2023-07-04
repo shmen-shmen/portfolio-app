@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const actx = new AudioContext();
+const alarmVolume = actx.createGain();
+alarmVolume.gain.value = 0.5;
+const out = actx.destination;
+alarmVolume.connect(out);
+
 const initialState = {
 	displayName: "25+5 Clock",
 	display: true,
@@ -9,6 +15,19 @@ const initialState = {
 	startStop: "start",
 	sessionBreak: "session",
 	intervalId: 0,
+	alarmMenu: true,
+	activeAlarm: "sheep",
+	alarms: [
+		"camels",
+		"cat",
+		"chicken",
+		"cows",
+		"dog",
+		"ducks",
+		"goats",
+		"horses",
+		"sheep",
+	],
 };
 
 export const twentyFiveClockSlice = createSlice({
@@ -73,6 +92,14 @@ export const twentyFiveClockSlice = createSlice({
 			}
 			state.timeRemaining = state.timeRemaining - 1;
 		},
+
+		toggleAlarmMenu: (state, action) => {
+			state.alarmMenu = action.payload;
+		},
+
+		selectAlarm: async (state, action) => {
+			state.activeAlarm = action.payload;
+		},
 	},
 });
 
@@ -84,6 +111,8 @@ export const {
 	start,
 	stop,
 	tick,
+	toggleAlarmMenu,
+	selectAlarm,
 } = twentyFiveClockSlice.actions;
 
 export default twentyFiveClockSlice.reducer;
