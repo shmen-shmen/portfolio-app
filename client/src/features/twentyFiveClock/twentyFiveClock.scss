@@ -25,11 +25,42 @@
 	}
 }
 
+#clock-label-menu {
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.295);
+}
+
+#alarm-menu {
+	font-size: 1.7rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-content: space-between;
+	height: 100%;
+
+	& > span {
+		background-color: white;
+		color: black;
+		&:hover {
+			background-color: black;
+			color: white;
+		}
+	}
+
+	& > .active-alarm {
+		color: blue;
+		text-decoration: underline;
+
+		&:hover {
+			background-color: blue;
+		}
+	}
+}
+
 #twentyFiveClock-label {
 	text-align: center;
-	font-size: 7rem;
+	font-size: 2.2rem;
 	overflow: hidden;
-	background-color: rgba(255, 255, 255, 0.295);
 	color: rgb(0, 0, 0);
 }
 
@@ -62,6 +93,7 @@
 .clock-numbers {
 	overflow: hidden;
 	font-size: 4rem;
+	text-align: center;
 }
 #timer {
 	grid-column: span 1;

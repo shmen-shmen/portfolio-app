@@ -8,20 +8,21 @@ import {
 } from "./twentyFiveClockSlice";
 import "./twentyFiveClock.scss";
 import { useEffect } from "react";
+import TwentyFiveClockMenu from "./twentyFiveClockMenu";
 
 const TwentyFiveClock = () => {
+	const dispatch = useDispatch();
+
 	const {
 		display,
-		displayName,
 		sessionLength,
 		breakLength,
 		timeRemaining,
 		intervalId,
 		startStop,
 		sessionBreak,
+		activeAlarm,
 	} = useSelector((state) => state.twentyFiveClock);
-
-	const dispatch = useDispatch();
 
 	const intervalControlHandler = (e) => {
 		if (intervalId == 0) {
@@ -31,11 +32,22 @@ const TwentyFiveClock = () => {
 		} else return;
 	};
 
+	const alarm = document.getElementById("alarm");
+	// const dialog = document.getElementById("clock-dialog");
+
+	// const dialogHandler = () => {
+	// 	alarm.pause();
+	// 	alarm.currentTime = 0;
+	// };
+
 	const resetHandler = () => {
 		if (intervalId !== 0) {
 			clearInterval(intervalId);
 		}
 		dispatch(reset());
+
+		alarm.pause();
+		alarm.currentTime = 0;
 	};
 
 	const startHandler = () => {
@@ -47,26 +59,26 @@ const TwentyFiveClock = () => {
 		} else {
 			clearInterval(intervalId);
 			dispatch(stop());
-		}
-	};
-	const alarm = document.getElementById("alarm");
-	const dialog = document.getElementById("clock-dialog");
 
-	const dialogHandler = () => {
-		alarm.pause();
-		alarm.currentTime = 0;
+			alarm.pause();
+			alarm.currentTime = 0;
+		}
 	};
 
 	useEffect(() => {
 		if (intervalId != 0) {
 			alarm.play();
-			dialog.show();
+			// dialog.show();
+			setTimeout(() => {
+				alarm.pause();
+				alarm.currentTime = 0;
+			}, 5000);
 		}
 	}, [sessionBreak]);
 
 	return display ? (
 		<section id="twentyFiveClock-container">
-			<dialog id="clock-dialog" open>
+			{/* <dialog id="clock-dialog">
 				<div id="clock-dialog-content">
 					<p>
 						<span>{sessionBreak}</span>
@@ -81,10 +93,10 @@ const TwentyFiveClock = () => {
 						</button>
 					</form>
 				</div>
-			</dialog>
-			<audio id="alarm" src={"sounds/tortTulikMal/sheep.wav"}></audio>
+			</dialog> */}
+			<audio id="alarm" src={`sounds/tortTulikMal/${activeAlarm}.wav`}></audio>
 			<div id="twentyFiveClock">
-				<h1 id="twentyFiveClock-label">{displayName}</h1>
+				<TwentyFiveClockMenu />
 				<div id="timer" className="clock-control">
 					<div id="timer-label" className="clock-control-label">
 						{sessionBreak}:
