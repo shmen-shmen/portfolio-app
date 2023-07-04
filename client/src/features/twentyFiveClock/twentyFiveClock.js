@@ -24,6 +24,22 @@ const TwentyFiveClock = () => {
 		activeAlarm,
 	} = useSelector((state) => state.twentyFiveClock);
 
+	const timeConverter = (milliseconds, check) => {
+		let minutes, seconds;
+		if (milliseconds === 3600000) {
+			minutes = 60;
+		} else {
+			minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
+		}
+		seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+		if (check) {
+			return `${minutes}`;
+		} else
+			return `${minutes < 10 ? "0" + minutes : minutes}:${
+				seconds < 10 ? "0" + seconds : seconds
+			}`;
+	};
+
 	const intervalControlHandler = (e) => {
 		if (intervalId == 0) {
 			const [interval, operation] = e.target.id.split("-");
@@ -32,12 +48,12 @@ const TwentyFiveClock = () => {
 		} else return;
 	};
 
-	const alarm = document.getElementById("alarm");
+	const beep = document.getElementById("beep");
 	// const dialog = document.getElementById("clock-dialog");
 
 	// const dialogHandler = () => {
-	// 	alarm.pause();
-	// 	alarm.currentTime = 0;
+	// 	beep.pause();
+	// 	beep.currentTime = 0;
 	// };
 
 	const resetHandler = () => {
@@ -46,8 +62,8 @@ const TwentyFiveClock = () => {
 		}
 		dispatch(reset());
 
-		alarm.pause();
-		alarm.currentTime = 0;
+		beep.pause();
+		beep.currentTime = 0;
 	};
 
 	const startHandler = () => {
@@ -60,18 +76,18 @@ const TwentyFiveClock = () => {
 			clearInterval(intervalId);
 			dispatch(stop());
 
-			alarm.pause();
-			alarm.currentTime = 0;
+			beep.pause();
+			beep.currentTime = 0;
 		}
 	};
 
 	useEffect(() => {
 		if (intervalId != 0) {
-			alarm.play();
+			beep.play();
 			// dialog.show();
 			setTimeout(() => {
-				alarm.pause();
-				alarm.currentTime = 0;
+				beep.pause();
+				beep.currentTime = 0;
 			}, 5000);
 		}
 	}, [sessionBreak]);
@@ -94,7 +110,7 @@ const TwentyFiveClock = () => {
 					</form>
 				</div>
 			</dialog> */}
-			<audio id="alarm" src={`sounds/tortTulikMal/${activeAlarm}.wav`}></audio>
+			<audio id="beep" src={`sounds/tortTulikMal/${activeAlarm}.wav`}></audio>
 			<div id="twentyFiveClock">
 				<TwentyFiveClockMenu />
 				<div id="timer" className="clock-control">
@@ -105,7 +121,7 @@ const TwentyFiveClock = () => {
 						{startStop}
 					</button>
 					<div id="time-left" className="clock-numbers">
-						{timeRemaining}
+						{timeConverter(timeRemaining)}
 					</div>
 					<button id="reset" className="clock-btn" onClick={resetHandler}>
 						reset
@@ -123,7 +139,7 @@ const TwentyFiveClock = () => {
 						↑
 					</button>
 					<div id="break-length" className="clock-numbers">
-						{breakLength}
+						{timeConverter(breakLength, true)}
 					</div>
 					<button
 						id="break-decrement"
@@ -145,7 +161,7 @@ const TwentyFiveClock = () => {
 						↑
 					</button>
 					<div id="session-length" className="clock-numbers">
-						{sessionLength}
+						{timeConverter(sessionLength, true)}
 					</div>
 					<button
 						id="session-decrement"

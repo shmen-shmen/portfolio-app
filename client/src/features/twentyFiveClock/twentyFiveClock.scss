@@ -7,8 +7,8 @@
 	display: flex;
 	flex-direction: column;
 
-	@include for-tablet-portrait-up {
-		width: 600px;
+	@include for-tablet-landscape-up {
+		width: 900px;
 	}
 }
 
@@ -59,7 +59,7 @@
 
 #twentyFiveClock-label {
 	text-align: center;
-	font-size: 2.2rem;
+	font-size: 3rem;
 	overflow: hidden;
 	color: rgb(0, 0, 0);
 }
@@ -76,12 +76,13 @@
 }
 
 .clock-control-label {
+	font-size: 2.5rem;
 	grid-column: span 3;
 }
 .clock-btn {
 	background-color: transparent;
 	border: none;
-	font-size: 2rem;
+	font-size: 2.5rem;
 
 	&:hover {
 		background-color: rgba(0, 0, 255, 0.433);
@@ -92,7 +93,7 @@
 }
 .clock-numbers {
 	overflow: hidden;
-	font-size: 4rem;
+	font-size: 2.5rem;
 	text-align: center;
 }
 #timer {

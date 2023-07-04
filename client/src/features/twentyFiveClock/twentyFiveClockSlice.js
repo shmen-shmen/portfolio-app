@@ -10,13 +10,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
 	displayName: "25+5 Clock",
 	display: true,
-	sessionLength: 25,
-	breakLength: 5,
-	timeRemaining: 25,
+	sessionLength: 1500000,
+	breakLength: 300000,
+	timeRemaining: 1500000,
 	startStop: "start",
 	sessionBreak: "session",
 	intervalId: 0,
-	alarmMenu: true,
+	alarmMenu: false,
 	activeAlarm: "sheep",
 	alarms: [
 		"camels",
@@ -57,8 +57,8 @@ export const twentyFiveClockSlice = createSlice({
 
 			switch (operation) {
 				case "increment":
-					if (state[interval + "Length"] < 60) {
-						state[interval + "Length"] = state[interval + "Length"] + 1;
+					if (state[interval + "Length"] < 3600000) {
+						state[interval + "Length"] = state[interval + "Length"] + 60000;
 						if (interval == "session") {
 							state.timeRemaining = state.sessionLength;
 						}
@@ -66,8 +66,8 @@ export const twentyFiveClockSlice = createSlice({
 					} else return state;
 
 				case "decrement":
-					if (state[interval + "Length"] > 1) {
-						state[interval + "Length"] = state[interval + "Length"] - 1;
+					if (state[interval + "Length"] > 60000) {
+						state[interval + "Length"] = state[interval + "Length"] - 60000;
 						if (interval == "session") {
 							state.timeRemaining = state.sessionLength;
 						}
@@ -94,14 +94,14 @@ export const twentyFiveClockSlice = createSlice({
 		tick: (state) => {
 			if (state.timeRemaining == 0) {
 				if (state.sessionBreak == "session") {
-					state.timeRemaining = state.breakLength + 1;
+					state.timeRemaining = state.breakLength + 1000;
 					state.sessionBreak = "break";
 				} else if (state.sessionBreak == "break") {
-					state.timeRemaining = state.sessionLength + 1;
+					state.timeRemaining = state.sessionLength + 1000;
 					state.sessionBreak = "session";
 				}
 			}
-			state.timeRemaining = state.timeRemaining - 1;
+			state.timeRemaining = state.timeRemaining - 1000;
 		},
 
 		toggleAlarmMenu: (state, action) => {
