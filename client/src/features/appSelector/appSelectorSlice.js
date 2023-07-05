@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	displayName: "appSelector",
-	display: false,
+	display: true,
 };
 
 export const appSelectorSlice = createSlice({

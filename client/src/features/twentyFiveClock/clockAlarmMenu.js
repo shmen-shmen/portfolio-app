@@ -1,12 +1,23 @@
 import { useSelector, useDispatch } from "react-redux";
-import { toggleAlarmMenu, selectAlarm } from "./twentyFiveClockSlice";
+import {
+	toggleAlarmMenu,
+	selectAlarm,
+	hide_twentyFiveClock,
+} from "./twentyFiveClockSlice";
 
-const TwentyFiveClockMenu = () => {
+import { show_appSelector } from "../appSelector/appSelectorSlice";
+
+const ClockAlarmMenu = () => {
 	const dispatch = useDispatch();
 
 	const { displayName, alarms, alarmMenu, activeAlarm } = useSelector(
 		(state) => state.twentyFiveClock
 	);
+
+	const exitHandler = () => {
+		dispatch(hide_twentyFiveClock());
+		dispatch(show_appSelector());
+	};
 
 	const showAlarmMenu = () => {
 		dispatch(toggleAlarmMenu(true));
@@ -18,12 +29,10 @@ const TwentyFiveClockMenu = () => {
 
 	const selectAlarmSound = (e) => {
 		dispatch(selectAlarm(e.target.id));
-	};
-
-	const checkAlarmSound = (e) => {
 		const alarmCheck = document.getElementById(e.target.id + "-audio");
 		alarmCheck.play();
 	};
+
 	const stopCheckAlarmSound = (e) => {
 		const alarmCheck = document.getElementById(e.target.id + "-audio");
 		alarmCheck.pause();
@@ -33,7 +42,7 @@ const TwentyFiveClockMenu = () => {
 	return (
 		<div
 			id="clock-label-menu"
-			onMouseOver={showAlarmMenu}
+			onClick={showAlarmMenu}
 			onMouseLeave={hideAlarmMenu}
 		>
 			{alarmMenu ? (
@@ -49,7 +58,6 @@ const TwentyFiveClockMenu = () => {
 								}
 								key={alarm + "-key"}
 								onDoubleClick={selectAlarmSound}
-								onClick={checkAlarmSound}
 								onMouseLeave={stopCheckAlarmSound}
 							>
 								{alarm}
@@ -60,6 +68,9 @@ const TwentyFiveClockMenu = () => {
 							</div>
 						);
 					})}
+					<button id="twentyFiveClock-close-btn" onClick={exitHandler}>
+						EXIT
+					</button>
 				</div>
 			) : (
 				<h1 id="twentyFiveClock-label">{displayName}</h1>
@@ -68,4 +79,4 @@ const TwentyFiveClockMenu = () => {
 	);
 };
 
-export default TwentyFiveClockMenu;
+export default ClockAlarmMenu;
