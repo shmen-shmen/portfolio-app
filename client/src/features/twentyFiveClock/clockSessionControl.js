@@ -18,7 +18,6 @@ const ClockSessionControl = ({ intervalControlHandler, timeConverter }) => {
 			>
 				↑
 			</button>
-
 			<button
 				id="session-decrement"
 				className="clock-btn"

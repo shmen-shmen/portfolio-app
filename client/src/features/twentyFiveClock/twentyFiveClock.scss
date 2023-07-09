@@ -50,7 +50,9 @@
 		font-weight: 900;
 		background-color: white;
 
-		font-size: 2rem;
+		font-size: 4rem;
+		height: 100%;
+		width: 100%;
 	}
 
 	& #alarm-menu {
@@ -126,7 +128,7 @@
 }
 
 // ********************
-// HOLDS START STOP RESET, TIMER DISPLAY
+// HOLDS START/STOP, RESET, TIMER DISPLAY
 // ********************
 
 #timer {
@@ -136,7 +138,7 @@
 	grid-template-columns: repeat(2, 1fr);
 
 	& #timer-label {
-		font-size: 2.5rem;
+		font-size: 3rem;
 		width: fit-content;
 
 		text-transform: capitalize;
@@ -147,9 +149,10 @@
 	}
 
 	& #time-left {
-		font-size: 2.5rem;
+		font-size: 3rem;
 		width: fit-content;
 		font-weight: 900;
+		margin-right: auto;
 
 		color: blue;
 		background-color: white;
@@ -228,8 +231,8 @@
 		-ms-transform: translate(-50%, -50%);
 		transform: translate(-50%, -50%);
 		background-color: aliceblue;
-		font-size: 2rem;
-		padding: 2rem;
+		font-size: 2.5rem;
+		padding: 2.5rem;
 		text-align: center;
 		width: max-content;
 	}
