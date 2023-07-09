@@ -6,7 +6,10 @@ const ClockSessionControl = ({ intervalControlHandler, timeConverter }) => {
 	return (
 		<div id="session-control" className="clock-control">
 			<div id="session-label" className="clock-control-label">
-				Session Length
+				<span>Session Length:</span>
+				<span id="session-length" className="clock-numbers">
+					{timeConverter(sessionLength, false)}
+				</span>
 			</div>
 			<button
 				id="session-increment"
@@ -15,9 +18,7 @@ const ClockSessionControl = ({ intervalControlHandler, timeConverter }) => {
 			>
 				↑
 			</button>
-			<div id="session-length" className="clock-numbers">
-				{timeConverter(sessionLength, false)}
-			</div>
+
 			<button
 				id="session-decrement"
 				className="clock-btn"

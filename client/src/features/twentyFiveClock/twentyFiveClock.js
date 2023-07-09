@@ -50,31 +50,33 @@ const TwentyFiveClock = () => {
 			<audio id="beep" src={`sounds/tortTulikMal/${activeAlarm}.wav`}></audio>
 			{/* <dialog id="clock-dialog">
 				<div id="clock-dialog-content">
-				<p>
-				<span>{sessionBreak}</span>
-				<span> has begun!</span>
-				<span id="clock-dialog-emoji">
-				{sessionBreak == "session" ? "💪" : "😌"}
-				</span>
-				</p>
-				<form method="dialog">
-				<button onClick={dialogHandler} className="clock-btn">
-				OK
-				</button>
-				</form>
+					<p>
+						<span>{sessionBreak}</span>
+						<span> has begun!</span>
+						<span id="clock-dialog-emoji">
+							{sessionBreak == "session" ? "💪" : "😌"}
+						</span>
+					</p>
+					<form method="dialog">
+						<button onClick={dialogHandler} className="clock-btn">
+							OK
+						</button>
+					</form>
 				</div>
 			</dialog> */}
 			<div id="twentyFiveClock">
 				<ClockTimer timeConverter={timeConverter} beep={beep} />
 				<ClockAlarmMenu />
-				<ClockBreakControl
-					intervalControlHandler={intervalControlHandler}
-					timeConverter={timeConverter}
-				/>
-				<ClockSessionControl
-					intervalControlHandler={intervalControlHandler}
-					timeConverter={timeConverter}
-				/>
+				<div id="interval-control">
+					<ClockBreakControl
+						intervalControlHandler={intervalControlHandler}
+						timeConverter={timeConverter}
+					/>
+					<ClockSessionControl
+						intervalControlHandler={intervalControlHandler}
+						timeConverter={timeConverter}
+					/>
+				</div>
 			</div>
 		</section>
 	) : null;

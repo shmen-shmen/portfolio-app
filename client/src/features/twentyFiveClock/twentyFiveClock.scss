@@ -1,50 +1,73 @@
 @import "../../index.scss";
 
+// ********************
+// CONTAINER FOR VERTICAL ALIGNMENT
+// ALSO FOR MOBILE VIEW
+// ********************
+
 #twentyFiveClock-container {
 	height: 100vh;
 	width: 100%;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
-	background-color: rgba(255, 255, 255, 0.5);
+	background-color: rgba(255, 255, 255, 0.33);
+
 	@include for-tablet-portrait-up {
 		background-color: transparent;
-		width: 600px;
+		width: calc(600px);
 	}
 }
+
+// ********************
+// APP CONTAINER
+// ********************
 
 #twentyFiveClock {
 	margin: auto 0;
 
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-
-	font-size: 2rem;
+	grid-template-columns: repeat(3, 1fr);
 }
 
+// ********************
+// APP LABEL ON THE RIGHT SIDE
+// AND ALARM SOUND MENU BENEATH IT
+// (ALSO HOLDS QUIT BUTTON)
+// ********************
+
 #clock-label-menu {
-	background-color: rgba(255, 255, 255, 0.295);
-	grid-column: span 2;
-	height: 4rem;
+	position: relative;
+	overflow: hidden;
+	grid-row: span 3;
 
 	& #twentyFiveClock-label {
-		text-align: center;
-		font-size: 4rem;
-		overflow: hidden;
-		color: rgba(255, 255, 255, 0.895);
-		color: black;
+		// position: absolute;
+		// top: 50%;
+		// left: 50%;
+		// transform: translate(-50%, -50%);
+
+		font-weight: 900;
+		background-color: white;
+
+		font-size: 2rem;
 	}
 
 	& #alarm-menu {
-		font-size: 2rem;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: space-between;
+		justify-content: left;
 		align-content: space-between;
 		height: 100%;
+		width: 100%;
+
+		& > * {
+			font-size: 1.5rem;
+			padding: 0;
+			background-color: white;
+		}
 
 		& > .alarm-menu-item {
-			background-color: white;
 			color: black;
 			margin-right: 0.5rem;
 			user-select: none;
@@ -62,71 +85,133 @@
 				background-color: blue;
 			}
 		}
+
+		#twentyFiveClock-close-btn {
+			border: none;
+			background-color: red;
+			font-weight: 900;
+			font-size: 2rem;
+
+			&:hover {
+				color: white;
+			}
+			&:active {
+				color: red;
+				background-color: black;
+			}
+		}
 	}
 }
 
-#twentyFiveClock-close-btn {
-	font-size: 1.7rem;
-	border: none;
-	background-color: red;
-}
-
-.clock-control {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	background-color: rgba(255, 255, 255, 0.791);
-	position: relative;
-
-	&:is(.clock-btn) {
-		background-color: transparent;
-	}
-
-	& > * {
-		padding: 0.25rem;
-	}
-}
-
-.clock-control-label {
-	font-size: 2rem;
-	grid-column: span 3;
-	text-align: center;
-}
+// ********************
+// CLASS THAT RULES MOST OF THE APP BUTTONS
+// ********************
 
 .clock-btn {
 	background-color: transparent;
 	border: none;
 	font-size: 2rem;
 	user-select: none;
+	text-transform: uppercase;
+	background-color: white;
 
 	&:hover {
-		background-color: rgba(0, 0, 255, 0.6);
-	}
-	&:active {
 		background-color: blue;
 		color: white;
 	}
+	&:active {
+		color: blue;
+		background-color: white;
+	}
 }
 
-.clock-numbers {
-	overflow: hidden;
-	font-size: 2rem;
-	text-align: center;
-}
+// ********************
+// HOLDS START STOP RESET, TIMER DISPLAY
+// ********************
 
 #timer {
 	grid-column: span 2;
 
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+
 	& #timer-label {
+		font-size: 2.5rem;
+		width: fit-content;
+
 		text-transform: capitalize;
 		font-weight: 900;
-		color: blue;
 
-		& span {
-			text-transform: none;
-			color: black;
+		color: blue;
+		background-color: white;
+	}
+
+	& #time-left {
+		font-size: 2.5rem;
+		width: fit-content;
+		font-weight: 900;
+
+		color: blue;
+		background-color: white;
+	}
+
+	& .timer-btn {
+		font-weight: 900;
+		width: max-content;
+
+		&#reset {
+			margin-left: auto;
+			background-color: rgba(255, 179, 179, 0.808);
+			&:hover {
+				background-color: red;
+				color: black;
+			}
+			&:active {
+				background-color: white;
+				color: red;
+			}
 		}
 	}
 }
+
+// ********************
+// HOLDS CONTROLS FOR BREAK AND SESSION LENGTH
+// ********************
+
+#interval-control {
+	grid-column: span 2;
+	display: flex;
+	justify-content: space-around;
+
+	& .clock-control {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		width: 100%;
+	}
+
+	& .clock-control-label {
+		grid-row: span 2;
+
+		& span {
+			font-size: 2rem;
+			background-color: white;
+		}
+
+		& .clock-numbers {
+			font-weight: 900;
+			color: blue;
+		}
+	}
+
+	& .clock-btn {
+		aspect-ratio: 1 / 1;
+		margin-left: auto;
+	}
+}
+
+// ********************
+// RULES DIALOGUE WINDOW THAT SHOWS WHEN TIMER/BREAK ENDS
+// ********************
 
 #clock-dialog {
 	min-width: 100vw;
