@@ -3,6 +3,7 @@ import {
 	toggleAlarmMenu,
 	selectAlarm,
 	hide_twentyFiveClock,
+	reset,
 } from "./twentyFiveClockSlice";
 
 import { show_appSelector } from "../appSelector/appSelectorSlice";
@@ -10,11 +11,12 @@ import { show_appSelector } from "../appSelector/appSelectorSlice";
 const ClockAlarmMenu = () => {
 	const dispatch = useDispatch();
 
-	const { displayName, alarms, alarmMenu, activeAlarm } = useSelector(
-		(state) => state.twentyFiveClock
-	);
+	const { displayName, alarms, alarmMenu, activeAlarm, intervalId } =
+		useSelector((state) => state.twentyFiveClock);
 
 	const exitHandler = () => {
+		clearInterval(intervalId);
+		dispatch(reset());
 		dispatch(hide_twentyFiveClock());
 		dispatch(show_appSelector());
 	};
@@ -42,7 +44,7 @@ const ClockAlarmMenu = () => {
 	return (
 		<div
 			id="clock-label-menu"
-			onClick={showAlarmMenu}
+			onMouseOver={showAlarmMenu}
 			onMouseLeave={hideAlarmMenu}
 		>
 			{alarmMenu ? (
@@ -69,7 +71,7 @@ const ClockAlarmMenu = () => {
 						);
 					})}
 					<button id="twentyFiveClock-close-btn" onClick={exitHandler}>
-						EXIT
+						QUIT APP
 					</button>
 				</div>
 			) : (

@@ -25,9 +25,7 @@ const ClockTimer = ({ timeConverter, beep }) => {
 	};
 
 	const resetHandler = () => {
-		if (intervalId !== 0) {
-			clearInterval(intervalId);
-		}
+		clearInterval(intervalId);
 		beep = document.getElementById("beep");
 		beep.pause();
 		beep.currentTime = 0;
