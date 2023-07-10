@@ -49,8 +49,10 @@
 
 		font-weight: 900;
 		background-color: white;
+		text-align: right;
 
 		font-size: 4rem;
+		line-height: 4rem;
 		height: 100%;
 		width: 100%;
 	}
@@ -106,13 +108,15 @@
 }
 
 // ********************
-// CLASS THAT RULES MOST OF THE APP BUTTONS
+// CLASS THAT RULES *MOST* OF THE APP BUTTONS
 // ********************
 
 .clock-btn {
 	background-color: transparent;
 	border: none;
 	font-size: 2rem;
+	line-height: 2rem;
+	width: 2rem;
 	user-select: none;
 	text-transform: uppercase;
 	background-color: white;
@@ -137,30 +141,39 @@
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 
-	& #timer-label {
-		font-size: 3rem;
-		width: fit-content;
+	& #timer-toprow {
+		grid-column: span 2;
 
-		text-transform: capitalize;
-		font-weight: 900;
-
-		color: blue;
-		background-color: white;
-	}
-
-	& #time-left {
-		font-size: 3rem;
-		width: fit-content;
-		font-weight: 900;
-		margin-right: auto;
-
-		color: blue;
-		background-color: white;
+		& > #timer-label,
+		#time-left {
+			color: blue;
+			background-color: white;
+			font-size: 3rem;
+			line-height: 3rem;
+			text-transform: capitalize;
+			font-weight: 900;
+		}
 	}
 
 	& .timer-btn {
 		font-weight: 900;
 		width: max-content;
+
+		&#start_stop {
+			background-color: blue;
+			color: white;
+			font-size: 2.5rem;
+			line-height: 2.5rem;
+
+			&:hover {
+				background-color: white;
+				color: blue;
+			}
+			&:active {
+				background-color: white;
+				color: red;
+			}
+		}
 
 		&#reset {
 			margin-left: auto;
@@ -184,7 +197,6 @@
 #interval-control {
 	grid-column: span 2;
 	display: flex;
-	justify-content: space-around;
 
 	& .clock-control {
 		display: grid;
@@ -197,6 +209,7 @@
 
 		& span {
 			font-size: 2rem;
+			line-height: 2rem;
 			background-color: white;
 		}
 
@@ -204,11 +217,6 @@
 			font-weight: 900;
 			color: blue;
 		}
-	}
-
-	& .clock-btn {
-		aspect-ratio: 1 / 1;
-		margin-left: auto;
 	}
 }
 

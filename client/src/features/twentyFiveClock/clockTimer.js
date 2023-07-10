@@ -46,8 +46,10 @@ const ClockTimer = ({ timeConverter, beep }) => {
 
 	return (
 		<div id="timer" className="clock-control">
-			<div id="timer-label">{sessionBreak + ":"}</div>
-			<div id="time-left">{timeConverter(timeRemaining, true)}</div>
+			<div id="timer-toprow">
+				<span id="timer-label">{sessionBreak + ":"}</span>
+				<span id="time-left">{timeConverter(timeRemaining, true)}</span>
+			</div>
 			<button
 				id="start_stop"
 				className={`clock-btn timer-btn timer-btn-${startStop}`}
