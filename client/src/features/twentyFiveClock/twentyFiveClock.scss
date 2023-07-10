@@ -11,7 +11,6 @@
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
-	background-color: rgba(255, 255, 255, 0.33);
 
 	@include for-tablet-portrait-up {
 		background-color: transparent;
@@ -27,7 +26,13 @@
 	margin: auto 0;
 
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(2, 1fr);
+	height: 100%;
+
+	@include for-tablet-portrait-up {
+		height: auto;
+		grid-template-columns: repeat(3, 1fr);
+	}
 }
 
 // ********************
@@ -38,8 +43,14 @@
 
 #clock-label-menu {
 	position: relative;
-	overflow: hidden;
-	grid-row: span 3;
+
+	grid-column: span 2;
+	grid-row: 3;
+
+	@include for-tablet-portrait-up {
+		grid-column: 3;
+		grid-row: span 3;
+	}
 
 	& #twentyFiveClock-label {
 		// position: absolute;
@@ -116,7 +127,6 @@
 	border: none;
 	font-size: 2rem;
 	line-height: 2rem;
-	width: 2rem;
 	user-select: none;
 	text-transform: uppercase;
 	background-color: white;
@@ -137,9 +147,14 @@
 
 #timer {
 	grid-column: span 2;
+	display: flex;
+	flex-direction: column;
+	min-height: fit-content;
 
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	@include for-tablet-portrait-up {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+	}
 
 	& #timer-toprow {
 		grid-column: span 2;
@@ -148,22 +163,42 @@
 		#time-left {
 			color: blue;
 			background-color: white;
-			font-size: 3rem;
-			line-height: 3rem;
 			text-transform: capitalize;
 			font-weight: 900;
+			font-size: 5.5rem;
+			line-height: 5.5rem;
+			@include for-tablet-portrait-up {
+				font-size: 3rem;
+				line-height: 3rem;
+			}
 		}
+
+		@include for-tablet-portrait-up {
+			& br {
+				display: none;
+			}
+		}
+	}
+
+	& #timer-bottomrow {
+		grid-column: span 2;
+		display: flex;
+		// justify-content: right;
 	}
 
 	& .timer-btn {
 		font-weight: 900;
-		width: max-content;
+		width: min-content;
+
+		@include for-tablet-portrait-up {
+			width: max-content;
+		}
 
 		&#start_stop {
+			font-size: 3rem;
+			line-height: 3rem;
 			background-color: blue;
 			color: white;
-			font-size: 2.5rem;
-			line-height: 2.5rem;
 
 			&:hover {
 				background-color: white;
@@ -176,7 +211,10 @@
 		}
 
 		&#reset {
-			margin-left: auto;
+			@include for-tablet-portrait-up {
+				margin-left: auto;
+			}
+
 			background-color: rgba(255, 179, 179, 0.808);
 			&:hover {
 				background-color: red;
@@ -200,12 +238,18 @@
 
 	& .clock-control {
 		display: grid;
+		grid-gap: 0;
 		grid-template-columns: repeat(2, 1fr);
 		width: 100%;
 	}
 
 	& .clock-control-label {
-		grid-row: span 2;
+		grid-column: span 2;
+
+		@include for-tablet-portrait-up {
+			grid-column: auto;
+			grid-row: span 2;
+		}
 
 		& span {
 			font-size: 2rem;
@@ -214,8 +258,23 @@
 		}
 
 		& .clock-numbers {
+			font-size: 3rem;
+			line-height: 3rem;
+
+			@include for-tablet-portrait-up {
+				font-size: 2rem;
+				line-height: 2rem;
+			}
+
 			font-weight: 900;
 			color: blue;
+		}
+	}
+
+	& .clock-btn {
+		height: 2rem;
+		@include for-tablet-portrait-up {
+			width: 2rem;
 		}
 	}
 }
