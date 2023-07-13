@@ -10,6 +10,8 @@ import { show_appSelector } from "../appSelector/appSelectorSlice";
 
 const ClockAlarmMenu = () => {
 	const dispatch = useDispatch();
+	let interval = 0;
+	let MenuIntervalId;
 
 	const { displayName, alarms, alarmMenu, activeAlarm, intervalId } =
 		useSelector((state) => state.twentyFiveClock);
@@ -35,6 +37,27 @@ const ClockAlarmMenu = () => {
 		alarmCheck.play();
 	};
 
+	const MobileSelectAlarmSound = (e) => {
+		const alarmCheck = document.getElementById(e.target.id + "-audio");
+		alarmCheck.play();
+		MenuIntervalId = setInterval(() => {
+			if (interval == 200) {
+				dispatch(selectAlarm(e.target.id));
+				clearInterval(MenuIntervalId);
+				interval = 0;
+			} else {
+				console.log(interval);
+				interval++;
+			}
+		}, 1);
+	};
+
+	const MobileStopCheckAlarmSound = (e) => {
+		stopCheckAlarmSound(e);
+		clearInterval(MenuIntervalId);
+		interval = 0;
+	};
+
 	const stopCheckAlarmSound = (e) => {
 		const alarmCheck = document.getElementById(e.target.id + "-audio");
 		alarmCheck.pause();
@@ -45,6 +68,7 @@ const ClockAlarmMenu = () => {
 		<div
 			id="clock-label-menu"
 			onMouseOver={showAlarmMenu}
+			onClick={showAlarmMenu}
 			onMouseLeave={hideAlarmMenu}
 		>
 			{alarmMenu ? (
@@ -61,6 +85,8 @@ const ClockAlarmMenu = () => {
 								key={alarm + "-key"}
 								onDoubleClick={selectAlarmSound}
 								onMouseLeave={stopCheckAlarmSound}
+								onTouchStart={MobileSelectAlarmSound}
+								onTouchEnd={MobileStopCheckAlarmSound}
 							>
 								{alarm}
 								<audio
@@ -75,7 +101,15 @@ const ClockAlarmMenu = () => {
 					</button>
 				</div>
 			) : (
-				<h1 id="twentyFiveClock-label">{displayName}</h1>
+				<div id="twentyFiveClock-label">
+					<h1>{displayName}</h1>
+					<p className="clock-menu-disclaimer-hover">
+						(hover to see alarms, double click to change alarm sound)
+					</p>
+					<p className="clock-menu-disclaimer-nohover">
+						(press to listen to alarm, press and hold for 2 seconds to select)
+					</p>
+				</div>
 			)}
 		</div>
 	);

@@ -6,7 +6,9 @@ const ClockBreakControl = ({ intervalControlHandler, timeConverter }) => {
 	return (
 		<div id="break-control" className="clock-control">
 			<div id="break-label" className="clock-control-label">
-				<span>Break Length:</span>
+				<span>
+					Break <br /> Length:
+				</span>
 				<span id="break-length" className="clock-numbers">
 					{timeConverter(breakLength, false)}
 				</span>
