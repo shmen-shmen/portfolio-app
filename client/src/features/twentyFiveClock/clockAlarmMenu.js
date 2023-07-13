@@ -18,7 +18,6 @@ const ClockAlarmMenu = () => {
 
 	const exitHandler = () => {
 		clearInterval(intervalId);
-		dispatch(reset());
 		dispatch(hide_twentyFiveClock());
 		dispatch(show_appSelector());
 	};
@@ -41,7 +40,7 @@ const ClockAlarmMenu = () => {
 		const alarmCheck = document.getElementById(e.target.id + "-audio");
 		alarmCheck.play();
 		MenuIntervalId = setInterval(() => {
-			if (interval == 200) {
+			if (interval == 500) {
 				dispatch(selectAlarm(e.target.id));
 				clearInterval(MenuIntervalId);
 				interval = 0;

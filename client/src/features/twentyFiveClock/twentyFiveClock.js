@@ -1,10 +1,11 @@
 import "./twentyFiveClock.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { intervalControl } from "./twentyFiveClockSlice";
+import { intervalControl, reset } from "./twentyFiveClockSlice";
 import ClockAlarmMenu from "./clockAlarmMenu";
 import ClockTimer from "./clockTimer";
 import ClockBreakControl from "./clockBreakControl";
 import ClockSessionControl from "./clockSessionControl";
+import { useEffect } from "react";
 
 const TwentyFiveClock = () => {
 	const dispatch = useDispatch();
@@ -12,6 +13,10 @@ const TwentyFiveClock = () => {
 	const { display, intervalId, activeAlarm } = useSelector(
 		(state) => state.twentyFiveClock
 	);
+
+	useEffect(() => {
+		dispatch(reset());
+	}, [display]);
 
 	//takes time in ms from store and converts it into mm:ss format for display
 	const timeConverter = (milliseconds, showSeconds) => {
