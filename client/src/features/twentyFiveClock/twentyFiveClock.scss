@@ -40,15 +40,15 @@
 }
 
 // ********************
-// APP LABEL ON THE RIGHT SIDE
-// AND ALARM SOUND MENU BENEATH IT
+// APP LABEL
+// AND ALARMS MENU BENEATH IT
 // (ALSO HOLDS QUIT BUTTON)
 // ********************
 
 #clock-label-menu {
 	position: relative;
 	order: 3;
-	height: 150px;
+	height: 100px;
 
 	@include for-tablet-portrait-up {
 		order: initial;
