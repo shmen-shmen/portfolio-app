@@ -106,7 +106,7 @@ const ClockAlarmMenu = () => {
 						(hover to see alarms, double click to change alarm sound)
 					</p>
 					<p className="clock-menu-disclaimer-nohover">
-						(press to listen to alarm, press and hold for 2 seconds to select)
+						(press to listen to alarm, press and hold to select)
 					</p>
 				</div>
 			)}
