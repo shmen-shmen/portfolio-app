@@ -20,7 +20,7 @@ const ClockDialog = ({ beep }) => {
 	}, [sessionBreak]);
 
 	return (
-		<dialog id="clock-dialog" open>
+		<dialog id="clock-dialog">
 			<div id="clock-dialog-content">
 				<div>
 					<span>{sessionBreak}</span>
