@@ -3,7 +3,6 @@ import {
 	toggleAlarmMenu,
 	selectAlarm,
 	hide_twentyFiveClock,
-	reset,
 } from "./twentyFiveClockSlice";
 
 import { show_appSelector } from "../appSelector/appSelectorSlice";
@@ -103,10 +102,10 @@ const ClockAlarmMenu = () => {
 				<div id="twentyFiveClock-label">
 					<h1>{displayName}</h1>
 					<p className="clock-menu-disclaimer-hover">
-						(hover to see alarms, double click to change alarm sound)
+						* hover to see alarms ** double click to change alarm sound
 					</p>
 					<p className="clock-menu-disclaimer-nohover">
-						(press to listen to alarm, press and hold to select)
+						* press to listen to alarm ** press and hold to select alarm
 					</p>
 				</div>
 			)}

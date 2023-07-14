@@ -13,7 +13,6 @@
 	flex-direction: column;
 
 	@include for-tablet-portrait-up {
-		background-color: transparent;
 		width: calc(600px);
 	}
 }
@@ -24,11 +23,11 @@
 
 #twentyFiveClock {
 	height: 100%;
-	background-color: rgba(13, 0, 255, 0.194);
-	display: grid;
+	// background-color: rgba(13, 0, 255, 0.194);
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	// gotta check how that looks
+	justify-content: space-between;
 
 	@include for-tablet-portrait-up {
 		display: grid;
@@ -53,16 +52,11 @@
 	@include for-tablet-portrait-up {
 		order: initial;
 		height: 100%;
-		grid-column: 3;
+		// grid-column: 3;
 		grid-row: span 2;
 	}
 
 	& #twentyFiveClock-label {
-		// position: absolute;
-		// top: 50%;
-		// left: 50%;
-		// transform: translate(-50%, -50%);
-
 		font-weight: 900;
 		background-color: white;
 		text-align: right;
@@ -76,13 +70,14 @@
 
 		& p {
 			font-size: 1rem;
-			color: rgba(0, 0, 0, 0.395);
+			color: rgba(0, 0, 0, 0.4);
 		}
 	}
 
 	// ********************
+	// different instructions for
 	// devices that support hover and
-	// those that do not
+	// for those that do not:
 	// ********************
 
 	@media (hover: hover) {
@@ -108,12 +103,10 @@
 		justify-content: left;
 		align-content: space-between;
 		height: 100%;
-		width: 100%;
 
 		& > * {
 			font-size: 1.5rem;
 			line-height: 1.5rem;
-			padding: 0;
 			background-color: white;
 		}
 
@@ -140,6 +133,12 @@
 			@media (hover: hover) {
 				&:hover {
 					background-color: blue;
+				}
+			}
+			@media (hover: none) {
+				&:active {
+					background-color: blue;
+					color: white;
 				}
 			}
 		}
@@ -174,6 +173,7 @@
 	user-select: none;
 	text-transform: uppercase;
 	background-color: white;
+	color: black;
 
 	@media (hover: hover) {
 		&:hover {
@@ -225,18 +225,11 @@
 				line-height: 3rem;
 			}
 		}
-
-		@include for-tablet-portrait-up {
-			& br {
-				display: none;
-			}
-		}
 	}
 
 	& #timer-bottomrow {
 		grid-column: span 2;
 		display: flex;
-		// justify-content: right;
 	}
 
 	& .timer-btn {
@@ -311,10 +304,6 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		width: 100%;
-		@include for-tablet-portrait-up {
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-		}
 	}
 
 	& .clock-control-label {
@@ -346,10 +335,10 @@
 	}
 
 	& .clock-btn {
-		// width: 100%;
 		height: 3rem;
 		font-size: 3rem;
 		@include for-tablet-portrait-up {
+			margin-left: auto;
 			width: 2rem;
 			height: 2rem;
 			font-size: 2rem;
@@ -364,25 +353,43 @@
 #clock-dialog {
 	min-width: 100vw;
 	min-height: 100vh;
+	position: absolute;
+	top: 0;
 	background-color: transparent;
 	backdrop-filter: blur(10px);
 	position: absolute;
 	z-index: 1;
+	border: none;
 
 	> #clock-dialog-content {
+		width: 100%;
+		@include for-tablet-portrait-up {
+			width: fit-content;
+		}
+
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		-ms-transform: translate(-50%, -50%);
 		transform: translate(-50%, -50%);
-		background-color: aliceblue;
-		font-size: 2.5rem;
-		padding: 2.5rem;
+		background-color: white;
 		text-align: center;
-		width: max-content;
-	}
+		padding: 2rem;
 
-	#clock-dialog-emoji {
-		font-family: "NotoEmoji";
+		& span {
+			font-size: 2rem;
+			text-transform: capitalize;
+		}
+
+		& button {
+			font-family: "NotoEmoji";
+
+			@media (hover: none) {
+				&:active {
+					background-color: blue;
+					color: white;
+				}
+			}
+		}
 	}
 }

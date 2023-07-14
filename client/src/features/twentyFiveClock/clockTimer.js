@@ -36,7 +36,6 @@ const ClockTimer = ({ timeConverter, beep }) => {
 	useEffect(() => {
 		if (intervalId != 0) {
 			beep.play();
-			// dialog.show();
 			setTimeout(() => {
 				beep.pause();
 				beep.currentTime = 0;
@@ -48,7 +47,6 @@ const ClockTimer = ({ timeConverter, beep }) => {
 		<div id="timer" className="clock-control">
 			<div id="timer-toprow">
 				<span id="timer-label">{sessionBreak + " "}</span>
-				<br />
 				<span id="time-left">{timeConverter(timeRemaining, true)}</span>
 			</div>
 			<div id="timer-bottomrow">
