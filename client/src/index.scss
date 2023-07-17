@@ -16,8 +16,8 @@ body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	background-image: url(../public/images/background-image-hifi-less-green-smaller.jpg);
-	background-color: rgba(16, 25, 31, 0.706);
+	background: linear-gradient(to top, #00000000, rgba(2, 1, 32, 0.433)),
+		url(../public/images/background-image-hifi-less-green-smaller.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 }

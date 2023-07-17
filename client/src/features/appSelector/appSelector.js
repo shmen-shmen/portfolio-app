@@ -49,7 +49,7 @@ const AppSelector = () => {
 							<button
 								id={featureName + "-id"}
 								key={featureName + "-key"}
-								className="nav nav-button"
+								className="nav-button nav"
 								onClick={() => {
 									console.log("penis");
 									toggleFeature(featureName);

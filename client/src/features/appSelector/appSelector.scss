@@ -10,37 +10,41 @@
 		width: 600px;
 	}
 }
+
 #nav {
+	height: 100vh;
 	margin: auto 0;
-	width: 100%;
-	border: 2px solid blue;
+	// width: 100%;
+	// border: 2px solid blue;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
-	background-color: white;
-}
+	justify-content: center;
+	align-items: flex-end;
 
-.nav {
-	color: blue;
+	& .nav-button {
+		border: none;
+		background-color: transparent;
+		text-align: right;
+		font-weight: 900;
+		margin-bottom: 2rem;
 
-	font-size: 1.5rem;
-	font-family: "IBM ISO 9", monospace;
-	text-align: right;
-	padding: 1rem;
-}
-.nav-button {
-	border: none;
-	font-weight: 900;
-	background-color: transparent;
-}
-.nav-button:hover {
-	background-color: blue;
-	color: white;
-}
-.nav-button:active {
-	background-color: red;
-}
+		font-size: 2rem;
+		color: blue;
+		background-color: white;
+		padding: 5px;
+		width: max-content;
 
-.inactive-button {
-	color: black;
+		&:hover {
+			background-color: blue;
+			color: white;
+		}
+		&:active {
+			background-color: blue;
+			color: white;
+		}
+	}
+
+	@include for-tablet-portrait-up {
+		width: 600px;
+	}
 }
