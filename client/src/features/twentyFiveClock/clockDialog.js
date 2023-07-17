@@ -22,13 +22,12 @@ const ClockDialog = ({ beep }) => {
 	return (
 		<dialog id="clock-dialog">
 			<div id="clock-dialog-content">
-				<div>
-					<span>{sessionBreak}</span>
-					<span> has begun!</span>
-				</div>
 				<form method="dialog">
 					<button onClick={dialogHandler} className="clock-btn">
-						{sessionBreak == "session" ? "💪" : "😌"}
+						<span>{sessionBreak} has begun!</span>
+						<span className="noto-emoji">
+							{sessionBreak == "session" ? "💪" : "😌"}
+						</span>
 					</button>
 				</form>
 			</div>

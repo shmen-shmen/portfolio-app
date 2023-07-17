@@ -27,7 +27,7 @@ const initialState = {
 	sessionBreak: "session",
 	intervalId: 0,
 	alarmMenu: false,
-	activeAlarm: "chicken",
+	activeAlarm: "dog",
 	alarms: [
 		"camels",
 		"cat",

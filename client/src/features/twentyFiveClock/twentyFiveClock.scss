@@ -364,7 +364,7 @@
 	> #clock-dialog-content {
 		width: 100%;
 		@include for-tablet-portrait-up {
-			width: fit-content;
+			width: max-content;
 		}
 
 		position: absolute;
@@ -382,7 +382,9 @@
 		}
 
 		& button {
-			font-family: "NotoEmoji";
+			& .noto-emoji {
+				font-family: "NotoEmoji";
+			}
 
 			@media (hover: none) {
 				&:active {
