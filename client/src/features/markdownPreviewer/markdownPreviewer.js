@@ -10,7 +10,7 @@ import {
 	wideMenuToggle,
 	getMarkdown,
 } from "./markdownPreviewerSlice";
-import "./markdownPreviewer.css";
+import "./markdownPreviewer.scss";
 import { show_appSelector } from "../appSelector/appSelectorSlice";
 
 const MarkdownPreviewer = () => {
@@ -50,11 +50,11 @@ const MarkdownPreviewer = () => {
 						wideMenu ? "wide-markdown-menu" : "narrow-markdown-menu"
 					}`}
 				>
-					<div className="menu-wrapper">
+					<div className="markdown-menu-wrapper">
 						<button
 							id="markdown-close-btn"
 							className="markdown-btn"
-							onClick={handleExit()}
+							onClick={handleExit}
 						>
 							{wideMenu ? "✿✦⚛︎✕✞♱" : "✕"}
 						</button>

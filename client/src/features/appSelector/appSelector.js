@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./appSelector.scss";
+import { hide_appSelector } from "./appSelectorSlice";
 
 const AppSelector = () => {
 	const state = useSelector((state) => state);
@@ -31,13 +32,15 @@ const AppSelector = () => {
 	});
 
 	const toggleFeature = (featureName) => {
-		Object.keys(features).map((feature) => {
-			if (feature == featureName) {
-				if (features[feature].display) {
-					dispatch(features[feature].hideFunction());
-				} else dispatch(features[feature].showFunction());
-			} else dispatch(features[feature].hideFunction());
-		});
+		dispatch(hide_appSelector());
+		dispatch(features[featureName].showFunction());
+		// Object.keys(features).map((feature) => {
+		// if (feature == featureName) {
+		// 	if (features[feature].display) {
+		// 		dispatch(features[feature].hideFunction());
+		// 	} else dispatch(features[feature].showFunction());
+		// } else dispatch(features[feature].hideFunction());
+		// });
 	};
 
 	return display ? (
@@ -51,7 +54,6 @@ const AppSelector = () => {
 								key={featureName + "-key"}
 								className="nav-button nav"
 								onClick={() => {
-									console.log("penis");
 									toggleFeature(featureName);
 								}}
 							>

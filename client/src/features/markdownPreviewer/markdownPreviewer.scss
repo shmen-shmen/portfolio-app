@@ -1,22 +1,22 @@
 #markdown-previewer {
-	width: 100%;
-	height: calc(100vh - 32px);
+	width: 100vw;
+	min-height: 100vh;
 	display: flex;
 }
+
 #markdown-previewer > * {
 	font-family: "IBM ISO 9", monospace;
 }
 
 .markdown-menu {
-	background-color: transparent;
 	color: black;
 	word-wrap: break-word;
 	border-right: 2px solid black;
 	box-sizing: content-box;
 	background-color: rgba(0, 0, 0, 0.6);
 }
-.menu-wrapper {
-	height: calc((100vh - 2rem) / 2 + 1rem);
+.markdown-menu-wrapper {
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;

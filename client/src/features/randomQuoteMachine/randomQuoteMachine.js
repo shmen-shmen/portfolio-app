@@ -45,7 +45,7 @@ function RandomQuoteMachine() {
 					onMouseLeave={() => {
 						setCloseBtnHover(false);
 					}}
-					onClick={handleExit()}
+					onClick={handleExit}
 				>
 					{closeBtnHover ? "☒" : "☐"}
 				</button>
