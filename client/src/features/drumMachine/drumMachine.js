@@ -39,15 +39,14 @@ const DrumMachine = () => {
 			switch (e.type) {
 				case "keydown":
 				case "mousedown":
+				case "touchstart":
 					dispatch(padPress(padId));
-					// sample.currentTime = 0;
 					sample.load();
 					sample.play();
 					break;
 				case "keyup":
-					dispatch(padRelease(padId));
-					break;
 				case "mouseup":
+				case "touchend":
 					dispatch(padRelease(padId));
 					break;
 				default:
@@ -79,13 +78,15 @@ const DrumMachine = () => {
 						✕
 					</button>
 					<div id="drums-display">
-						{nowPlaying.map((emoji) => {
-							return (
-								<span className="now-playing" key={emoji + "key"}>
-									{emoji}
-								</span>
-							);
-						})}
+						<div id="emoji-container">
+							{nowPlaying.map((emoji) => {
+								return (
+									<span className="now-playing" key={emoji + "key"}>
+										{emoji}
+									</span>
+								);
+							})}
+						</div>
 					</div>
 					{Object.keys(pads).map((pad) => {
 						const status = pads[pad]["press"];
@@ -95,9 +96,12 @@ const DrumMachine = () => {
 								key={"pad-" + pad}
 								onMouseDown={handlePadPress}
 								onMouseUp={handlePadPress}
+								onTouchStart={handlePadPress}
+								onTouchEnd={handlePadPress}
 								className={`drum-pad drum-pad-${status}`}
 							>
-								<span className="center">{`${pad}`}</span>
+								<span className="center desktop">{`${pad}`}</span>
+								<span className="center mobile">{`${pads[pad]["sample"]}`}</span>
 								<audio
 									className="clip"
 									id={pad}
