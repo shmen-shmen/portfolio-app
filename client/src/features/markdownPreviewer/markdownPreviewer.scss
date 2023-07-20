@@ -1,6 +1,5 @@
 #markdown-previewer {
 	width: 100vw;
-	min-height: 100vh;
 	display: flex;
 }
 
@@ -9,30 +8,19 @@
 }
 
 .markdown-menu {
-	color: black;
 	word-wrap: break-word;
 	border-right: 2px solid black;
-	box-sizing: content-box;
 	background-color: rgba(0, 0, 0, 0.6);
-}
-.markdown-menu-wrapper {
-	height: 100%;
+
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-}
-.wide-markdown-menu {
-	width: 240px;
-	font-size: 5rem;
-}
-.narrow-markdown-menu {
-	width: 40px;
-	font-size: 1.5rem;
-}
-#markdown-header {
-	padding-left: 0.25rem;
-	display: inline;
-	color: white;
+	justify-content: center;
+
+	& #markdown-header {
+		padding-left: 0.25rem;
+		display: inline;
+		color: white;
+	}
 }
 .markdown-btn {
 	width: 100%;
@@ -42,20 +30,36 @@
 	font-size: 2.5rem;
 	height: 3rem;
 }
+
+.wide-markdown-menu {
+	width: 200px;
+	& > #markdown-header {
+		font-size: 5rem;
+	}
+}
+.narrow-markdown-menu {
+	width: 50px;
+	& > #markdown-header {
+		font-size: 2rem;
+	}
+}
 #markdown-close-btn {
 	background-color: black;
 	color: red;
+
+	&:hover {
+		background-color: red;
+		color: black;
+	}
 }
-#markdown-close-btn:hover {
-	background-color: red;
-	color: black;
-}
+
 #markdown-turn-btn {
 	background-color: black;
 	color: white;
-}
-#markdown-turn-btn:hover {
-	color: red;
+
+	&:hover {
+		background-color: red;
+	}
 }
 
 .submenu-btn {
@@ -98,6 +102,7 @@
 #work-area-column {
 	max-width: calc(100vw - 40px);
 	width: 100%;
+
 	display: flex;
 	flex-direction: column;
 }
@@ -122,6 +127,7 @@
 	color: rgba(20, 20, 105, 0.78);
 	background-color: white;
 	overflow-y: scroll;
+	overflow: scroll;
 }
 .preview * {
 	margin: 1rem 1rem 1rem 1rem;
