@@ -1,0 +1,139 @@
+#quote-box {
+	color: black;
+	font-family: "IBM ISO 9", monospace;
+	display: flex;
+	flex-direction: column;
+	width: 100vw;
+	min-height: 100vh;
+}
+
+.close-btn {
+	position: sticky;
+	top: 10%;
+	left: 50%;
+	z-index: 1;
+	border: none;
+	background-color: white;
+	width: 60px;
+	height: 60px;
+	div {
+		position: absolute;
+		transform: translate(30px, -22px);
+		font-size: 4rem;
+		color: black;
+		background-color: transparent;
+	}
+}
+
+.upper {
+	height: 50%;
+	position: relative;
+
+	#quote-container {
+		position: absolute;
+		bottom: 0;
+		max-height: 100%;
+		width: 100%;
+		text-align: center;
+		overflow: scroll;
+	}
+	#text {
+		background-color: white;
+		font-size: 2rem;
+	}
+	#author {
+		background-color: white;
+		font-size: 2rem;
+		font-weight: 900;
+		text-transform: uppercase;
+	}
+}
+
+#new-quote {
+	font-family: "IBM ISO 9", monospace;
+	color: white;
+	background-color: black;
+	border: none;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+
+	& > * {
+		padding: 0;
+		margin: 0;
+		text-align: left;
+		font-size: 1.25rem;
+	}
+}
+#new-quote-left {
+	width: 75%;
+	text-align: left;
+
+	span {
+		font-size: 1.25rem;
+	}
+}
+#new-quote-left:hover {
+	background-color: red;
+}
+#new-quote-left:active {
+	color: red;
+}
+#new-quote-right {
+	width: 25%;
+	border-left: 2px solid white;
+}
+
+.lower {
+	display: flex;
+	flex-direction: row;
+	/* flex-wrap: wrap; */
+	height: 50%;
+}
+#share-section {
+	word-wrap: break-word;
+	width: 75%;
+	height: 100%;
+
+	overflow: scroll;
+
+	& > * {
+		font-size: 2rem;
+	}
+
+	:not(.share-link) {
+		background-color: white;
+	}
+
+	.share-link {
+		color: transparent;
+		display: inline;
+	}
+	.share-link:hover {
+		color: black;
+		background-color: white;
+	}
+}
+
+#category-section {
+	word-wrap: break-word;
+	width: 25%;
+	border-left: 2px solid black;
+	height: 100%;
+	overflow: scroll;
+	// display: flex;
+	// flex-direction: column;
+	// flex-wrap: wrap;
+}
+.category-keyword {
+	font-size: var(--quotes-small-font);
+	color: black;
+	background-color: white;
+	font-weight: 900;
+}
+.category-keyword:hover {
+	background-color: white;
+	color: black;
+	font-size: 2rem;
+	user-select: none;
+}

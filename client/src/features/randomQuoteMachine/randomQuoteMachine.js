@@ -5,7 +5,7 @@ import {
 	getNewQuote,
 	selectCategory,
 } from "./randomQuoteSlice";
-import "./randomQuoteMachine.css";
+import "./randomQuoteMachine.scss";
 import { show_appSelector } from "../appSelector/appSelectorSlice";
 
 function RandomQuoteMachine() {
@@ -47,33 +47,12 @@ function RandomQuoteMachine() {
 					}}
 					onClick={handleExit}
 				>
-					{closeBtnHover ? "☒" : "☐"}
+					<div>{closeBtnHover ? "x" : "o"}</div>
 				</button>
-				{closeBtnHover ? (
-					<div id="about">
-						The app renders a random quote from the internet onto the screen.
-						Additional functionality includes the ability to choose a quote of a
-						specific category from the given list and to share it on social
-						networks. <br />
-						<br /> The design of the app aims to reflect it's meaninglessness.
-						The interface is made to be counterintuitive, frustrating and
-						struggling to use. Elements scroll off the screen, blink and
-						disappear to annoy and distract the User. The main substance, the
-						text of a quote – is hidden from the User, and the main element
-						intead is the exit button, which suggests the User should not waste
-						any more time here. <br />
-						<br /> On the other hand, the visuals are made to be appealing for a
-						potential reader of quotes – pieces of text stripped of any context
-						and meaning, lowered to the level of content. If i were to try and
-						sell this app, I would use words like "minimalist", and "thought
-						provoking" in order to imply a deeper meaning, although there is
-						obviously no meaning at all. Enjoy!
-					</div>
-				) : null}
 				<div className="upper" ref={upperRef}>
 					<div id="quote-container">
 						<p id="text">"{quote.quote}"</p>
-						<p id="author">{quote.author}</p>
+						<p id="author"> – {quote.author}</p>
 					</div>
 				</div>
 				<div id="new-quote">
@@ -83,14 +62,14 @@ function RandomQuoteMachine() {
 							isLoading || dispatch(getNewQuote(category));
 						}}
 					>
-						request new quote{" "}
+						new quote{" "}
 						{category === "no-category" ? null : <span>about {category}</span>}
 					</p>
-					<p id="new-quote-right">choose category:</p>
+					<p id="new-quote-right">select category:</p>
 				</div>
 				<div className="lower">
 					<div id="share-section">
-						<span>share this quote:</span>
+						<span>share this quote on:</span>
 						<a
 							id="tweet-quote"
 							href="twitter.com/intent/tweet"
@@ -119,7 +98,7 @@ function RandomQuoteMachine() {
 					<div id="category-section">
 						{categories.map((keyword) => {
 							return (
-								<p
+								<span
 									key={"category-" + keyword}
 									className="category-keyword"
 									onClick={() => {
@@ -130,7 +109,7 @@ function RandomQuoteMachine() {
 									}
 								>
 									{keyword}
-								</p>
+								</span>
 							);
 						})}
 					</div>
