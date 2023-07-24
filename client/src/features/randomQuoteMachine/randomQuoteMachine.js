@@ -3,25 +3,30 @@ import { useSelector, useDispatch } from "react-redux";
 import {
 	hide_randomQuote,
 	getNewQuote,
+	getNewImage,
 	selectCategory,
 } from "./randomQuoteSlice";
 import "./randomQuoteMachine.scss";
 import { show_appSelector } from "../appSelector/appSelectorSlice";
 
 function RandomQuoteMachine() {
-	const { display, isLoading, quote, categories, category } = useSelector(
-		(state) => state.randomQuote
-	);
+	const { display, isLoading, quote, categories, category, image } =
+		useSelector((state) => state.randomQuote);
 	const dispatch = useDispatch();
 	const [closeBtnHover, setCloseBtnHover] = useState(false);
 	const upperRef = useRef();
 	// 👇 TURN THIS BACK ON WHEN READY FOR PRODUCTION
-	// useEffect(() => {
-	// 	dispatch(getNewQuote(category));
-	// }, []);
+	useEffect(() => {
+		dispatch(getNewQuote(category));
+	}, []);
+
 	useEffect(() => {
 		setCloseBtnHover(false);
 	}, [display]);
+
+	useEffect(() => {
+		console.log(image);
+	}, [image]);
 
 	useEffect(() => {
 		if (upperRef.current) {
@@ -51,6 +56,7 @@ function RandomQuoteMachine() {
 				</button>
 				<div className="upper" ref={upperRef}>
 					<div id="quote-container">
+						<img id="quotes-image" src={image} alt="" />
 						<p id="text">"{quote.quote}"</p>
 						<p id="author"> – {quote.author}</p>
 					</div>
@@ -59,7 +65,10 @@ function RandomQuoteMachine() {
 					<p
 						id="new-quote-left"
 						onClick={() => {
-							isLoading || dispatch(getNewQuote(category));
+							if (!isLoading) {
+								dispatch(getNewImage("nature"));
+								dispatch(getNewQuote(category));
+							}
 						}}
 					>
 						new quote{" "}

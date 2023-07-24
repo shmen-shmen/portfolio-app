@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchQuote } from "./quoteAPI";
+import { fetchQuote, fetchImage } from "./API";
 import categories from "./categories";
 
 const initialState = {
@@ -13,6 +13,8 @@ const initialState = {
 	},
 	categories,
 	category: "no-category",
+	imageIsLoading: false,
+	image: "",
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -25,6 +27,18 @@ export const getNewQuote = createAsyncThunk(
 	async (category) => {
 		try {
 			const response = await fetchQuote(category);
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
+	}
+);
+
+export const getNewImage = createAsyncThunk(
+	"randomQuotes/fetchImage",
+	async (category) => {
+		try {
+			const response = await fetchImage(category);
 			return response;
 		} catch (error) {
 			console.error(error);
@@ -61,13 +75,26 @@ export const randomQuoteSlice = createSlice({
 			.addCase(getNewQuote.fulfilled, (state, action) => {
 				state.isLoading = false;
 				state.quote = action.payload;
+			})
+			.addCase(getNewQuote.rejected, (state) => {
+				state.quote = {
+					author: "shmin",
+					quote: "for some reason something went wrong somewhere 🥲",
+				};
+			})
+			.addCase(getNewImage.pending, (state) => {
+				state.imageIsLoading = true;
+			})
+			.addCase(getNewImage.fulfilled, (state, action) => {
+				state.imageIsLoading = false;
+				state.image = action.payload;
+			})
+			.addCase(getNewImage.rejected, (state) => {
+				state.quote = {
+					author: "shmin",
+					quote: "for some reason something went wrong somewhere 🥲",
+				};
 			});
-		// .addCase(getNewQuote.rejected, (state) => {
-		// 	state.quote = {
-		// 		author: "shmin",
-		// 		quote: "for some reason something went wrong somewhere 🥲",
-		// 	};
-		// });
 	},
 });
 
