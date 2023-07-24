@@ -1,3 +1,5 @@
+@import "../../index.scss";
+
 #markdown-previewer {
 	width: 100vw;
 	display: flex;
@@ -5,6 +7,30 @@
 
 #markdown-previewer > * {
 	font-family: "IBM ISO 9", monospace;
+}
+
+#close-btn-mobile {
+	display: none;
+
+	@include for-phone-only {
+		display: block;
+		position: absolute;
+		right: 5%;
+		top: 10%;
+		font-size: 2rem;
+		line-height: 2rem;
+		width: 2rem;
+		text-align: center;
+		aspect-ratio: 1 / 1;
+		background-color: white;
+		border: 2px solid blue;
+		color: blue;
+
+		&:active {
+			color: white;
+			background-color: blue;
+		}
+	}
 }
 
 .markdown-menu {
@@ -16,23 +42,52 @@
 	flex-direction: column;
 	justify-content: center;
 
+	@include for-phone-only {
+		display: none;
+	}
+
 	& #markdown-header {
 		padding-left: 0.25rem;
 		display: inline;
 		color: white;
+		user-select: none;
 	}
-}
-.markdown-btn {
-	width: 100%;
-	left: -0.25rem;
-	text-align: center;
-	border: none;
-	font-size: 2.5rem;
-	height: 3rem;
+
+	& .markdown-btn {
+		width: 100%;
+		text-align: center;
+		border: none;
+		font-size: 2.5rem;
+		height: 3rem;
+	}
+
+	& #markdown-close-btn {
+		background-color: black;
+		color: red;
+
+		&:hover {
+			background-color: red;
+			color: black;
+		}
+	}
+
+	& #markdown-turn-btn {
+		display: none;
+
+		@include for-tablet-portrait-up {
+			display: block;
+			background-color: black;
+			color: white;
+
+			&:hover {
+				background-color: red;
+			}
+		}
+	}
 }
 
 .wide-markdown-menu {
-	width: 200px;
+	width: 150px;
 	& > #markdown-header {
 		font-size: 5rem;
 	}
@@ -40,123 +95,111 @@
 .narrow-markdown-menu {
 	width: 50px;
 	& > #markdown-header {
-		font-size: 2rem;
-	}
-}
-#markdown-close-btn {
-	background-color: black;
-	color: red;
-
-	&:hover {
-		background-color: red;
-		color: black;
+		font-size: 1.5rem;
 	}
 }
 
-#markdown-turn-btn {
-	background-color: black;
-	color: white;
-
-	&:hover {
-		background-color: red;
-	}
-}
-
-.submenu-btn {
-	background-color: black;
-	color: white;
-	word-wrap: break-word;
-	border: none;
-	font-size: 1.25rem;
-	font-family: "IBM ISO 9", monospace;
-}
-.submenu-btn-column {
-	min-width: 100%;
-	min-height: 1.25rem;
-}
-.submenu-btn-row {
-	min-height: 100%;
-}
-.submenu-btn-row.submenu-btn-narrow {
-	max-width: 1.25rem;
-}
-.submenu-btn-row.submenu-btn-wide {
-	width: 5rem;
-	text-align: right;
-}
-
-.separator-row {
-	min-width: 1.25rem;
-	min-height: 100%;
-}
-.separator-column {
-	width: 100%;
-	min-height: 1.25rem;
-}
-
-#work-area-row {
-	max-width: calc(100% - 40px);
+#work-area {
+	// RULES FOR WORK AREA DIMENSIONS
 	width: 100%;
 	display: flex;
-}
-#work-area-column {
-	max-width: calc(100vw - 40px);
-	width: 100%;
+	max-height: 100vh;
 
-	display: flex;
-	flex-direction: column;
-}
+	&.column {
+		flex-direction: column;
+	}
 
-.editor {
-	border: none;
-	font-size: 1rem;
-	overflow-y: scroll;
-	padding: 1rem;
-	width: 100%;
-	min-width: calc((100% - 2.5rem) / 2);
-	font-family: "Courier New", Courier, monospace;
-	font-weight: 900;
-}
-.editor-column {
-	height: 100%;
-}
+	// RULES FOR LAYOUT AREA BUTTONS
+	.submenu-btn {
+		background-color: black;
+		color: white;
+		word-wrap: break-word;
+		border: none;
+		font-size: 1.25rem;
+		line-height: 1.25rem;
+		font-family: "IBM ISO 9", monospace;
+	}
 
-.preview {
-	width: 100%;
-	min-width: calc((100% - 2.5rem) / 2);
-	color: rgba(20, 20, 105, 0.78);
-	background-color: white;
-	overflow-y: scroll;
-	overflow: scroll;
-}
-.preview * {
-	margin: 1rem 1rem 1rem 1rem;
-	font-family: Arial, Helvetica, sans-serif;
-}
+	.submenu-btn-row {
+		width: 5rem;
+		&.submenu-btn-narrow {
+			width: 1.25rem;
+		}
+	}
 
-.preview code {
-	background-color: rgba(200, 220, 255, 0.78);
-	font-size: large;
-	font-weight: bold;
-	white-space: break-spaces;
-}
-.preview td,
-th {
-	border: 1px solid black;
-	width: fit-content;
-	padding: 5px;
-}
-.preview table {
-	border: 1px solid black;
-	max-width: 100%;
-}
-.preview li {
-	margin-left: 2rem;
-}
-.preview ul {
-	margin-left: 0;
-}
-.preview img {
-	width: calc(100% - 2rem);
-	max-width: 200px;
+	// RULES FOR LINE THAT SEPARATES EDITOR AND PREVIEW WINDOWS
+	.separator-row {
+		width: 1.25rem;
+		height: 100vh;
+	}
+	.separator-column {
+		background-color: white;
+		height: 5px;
+
+		@include for-tablet-portrait-up {
+			background-color: transparent;
+			width: 100%;
+			min-height: 1.25rem;
+		}
+	}
+
+	// RULES FOR EDITOR WINDOW
+	.editor {
+		border: none;
+		font-size: 1rem;
+		overflow: scroll;
+		padding: 1rem;
+		width: 100%;
+		min-height: calc(50% - 1.25rem);
+		font-family: "Courier New", Courier, monospace;
+		font-weight: 900;
+	}
+	.editor-column {
+		height: calc(100% - 2.5rem);
+	}
+
+	// RULES FOR PREVIEW WINDOW
+
+	.preview {
+		width: 100%;
+		color: rgba(20, 20, 105, 0.78);
+		background-color: white;
+		overflow: scroll;
+	}
+
+	.preview-column {
+		max-height: calc(100% - 2.5rem);
+	}
+
+	.preview * {
+		margin: 1rem 1rem 1rem 1rem;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	.preview code {
+		background-color: rgba(200, 220, 255, 0.78);
+		font-size: large;
+		font-weight: bold;
+		white-space: break-spaces;
+	}
+	.preview td,
+	th {
+		border: 1px solid black;
+		width: fit-content;
+		padding: 5px;
+	}
+	.preview table {
+		border: 1px solid black;
+		max-width: 100%;
+	}
+	.preview li {
+		margin-left: 2rem;
+	}
+	.preview ul {
+		margin-left: 0;
+	}
+	.preview img {
+		width: calc(100% - 2rem);
+		max-width: 200px;
+	}
 }

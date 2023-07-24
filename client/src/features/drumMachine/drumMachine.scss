@@ -5,6 +5,7 @@
 	flex-direction: column;
 	align-content: center;
 	min-height: 100vh;
+	margin: 0 auto;
 }
 #drum-machine:focus {
 	outline: none;
@@ -55,7 +56,7 @@
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	width: 100vw;
-	margin: auto;
+	margin: auto 0;
 	position: relative;
 	min-height: 100vh;
 

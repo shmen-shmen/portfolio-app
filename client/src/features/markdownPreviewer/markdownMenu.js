@@ -19,6 +19,12 @@ const MarkdownMenu = () => {
 		dispatch(show_appSelector());
 	};
 
+	const handleMenuClick = () => {
+		if (window.innerWidth > 600) {
+			dispatch(wideMenuToggle());
+		}
+	};
+
 	return (
 		<aside
 			className={`markdown-menu ${
@@ -32,12 +38,7 @@ const MarkdownMenu = () => {
 			>
 				{wideMenu ? "✿✦⚛︎✕✞♱" : "✕"}
 			</button>
-			<h1
-				id="markdown-header"
-				onClick={() => {
-					dispatch(wideMenuToggle());
-				}}
-			>
+			<h1 id="markdown-header" onClick={handleMenuClick}>
 				MARKDOWN PREVIEWER
 			</h1>
 			<button

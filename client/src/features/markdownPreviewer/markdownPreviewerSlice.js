@@ -34,10 +34,10 @@ const initialState = {
 	displayName: "markdown previewer",
 	display: false,
 	isLoading: false,
-	showEditor: false,
-	showPreview: false,
+	showEditor: true,
+	showPreview: true,
 	arrangement: "row",
-	wideMenu: "false",
+	wideMenu: true,
 	input: "",
 	output: "",
 };
@@ -69,6 +69,10 @@ const markdownSlice = createSlice({
 				? (state.arrangement = "column")
 				: (state.arrangement = "row");
 		},
+		setMobileLayout: (state) => {
+			state.arrangement = "column";
+			state.wideMenu = false;
+		},
 		wideMenuToggle: (state) => {
 			state.wideMenu = !state.wideMenu;
 		},
@@ -95,6 +99,7 @@ export const {
 	previewToggle,
 	flipArrangement,
 	wideMenuToggle,
+	setMobileLayout,
 } = markdownSlice.actions;
 
 export default markdownSlice.reducer;
