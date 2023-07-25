@@ -13,8 +13,8 @@ const initialState = {
 	},
 	categories,
 	category: "no-category",
-	imageIsLoading: false,
-	image: "",
+	// imageIsLoading: false,
+	// image: "",
 };
 
 // The function below is called a thunk and allows us to perform async logic. It

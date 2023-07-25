@@ -18,7 +18,7 @@
 	height: 60px;
 	div {
 		position: absolute;
-		transform: translate(30px, -22px);
+		transform: translate(32px, -27px);
 		font-size: 4rem;
 		color: black;
 		background-color: transparent;
@@ -99,20 +99,27 @@
 	word-wrap: break-word;
 	width: 75%;
 	height: 100%;
-
+	display: flex;
 	overflow: scroll;
 
-	& > * {
-		font-size: 2rem;
-	}
-
-	:not(.share-link) {
+	span {
 		background-color: white;
+		height: 1.5rem;
+		font-size: 1.5rem;
+		line-height: 1.5rem;
 	}
-
+	.share-links {
+		display: flex;
+		flex-direction: column;
+	}
 	.share-link {
 		color: transparent;
+		background-color: transparent;
+		border: none;
 		display: inline;
+		font-size: 1.5rem;
+		line-height: 1.5rem;
+		height: 1.5rem;
 	}
 	.share-link:hover {
 		color: black;

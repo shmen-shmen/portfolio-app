@@ -8,9 +8,18 @@ import {
 import "./randomQuoteMachine.scss";
 import { show_appSelector } from "../appSelector/appSelectorSlice";
 
+import {
+	EmailShareButton,
+	LinkedinShareButton,
+	RedditShareButton,
+	TelegramShareButton,
+	TwitterShareButton,
+} from "react-share";
+
 function RandomQuoteMachine() {
-	const { display, isLoading, quote, categories, category, image } =
-		useSelector((state) => state.randomQuote);
+	const { display, isLoading, quote, categories, category } = useSelector(
+		(state) => state.randomQuote
+	);
 	const dispatch = useDispatch();
 	const [closeBtnHover, setCloseBtnHover] = useState(false);
 	const upperRef = useRef();
@@ -22,10 +31,6 @@ function RandomQuoteMachine() {
 	useEffect(() => {
 		setCloseBtnHover(false);
 	}, [display]);
-
-	useEffect(() => {
-		console.log(image);
-	}, [image]);
 
 	useEffect(() => {
 		if (upperRef.current) {
@@ -76,30 +81,46 @@ function RandomQuoteMachine() {
 				<div className="lower">
 					<div id="share-section">
 						<span>share this quote on:</span>
-						<a
-							id="tweet-quote"
-							href="twitter.com/intent/tweet"
-							target={"_blank"}
-							className="share-link"
-						>
-							twitter
-						</a>
-						<a
-							href="http://vk.com/share.php?url=http://***"
-							target={"_blank"}
-							className="share-link"
-						>
-							{/* https://vk.com/dev/widget_share  */}
-							vkontakte
-						</a>
-						<a
-							href="https://connect.ok.ru/offer?url=http://***"
-							target={"_blank"}
-							className="share-link"
-						>
-							{/* https://qna.habr.com/q/74050   */}
-							odnoklassniki
-						</a>
+						<div className="share-links">
+							<TwitterShareButton
+								children="Twitter"
+								className="share-link"
+								url="https://zippy-inky-radar.glitch.me/"
+								title={`"${quote.quote}"\n– ${quote.author}\n\nDamn what a deep thought 🤔. Wonder where I could find more... `}
+								resetButtonStyle={false}
+							/>
+							<LinkedinShareButton
+								children="LinkedIn"
+								className="share-link"
+								url="https://zippy-inky-radar.glitch.me/"
+								title={`"${quote.quote}"\n– ${quote.author}\n\nDamn what a deep thought 🤔. Wonder where I could find more... `}
+								resetButtonStyle={false}
+							/>
+							<EmailShareButton
+								children="Email"
+								className="share-link"
+								url="https://zippy-inky-radar.glitch.me/"
+								title={`"${quote.quote}"\n– ${quote.author}\n\nDamn what a deep thought 🤔. Wonder where I could find more... `}
+								resetButtonStyle={false}
+							/>
+							<RedditShareButton
+								children="Reddit"
+								className="share-link"
+								url="https://zippy-inky-radar.glitch.me/"
+								title={`"${quote.quote}"\n– ${quote.author}\n\nDamn what a deep thought 🤔. Wonder where I could find more... `}
+								resetButtonStyle={false}
+							/>
+							<TelegramShareButton
+								children="Telegram"
+								className="share-link"
+								url="https://zippy-inky-radar.glitch.me/"
+								title={`"${quote.quote}"\n– ${quote.author}\n\nDamn what a deep thought 🤔. Wonder where I could find more... `}
+								resetButtonStyle={false}
+								imageUrl={
+									"client/public/images/background-image-hifi-less-green-smaller.jpg"
+								}
+							/>
+						</div>
 					</div>
 					<div id="category-section">
 						{categories.map((keyword) => {
