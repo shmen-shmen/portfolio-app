@@ -32,7 +32,7 @@ const markdownTranslator = (markdown) => {
 
 const initialState = {
 	displayName: "markdown previewer",
-	display: false,
+	display: true,
 	isLoading: false,
 	showEditor: true,
 	showPreview: true,

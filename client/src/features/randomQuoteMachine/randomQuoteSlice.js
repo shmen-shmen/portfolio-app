@@ -4,12 +4,12 @@ import categories from "./categories";
 
 const initialState = {
 	displayName: "random quote machine",
-	display: false,
+	display: true,
 	isLoading: false,
 	quote: {
-		author: "Quazaq People",
+		author: "Dae-su Oh (Oldboy)",
 		quote:
-			"Yo Orystar Sheshen Am Qotaqtar Sap Sary Qotaq Sheshen Am Qaldyragan",
+			"Even though I'm no more than a monster - don't I, too, have the right to live?",
 	},
 	categories,
 	category: "no-category",

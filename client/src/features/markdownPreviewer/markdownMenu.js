@@ -6,6 +6,7 @@ import {
 	flipArrangement,
 	wideMenuToggle,
 } from "./markdownPreviewerSlice";
+import { NavLink } from "react-router-dom";
 
 const MarkdownMenu = () => {
 	const { arrangement, wideMenu } = useSelector(
@@ -31,13 +32,14 @@ const MarkdownMenu = () => {
 				wideMenu ? "wide-markdown-menu" : "narrow-markdown-menu"
 			}`}
 		>
-			<button
+			<NavLink
+				to={"/"}
 				id="markdown-close-btn"
 				className="markdown-btn"
 				onClick={handleExit}
 			>
 				{wideMenu ? "✿✦⚛︎✕✞♱" : "✕"}
-			</button>
+			</NavLink>
 			<h1 id="markdown-header" onClick={handleMenuClick}>
 				MARKDOWN PREVIEWER
 			</h1>

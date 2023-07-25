@@ -8,6 +8,7 @@ import {
 import { show_appSelector } from "../appSelector/appSelectorSlice";
 import "./drumMachine.scss";
 import { useEffect, useRef } from "react";
+import { NavLink } from "react-router-dom";
 
 const DrumMachine = () => {
 	const dispatch = useDispatch();
@@ -70,13 +71,14 @@ const DrumMachine = () => {
 				onKeyUp={handlePadPress}
 			>
 				<div className="pad-bank">
-					<button
+					<NavLink
+						to={"/"}
 						id="drums-close-btn"
 						className="drums-btn"
 						onClick={handleExit}
 					>
 						✕
-					</button>
+					</NavLink>
 					<div id="drums-display">
 						<div id="emoji-container">
 							{nowPlaying.map((emoji) => {

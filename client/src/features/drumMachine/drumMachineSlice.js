@@ -3,7 +3,7 @@ import pads from "./pads";
 
 const initialState = {
 	displayName: "farm machine",
-	display: false,
+	display: true,
 	pads,
 	nowPlaying: [],
 };

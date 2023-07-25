@@ -15,6 +15,7 @@ import {
 	TelegramShareButton,
 	TwitterShareButton,
 } from "react-share";
+import { NavLink } from "react-router-dom";
 
 function RandomQuoteMachine() {
 	const { display, isLoading, quote, categories, category } = useSelector(
@@ -24,9 +25,6 @@ function RandomQuoteMachine() {
 	const [closeBtnHover, setCloseBtnHover] = useState(false);
 	const upperRef = useRef();
 	// 👇 TURN THIS BACK ON WHEN READY FOR PRODUCTION
-	useEffect(() => {
-		dispatch(getNewQuote(category));
-	}, []);
 
 	useEffect(() => {
 		setCloseBtnHover(false);
@@ -46,7 +44,8 @@ function RandomQuoteMachine() {
 	if (display) {
 		return (
 			<section id="quote-box">
-				<button
+				<NavLink
+					to={"/"}
 					className="btn close-btn"
 					onMouseOver={() => {
 						setCloseBtnHover(true);
@@ -57,7 +56,7 @@ function RandomQuoteMachine() {
 					onClick={handleExit}
 				>
 					<div>{closeBtnHover ? "x" : "o"}</div>
-				</button>
+				</NavLink>
 				<div className="upper" ref={upperRef}>
 					<div id="quote-container">
 						<p id="text">"{quote.quote}"</p>
@@ -116,9 +115,6 @@ function RandomQuoteMachine() {
 								url="https://zippy-inky-radar.glitch.me/"
 								title={`"${quote.quote}"\n– ${quote.author}\n\nDamn what a deep thought 🤔. Wonder where I could find more... `}
 								resetButtonStyle={false}
-								imageUrl={
-									"client/public/images/background-image-hifi-less-green-smaller.jpg"
-								}
 							/>
 						</div>
 					</div>

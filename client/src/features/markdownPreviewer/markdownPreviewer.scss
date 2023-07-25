@@ -25,6 +25,8 @@
 		background-color: white;
 		border: 2px solid blue;
 		color: blue;
+		text-decoration: none;
+		text-align: center;
 
 		&:active {
 			color: white;
@@ -64,6 +66,7 @@
 	& #markdown-close-btn {
 		background-color: black;
 		color: red;
+		text-decoration: none;
 
 		&:hover {
 			background-color: red;

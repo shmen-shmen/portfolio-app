@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { hide_calculator, squareRoot, percent } from "./calculatorSlice";
 import { show_appSelector } from "../appSelector/appSelectorSlice";
+import { NavLink } from "react-router-dom";
 
 const CalcAdditionalOperators = () => {
 	const dispatch = useDispatch();
@@ -27,16 +28,29 @@ const CalcAdditionalOperators = () => {
 	return (
 		<div id="top-button-row">
 			{Object.keys(additionalOperators).map((control) => {
-				return (
-					<button
-						id={control}
-						key={control + "-key"}
-						className="calc-btn calc-secondary-btn"
-						onClick={handleKeyPress}
-					>
-						<span>{additionalOperators[control]}</span>
-					</button>
-				);
+				if (control == "OFF") {
+					return (
+						<NavLink
+							to={"/"}
+							id={control}
+							key={control + "-key"}
+							className="calc-btn calc-secondary-btn calc-exit-btn"
+							onClick={handleKeyPress}
+						>
+							<span>{additionalOperators[control]}</span>
+						</NavLink>
+					);
+				} else
+					return (
+						<button
+							id={control}
+							key={control + "-key"}
+							className="calc-btn calc-secondary-btn"
+							onClick={handleKeyPress}
+						>
+							<span>{additionalOperators[control]}</span>
+						</button>
+					);
 			})}
 		</div>
 	);

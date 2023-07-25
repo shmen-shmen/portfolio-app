@@ -19,7 +19,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
 	displayName: "25+5 Clock",
-	display: false,
+	display: true,
 	sessionLength: 1500000,
 	breakLength: 300000,
 	timeRemaining: 1500000,

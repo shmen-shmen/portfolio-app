@@ -9,6 +9,7 @@ import {
 	setMobileLayout,
 	hide_markdownPreviewer,
 } from "./markdownPreviewerSlice";
+import { NavLink } from "react-router-dom";
 
 import { show_appSelector } from "../appSelector/appSelectorSlice";
 
@@ -56,9 +57,9 @@ const MarkdownWorkarea = () => {
 
 	return (
 		<div id="work-area" className={arrangement}>
-			<div id="close-btn-mobile" onClick={handleExit}>
+			<NavLink to={"/"} id="close-btn-mobile" onClick={handleExit}>
 				x
-			</div>
+			</NavLink>
 			<button
 				id="show-editor"
 				className={`submenu-btn ${"submenu-btn-" + arrangement} ${

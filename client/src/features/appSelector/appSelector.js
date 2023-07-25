@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./appSelector.scss";
-import { hide_appSelector } from "./appSelectorSlice";
+// import { hide_appSelector } from "./appSelectorSlice";
+import { NavLink } from "react-router-dom";
 
 const AppSelector = () => {
 	const state = useSelector((state) => state);
@@ -21,18 +22,19 @@ const AppSelector = () => {
 	const features = {};
 	featureContext.keys().map((key) => {
 		const featureName = key.match(/\/([a-zA-Z0-9]+)Slice\.js$/)[1];
-
+		const featureAdress = key.match(/\.\/([^/]+)\/[^/]+\.js$/)[1];
 		const featureSlice = featureContext(key);
 		const name = state[featureName]["displayName"];
 		features[name] = {
 			display: state[featureName]["display"],
 			showFunction: featureSlice[`show_${featureName}`],
 			hideFunction: featureSlice[`hide_${featureName}`],
+			featureAdress: featureAdress,
 		};
 	});
 
 	const toggleFeature = (featureName) => {
-		dispatch(hide_appSelector());
+		// dispatch(hide_appSelector());
 		dispatch(features[featureName].showFunction());
 		// Object.keys(features).map((feature) => {
 		// if (feature == featureName) {
@@ -49,7 +51,8 @@ const AppSelector = () => {
 				{Object.keys(features).map((featureName) => {
 					if (featureName !== "appSelector")
 						return (
-							<button
+							<NavLink
+								to={features[featureName]["featureAdress"]}
 								id={featureName + "-id"}
 								key={featureName + "-key"}
 								className="nav-button nav"
@@ -58,7 +61,7 @@ const AppSelector = () => {
 								}}
 							>
 								{featureName}
-							</button>
+							</NavLink>
 						);
 				})}
 			</nav>

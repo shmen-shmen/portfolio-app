@@ -6,6 +6,7 @@ import {
 } from "./twentyFiveClockSlice";
 
 import { show_appSelector } from "../appSelector/appSelectorSlice";
+import { NavLink } from "react-router-dom";
 
 const ClockAlarmMenu = () => {
 	const dispatch = useDispatch();
@@ -94,9 +95,13 @@ const ClockAlarmMenu = () => {
 							</div>
 						);
 					})}
-					<button id="twentyFiveClock-close-btn" onClick={exitHandler}>
+					<NavLink
+						to={"/"}
+						id="twentyFiveClock-close-btn"
+						onClick={exitHandler}
+					>
 						QUIT APP
-					</button>
+					</NavLink>
 				</div>
 			) : (
 				<div id="twentyFiveClock-label">

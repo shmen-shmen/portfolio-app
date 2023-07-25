@@ -5,16 +5,35 @@ import DrumMachine from "./features/drumMachine/drumMachine.js";
 import Calculator from "./features/calculator/calculator.js";
 import TwentyFiveClock from "./features/twentyFiveClock/twentyFiveClock.js";
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
 	return (
 		<main id="App">
-			<AppSelector />
-			<Calculator />
-			<MarkdownPreviewer />
-			<RandomQuoteMachine />
-			<DrumMachine />
-			<TwentyFiveClock />
+			<Routes>
+				<Route exact path="/" element={<AppSelector />}></Route>
+
+				<Route exact path="/calculator" element={<Calculator />}></Route>
+				<Route
+					exact
+					path="/markdownPreviewer"
+					element={<MarkdownPreviewer />}
+				></Route>
+
+				<Route
+					exact
+					path="/randomQuoteMachine"
+					element={<RandomQuoteMachine />}
+				></Route>
+
+				<Route exact path="/drumMachine" element={<DrumMachine />}></Route>
+
+				<Route
+					exact
+					path="/twentyFiveClock"
+					element={<TwentyFiveClock />}
+				></Route>
+			</Routes>
 		</main>
 	);
 }

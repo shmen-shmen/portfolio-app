@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	displayName: "calculator",
-	display: false,
+	display: true,
 	numbers: {
 		one: 1,
 		two: 2,

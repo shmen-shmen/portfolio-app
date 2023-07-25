@@ -88,6 +88,12 @@
 	}
 }
 
+.calc-exit-btn {
+	&::before {
+		transform: translate(8%, 150%);
+	}
+}
+
 .calc-btn span {
 	position: absolute;
 	top: 0.25rem;
