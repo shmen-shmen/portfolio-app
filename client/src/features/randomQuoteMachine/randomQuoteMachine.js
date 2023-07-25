@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
 	hide_randomQuote,
 	getNewQuote,
-	getNewImage,
 	selectCategory,
 } from "./randomQuoteSlice";
 import "./randomQuoteMachine.scss";
@@ -56,7 +55,6 @@ function RandomQuoteMachine() {
 				</button>
 				<div className="upper" ref={upperRef}>
 					<div id="quote-container">
-						<img id="quotes-image" src={image} alt="" />
 						<p id="text">"{quote.quote}"</p>
 						<p id="author"> – {quote.author}</p>
 					</div>
@@ -66,7 +64,6 @@ function RandomQuoteMachine() {
 						id="new-quote-left"
 						onClick={() => {
 							if (!isLoading) {
-								dispatch(getNewImage("nature"));
 								dispatch(getNewQuote(category));
 							}
 						}}

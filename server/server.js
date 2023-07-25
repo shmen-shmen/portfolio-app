@@ -41,39 +41,39 @@ app.get("/getQuote/:category", async (req, res) => {
 	}
 });
 
-app.get("/getImage/:category", async (req, res) => {
-	try {
-		const { category } = req.params;
-		const APININJAS_API_KEY = process.env.APININJAS_API_KEY;
-		const imagesApiUrl =
-			"https://api.api-ninjas.com/v1/randomimage" +
-			(category === "no-category" ? "" : "?category=" + category);
+// app.get("/getImage/:category", async (req, res) => {
+// 	try {
+// 		const { category } = req.params;
+// 		const APININJAS_API_KEY = process.env.APININJAS_API_KEY;
+// 		const imagesApiUrl =
+// 			"https://api.api-ninjas.com/v1/randomimage" +
+// 			(category === "no-category" ? "" : "?category=" + category);
 
-		const image_response = await fetch(imagesApiUrl, {
-			headers: { "X-Api-Key": APININJAS_API_KEY, Accept: "image/jpg" },
-		});
+// 		const image_response = await fetch(imagesApiUrl, {
+// 			headers: { "X-Api-Key": APININJAS_API_KEY, Accept: "image/jpg" },
+// 		});
 
-		if (!image_response.ok) {
-			throw new Error("Failed to fetch the image.");
-		}
+// 		if (!image_response.ok) {
+// 			throw new Error("Failed to fetch the image.");
+// 		}
 
-		const image_data = await image_response.arrayBuffer();
-		// Get the raw image data
+// 		const image_data = await image_response.arrayBuffer();
+// 		// Get the raw image data
 
-		// If the image is in Base64 encoding, decode it
-		// Assuming the image is received in Base64 and needs to be decoded
-		const image_decoded = Buffer.from(image_data, "base64");
+// 		// If the image is in Base64 encoding, decode it
+// 		// Assuming the image is received in Base64 and needs to be decoded
+// 		const image_decoded = Buffer.from(image_data, "base64");
 
-		// Set the appropriate Content-Type header for the image
-		res.setHeader("Content-Type", "image/jpeg");
+// 		// Set the appropriate Content-Type header for the image
+// 		res.setHeader("Content-Type", "image/jpeg");
 
-		// Send the image data in the response
-		res.end(image_decoded);
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: "Failed to fetch the image." });
-	}
-});
+// 		// Send the image data in the response
+// 		res.end(image_decoded);
+// 	} catch (error) {
+// 		console.error(error);
+// 		res.status(500).json({ error: "Failed to fetch the image." });
+// 	}
+// });
 
 app.get("/getMarkdown", async (req, res) => {
 	readFile("assets/initialMarkdown.txt", "utf8", (err, data) => {

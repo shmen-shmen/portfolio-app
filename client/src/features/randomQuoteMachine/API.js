@@ -8,22 +8,22 @@ export async function fetchQuote(category) {
 		console.error(error);
 	}
 }
-export async function fetchImage(category) {
-	try {
-		const response = await fetch(`/getImage/${category}`);
+// export async function fetchImage(category) {
+// 	try {
+// 		const response = await fetch(`/getImage/${category}`);
 
-		if (!response.ok) {
-			throw new Error("Failed to fetch the image.");
-		}
+// 		if (!response.ok) {
+// 			throw new Error("Failed to fetch the image.");
+// 		}
 
-		// Assuming the image is in Blob format (binary data)
-		const imageBlob = await response.blob();
+// 		// Assuming the image is in Blob format (binary data)
+// 		const imageBlob = await response.blob();
 
-		// Create a URL for the Blob (can be used in <img> or other elements)
-		const imageUrl = URL.createObjectURL(imageBlob);
+// 		// Create a URL for the Blob (can be used in <img> or other elements)
+// 		const imageUrl = URL.createObjectURL(imageBlob);
 
-		return imageUrl;
-	} catch (error) {
-		console.error(error);
-	}
-}
+// 		return imageUrl;
+// 	} catch (error) {
+// 		console.error(error);
+// 	}
+// }

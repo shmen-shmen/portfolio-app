@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchQuote, fetchImage } from "./API";
+import { fetchQuote } from "./API";
 import categories from "./categories";
 
 const initialState = {
@@ -34,17 +34,17 @@ export const getNewQuote = createAsyncThunk(
 	}
 );
 
-export const getNewImage = createAsyncThunk(
-	"randomQuotes/fetchImage",
-	async (category) => {
-		try {
-			const response = await fetchImage(category);
-			return response;
-		} catch (error) {
-			console.error(error);
-		}
-	}
-);
+// export const getNewImage = createAsyncThunk(
+// 	"randomQuotes/fetchImage",
+// 	async (category) => {
+// 		try {
+// 			const response = await fetchImage(category);
+// 			return response;
+// 		} catch (error) {
+// 			console.error(error);
+// 		}
+// 	}
+// );
 
 export const randomQuoteSlice = createSlice({
 	name: "randomQuote",
@@ -81,20 +81,20 @@ export const randomQuoteSlice = createSlice({
 					author: "shmin",
 					quote: "for some reason something went wrong somewhere 🥲",
 				};
-			})
-			.addCase(getNewImage.pending, (state) => {
-				state.imageIsLoading = true;
-			})
-			.addCase(getNewImage.fulfilled, (state, action) => {
-				state.imageIsLoading = false;
-				state.image = action.payload;
-			})
-			.addCase(getNewImage.rejected, (state) => {
-				state.quote = {
-					author: "shmin",
-					quote: "for some reason something went wrong somewhere 🥲",
-				};
 			});
+		// .addCase(getNewImage.pending, (state) => {
+		// 	state.imageIsLoading = true;
+		// })
+		// .addCase(getNewImage.fulfilled, (state, action) => {
+		// 	state.imageIsLoading = false;
+		// 	state.image = action.payload;
+		// })
+		// .addCase(getNewImage.rejected, (state) => {
+		// 	state.quote = {
+		// 		author: "shmin",
+		// 		quote: "for some reason something went wrong somewhere 🥲",
+		// 	};
+		// });
 	},
 });
 
