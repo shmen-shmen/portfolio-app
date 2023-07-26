@@ -1,51 +1,65 @@
+@import "../../index.scss";
+
 #quote-box {
 	color: black;
 	font-family: "IBM ISO 9", monospace;
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	width: 100vw;
 	min-height: 100vh;
 }
 
-.close-btn {
-	position: sticky;
-	top: 10%;
-	left: 50%;
-	z-index: 1;
-	border: none;
-	background-color: white;
-	width: 60px;
-	height: 60px;
-	div {
-		position: absolute;
-		transform: translate(32px, 3px);
-		font-size: 4rem;
-		color: black;
-		background-color: transparent;
-	}
-}
-
 .upper {
-	height: 50%;
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: calc(60vh - 25px);
+
+	.close-btn {
+		position: absolute;
+		top: 0;
+		z-index: 1;
+		border: none;
+		background-color: white;
+		color: red;
+		font-size: 4rem;
+		line-height: 4rem;
+		text-decoration: none;
+
+		@media (hover: none) {
+			&:active {
+				background-color: red;
+				color: white;
+			}
+		}
+	}
 
 	#quote-container {
-		position: absolute;
-		bottom: 0;
-		max-height: 100%;
 		width: 100%;
 		text-align: center;
 		overflow: scroll;
+		background-color: transparent;
 	}
 	#text {
+		font-size: 1.5rem;
 		background-color: white;
-		font-size: 2rem;
 	}
 	#author {
 		background-color: white;
-		font-size: 2rem;
+		font-size: 1.5rem;
 		font-weight: 900;
 		text-transform: uppercase;
+	}
+
+	@include for-tablet-portrait-up {
+		#text {
+			font-size: 2rem;
+		}
+		#author {
+			font-size: 2rem;
+		}
 	}
 
 	#quotes-image {
@@ -62,12 +76,16 @@
 	width: 100%;
 	display: flex;
 	flex-direction: row;
+	height: 25px;
 
 	& > * {
 		padding: 0;
 		margin: 0;
 		text-align: left;
-		font-size: 1.25rem;
+
+		@include for-tablet-portrait-up {
+			font-size: 1.25rem;
+		}
 	}
 }
 #new-quote-left {
@@ -75,55 +93,90 @@
 	text-align: left;
 
 	span {
-		font-size: 1.25rem;
+		@include for-tablet-portrait-up {
+			font-size: 1.25rem;
+		}
 	}
 }
-#new-quote-left:hover {
-	background-color: red;
+@media (hover: hover) {
+	#new-quote-left:hover {
+		background-color: red;
+	}
+	#new-quote-left:active {
+		color: red;
+	}
 }
-#new-quote-left:active {
-	color: red;
+@media (hover: none) {
+	#new-quote-left:active {
+		background-color: red;
+	}
 }
+
 #new-quote-right {
 	width: 25%;
 	border-left: 2px solid white;
+
+	span {
+		display: none;
+	}
+	@include for-tablet-portrait-up {
+		span {
+			display: inline;
+			font-size: 1.25rem;
+		}
+	}
 }
 
 .lower {
 	display: flex;
 	flex-direction: row;
-	/* flex-wrap: wrap; */
-	height: 50%;
+	height: 40vh;
 }
 #share-section {
 	word-wrap: break-word;
 	width: 75%;
-	height: 100%;
-	display: flex;
 	overflow: scroll;
 
 	span {
 		background-color: white;
-		height: 1.5rem;
-		font-size: 1.5rem;
-		line-height: 1.5rem;
+		width: fit-content;
+		font-size: 2.5rem;
+		line-height: 2.5rem;
 	}
-	.share-links {
-		display: flex;
-		flex-direction: column;
-	}
+
 	.share-link {
 		color: transparent;
 		background-color: transparent;
 		border: none;
-		display: inline;
-		font-size: 1.5rem;
-		line-height: 1.5rem;
-		height: 1.5rem;
+		font-size: 2.5rem;
+		line-height: 2.5rem;
+
+		@media (hover: hover) {
+			&:hover {
+				color: black;
+				background-color: white;
+			}
+		}
+		@media (hover: none) {
+			&:active {
+				background-color: blue;
+				color: white;
+			}
+			color: black;
+			background-color: white;
+		}
 	}
-	.share-link:hover {
-		color: black;
-		background-color: white;
+
+	@include for-phone-only {
+		span {
+			font-size: 1.5rem;
+			line-height: 1.5rem;
+		}
+		.share-link {
+			font-size: 1.5rem;
+			line-height: 1.5rem;
+			display: block;
+		}
 	}
 }
 
@@ -131,21 +184,29 @@
 	word-wrap: break-word;
 	width: 25%;
 	border-left: 2px solid black;
-	height: 100%;
 	overflow: scroll;
-	// display: flex;
-	// flex-direction: column;
-	// flex-wrap: wrap;
-}
-.category-keyword {
-	font-size: var(--quotes-small-font);
-	color: black;
-	background-color: white;
-	font-weight: 900;
-}
-.category-keyword:hover {
-	background-color: white;
-	color: black;
-	font-size: 2rem;
-	user-select: none;
+
+	.category-keyword {
+		display: block;
+		@include for-tablet-portrait-up {
+			display: inline;
+		}
+		font-size: 1.25rem;
+		color: black;
+		background-color: white;
+		font-weight: 900;
+		user-select: none;
+
+		@media (hover: hover) {
+			&:hover {
+				background-color: white;
+				color: black;
+				font-size: 2rem;
+			}
+		}
+	}
+
+	.category-keyword-select {
+		background-color: red;
+	}
 }

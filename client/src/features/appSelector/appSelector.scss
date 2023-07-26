@@ -13,9 +13,6 @@
 
 #nav {
 	height: 100vh;
-	margin: auto 0;
-	// width: 100%;
-	// border: 2px solid blue;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -26,13 +23,12 @@
 		background-color: transparent;
 		text-align: right;
 		font-weight: 900;
-		margin-bottom: 2rem;
-
-		font-size: 2rem;
+		font-size: 1.75rem;
 		color: blue;
 		background-color: white;
 		padding: 5px;
 		width: max-content;
+		margin: 0.5rem;
 
 		&:hover {
 			background-color: blue;
@@ -46,5 +42,8 @@
 
 	@include for-tablet-portrait-up {
 		width: 600px;
+		.nav-button {
+			font-size: 2rem;
+		}
 	}
 }
