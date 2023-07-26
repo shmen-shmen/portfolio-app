@@ -1,32 +1,26 @@
 import { useSelector, useDispatch } from "react-redux";
 import {
-	hide_drumMachine,
+	reset_drumMachine,
 	padPress,
 	padRelease,
 	sampleEnd,
 } from "./drumMachineSlice";
-import { show_appSelector } from "../appSelector/appSelectorSlice";
 import "./drumMachine.scss";
 import { useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 
 const DrumMachine = () => {
 	const dispatch = useDispatch();
-	const { display, pads, nowPlaying } = useSelector(
-		(state) => state.drumMachine
-	);
+	const { pads, nowPlaying } = useSelector((state) => state.drumMachine);
 
 	const padsRef = useRef(null);
 
 	useEffect(() => {
-		if (display) {
-			padsRef.current.focus();
-		}
-	}, [display]);
+		padsRef.current.focus();
+	}, []);
 
 	const handleExit = () => {
-		dispatch(hide_drumMachine());
-		dispatch(show_appSelector());
+		dispatch(reset_drumMachine());
 	};
 
 	const handlePadPress = (e) => {
@@ -61,64 +55,60 @@ const DrumMachine = () => {
 		dispatch(sampleEnd(padId));
 	};
 
-	if (display) {
-		return (
-			<section
-				id="drum-machine"
-				ref={padsRef}
-				tabIndex={0}
-				onKeyDown={handlePadPress}
-				onKeyUp={handlePadPress}
-			>
-				<div className="pad-bank">
-					<NavLink
-						to={"/"}
-						id="drums-close-btn"
-						className="drums-btn"
-						onClick={handleExit}
-					>
-						✕
-					</NavLink>
-					<div id="drums-display">
-						<div id="emoji-container">
-							{nowPlaying.map((emoji) => {
-								return (
-									<span className="now-playing" key={emoji + "key"}>
-										{emoji}
-									</span>
-								);
-							})}
-						</div>
+	return (
+		<section
+			id="drum-machine"
+			ref={padsRef}
+			tabIndex={0}
+			onKeyDown={handlePadPress}
+			onKeyUp={handlePadPress}
+		>
+			<div className="pad-bank">
+				<NavLink
+					to={"/"}
+					id="drums-close-btn"
+					className="drums-btn"
+					onClick={handleExit}
+				>
+					✕
+				</NavLink>
+				<div id="drums-display">
+					<div id="emoji-container">
+						{nowPlaying.map((emoji) => {
+							return (
+								<span className="now-playing" key={emoji + "key"}>
+									{emoji}
+								</span>
+							);
+						})}
 					</div>
-					{Object.keys(pads).map((pad) => {
-						const status = pads[pad]["press"];
-						return (
-							<div
-								id={"pad-" + pad}
-								key={"pad-" + pad}
-								onMouseDown={handlePadPress}
-								onMouseUp={handlePadPress}
-								onTouchStart={handlePadPress}
-								onTouchEnd={handlePadPress}
-								className={`drum-pad drum-pad-${status}`}
-							>
-								<span className="center desktop">{`${pad}`}</span>
-								<span className="center mobile">{`${pads[pad]["sample"]}`}</span>
-								<audio
-									className="clip"
-									id={pad}
-									src={`/sounds/tortTulikMal/${pads[pad]["sample"]}.wav`}
-									onEnded={handleSampleEnd}
-								></audio>
-							</div>
-						);
-					})}
 				</div>
-			</section>
-		);
-	} else {
-		return null;
-	}
+				{Object.keys(pads).map((pad) => {
+					const status = pads[pad]["press"];
+					return (
+						<div
+							id={"pad-" + pad}
+							key={"pad-" + pad}
+							onMouseDown={handlePadPress}
+							onMouseUp={handlePadPress}
+							onTouchStart={handlePadPress}
+							onTouchEnd={handlePadPress}
+							className={`drum-pad drum-pad-${status}`}
+						>
+							<span className="center desktop">{`${pad}`}</span>
+							<span className="center mobile">{`${pads[pad]["sample"]}`}</span>
+							<audio
+								className="clip"
+								id={pad}
+								src={`/sounds/tortTulikMal/${pads[pad]["sample"]}.wav`}
+								onEnded={handleSampleEnd}
+							></audio>
+						</div>
+					);
+				})}
+			</div>
+		</section>
+	);
 };
 
 export default DrumMachine;

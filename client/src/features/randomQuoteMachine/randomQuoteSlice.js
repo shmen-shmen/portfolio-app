@@ -50,12 +50,6 @@ export const randomQuoteSlice = createSlice({
 	name: "randomQuote",
 	initialState,
 	reducers: {
-		show_randomQuote: (state) => {
-			state.display = true;
-		},
-		hide_randomQuote: (state) => {
-			state.display = false;
-		},
 		// Use the PayloadAction type to declare the contents of `action.payload`
 		selectCategory: (state, action) => {
 			if (state.category === action.payload) {
@@ -98,8 +92,7 @@ export const randomQuoteSlice = createSlice({
 	},
 });
 
-export const { show_randomQuote, hide_randomQuote, selectCategory } =
-	randomQuoteSlice.actions;
+export const { selectCategory } = randomQuoteSlice.actions;
 
 // // The function below is called a selector and allows us to select a value from
 // // the state. Selectors can also be defined inline where they're used instead of

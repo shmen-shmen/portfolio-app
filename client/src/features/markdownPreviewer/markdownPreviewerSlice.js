@@ -32,7 +32,6 @@ const markdownTranslator = (markdown) => {
 
 const initialState = {
 	displayName: "markdown previewer",
-	display: true,
 	isLoading: false,
 	showEditor: true,
 	showPreview: true,
@@ -46,12 +45,6 @@ const markdownSlice = createSlice({
 	name: "markdownPreviewer",
 	initialState,
 	reducers: {
-		show_markdownPreviewer: (state) => {
-			state.display = true;
-		},
-		hide_markdownPreviewer: (state) => {
-			state.display = false;
-		},
 		editing: (state, action) => {
 			state.input = action.payload;
 		},
@@ -91,8 +84,6 @@ const markdownSlice = createSlice({
 });
 
 export const {
-	show_markdownPreviewer,
-	hide_markdownPreviewer,
 	editing,
 	parsing,
 	editorToggle,

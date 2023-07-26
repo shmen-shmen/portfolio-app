@@ -1,11 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import {
-	toggleAlarmMenu,
-	selectAlarm,
-	hide_twentyFiveClock,
-} from "./twentyFiveClockSlice";
+import { toggleAlarmMenu, selectAlarm } from "./twentyFiveClockSlice";
 
-import { show_appSelector } from "../appSelector/appSelectorSlice";
 import { NavLink } from "react-router-dom";
 
 const ClockAlarmMenu = () => {
@@ -18,8 +13,6 @@ const ClockAlarmMenu = () => {
 
 	const exitHandler = () => {
 		clearInterval(intervalId);
-		dispatch(hide_twentyFiveClock());
-		dispatch(show_appSelector());
 	};
 
 	const showAlarmMenu = () => {

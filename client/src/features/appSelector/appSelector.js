@@ -1,15 +1,10 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import "./appSelector.scss";
-// import { hide_appSelector } from "./appSelectorSlice";
 import { NavLink } from "react-router-dom";
 
 const AppSelector = () => {
 	const state = useSelector((state) => state);
-
-	const { display } = useSelector((state) => state.appSelector);
-
-	const dispatch = useDispatch();
 
 	// Dynamically import reducers
 	const featureContext = require.context(
@@ -23,29 +18,13 @@ const AppSelector = () => {
 	featureContext.keys().map((key) => {
 		const featureName = key.match(/\/([a-zA-Z0-9]+)Slice\.js$/)[1];
 		const featureAdress = key.match(/\.\/([^/]+)\/[^/]+\.js$/)[1];
-		const featureSlice = featureContext(key);
 		const name = state[featureName]["displayName"];
 		features[name] = {
-			display: state[featureName]["display"],
-			showFunction: featureSlice[`show_${featureName}`],
-			hideFunction: featureSlice[`hide_${featureName}`],
 			featureAdress: featureAdress,
 		};
 	});
 
-	const toggleFeature = (featureName) => {
-		// dispatch(hide_appSelector());
-		dispatch(features[featureName].showFunction());
-		// Object.keys(features).map((feature) => {
-		// if (feature == featureName) {
-		// 	if (features[feature].display) {
-		// 		dispatch(features[feature].hideFunction());
-		// 	} else dispatch(features[feature].showFunction());
-		// } else dispatch(features[feature].hideFunction());
-		// });
-	};
-
-	return display ? (
+	return (
 		<div id="nav-wrapper">
 			<nav id="nav">
 				{Object.keys(features).map((featureName) => {
@@ -56,9 +35,6 @@ const AppSelector = () => {
 								id={featureName + "-id"}
 								key={featureName + "-key"}
 								className="nav-button nav"
-								onClick={() => {
-									toggleFeature(featureName);
-								}}
 							>
 								{featureName}
 							</NavLink>
@@ -66,7 +42,7 @@ const AppSelector = () => {
 				})}
 			</nav>
 		</div>
-	) : null;
+	);
 };
 
 export default AppSelector;

@@ -1,11 +1,6 @@
-import { show_appSelector } from "../appSelector/appSelectorSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-	hide_markdownPreviewer,
-	flipArrangement,
-	wideMenuToggle,
-} from "./markdownPreviewerSlice";
+import { flipArrangement, wideMenuToggle } from "./markdownPreviewerSlice";
 import { NavLink } from "react-router-dom";
 
 const MarkdownMenu = () => {
@@ -14,11 +9,6 @@ const MarkdownMenu = () => {
 	);
 
 	const dispatch = useDispatch();
-
-	const handleExit = () => {
-		dispatch(hide_markdownPreviewer());
-		dispatch(show_appSelector());
-	};
 
 	const handleMenuClick = () => {
 		if (window.innerWidth > 600) {
@@ -32,12 +22,7 @@ const MarkdownMenu = () => {
 				wideMenu ? "wide-markdown-menu" : "narrow-markdown-menu"
 			}`}
 		>
-			<NavLink
-				to={"/"}
-				id="markdown-close-btn"
-				className="markdown-btn"
-				onClick={handleExit}
-			>
+			<NavLink to={"/"} id="markdown-close-btn" className="markdown-btn">
 				{wideMenu ? "✿✦⚛︎✕✞♱" : "✕"}
 			</NavLink>
 			<h1 id="markdown-header" onClick={handleMenuClick}>

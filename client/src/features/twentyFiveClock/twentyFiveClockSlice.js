@@ -19,7 +19,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
 	displayName: "25+5 Clock",
-	display: true,
 	sessionLength: 1500000,
 	breakLength: 300000,
 	timeRemaining: 1500000,
@@ -45,13 +44,6 @@ export const twentyFiveClockSlice = createSlice({
 	name: "twentyFiveClock",
 	initialState,
 	reducers: {
-		show_twentyFiveClock: (state) => {
-			state.display = true;
-		},
-		hide_twentyFiveClock: (state) => {
-			state.display = false;
-		},
-
 		intervalControl: (state, action) => {
 			// increases/decreases breaks and sessions by 1 minute:
 			const { interval, operation } = action.payload;
@@ -127,8 +119,6 @@ export const twentyFiveClockSlice = createSlice({
 });
 
 export const {
-	show_twentyFiveClock,
-	hide_twentyFiveClock,
 	intervalControl,
 	reset,
 	start,

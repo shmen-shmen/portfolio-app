@@ -3,7 +3,6 @@ import pads from "./pads";
 
 const initialState = {
 	displayName: "farm machine",
-	display: true,
 	pads,
 	nowPlaying: [],
 };
@@ -13,15 +12,9 @@ export const drumMachineSlice = createSlice({
 	initialState,
 
 	reducers: {
-		show_drumMachine: (state) => {
+		reset_drumMachine: (state) => {
 			state.nowPlaying = initialState.nowPlaying;
-			state.display = true;
 		},
-
-		hide_drumMachine: (state) => {
-			state.display = false;
-		},
-
 		padPress: (state, action) => {
 			const pad = action.payload;
 			state.pads[pad].press = true;
@@ -48,12 +41,7 @@ export const drumMachineSlice = createSlice({
 	},
 });
 
-export const {
-	show_drumMachine,
-	hide_drumMachine,
-	padPress,
-	padRelease,
-	sampleEnd,
-} = drumMachineSlice.actions;
+export const { reset_drumMachine, padPress, padRelease, sampleEnd } =
+	drumMachineSlice.actions;
 
 export default drumMachineSlice.reducer;

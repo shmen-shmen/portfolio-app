@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { hide_calculator, squareRoot, percent } from "./calculatorSlice";
-import { show_appSelector } from "../appSelector/appSelectorSlice";
+import { squareRoot, percent, clear } from "./calculatorSlice";
 import { NavLink } from "react-router-dom";
 
 const CalcAdditionalOperators = () => {
@@ -11,8 +10,7 @@ const CalcAdditionalOperators = () => {
 	const handleKeyPress = (e) => {
 		switch (e.target.id) {
 			case "OFF":
-				dispatch(hide_calculator());
-				dispatch(show_appSelector());
+				dispatch(clear());
 				break;
 			case "sqrt":
 				dispatch(squareRoot());

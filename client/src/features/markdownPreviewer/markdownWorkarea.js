@@ -7,22 +7,14 @@ import {
 	editing,
 	previewToggle,
 	setMobileLayout,
-	hide_markdownPreviewer,
 } from "./markdownPreviewerSlice";
 import { NavLink } from "react-router-dom";
-
-import { show_appSelector } from "../appSelector/appSelectorSlice";
 
 const MarkdownWorkarea = () => {
 	const { showEditor, showPreview, arrangement, input, output } = useSelector(
 		(state) => state.markdownPreviewer
 	);
 	const dispatch = useDispatch();
-
-	const handleExit = () => {
-		dispatch(hide_markdownPreviewer());
-		dispatch(show_appSelector());
-	};
 
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -57,7 +49,7 @@ const MarkdownWorkarea = () => {
 
 	return (
 		<div id="work-area" className={arrangement}>
-			<NavLink to={"/"} id="close-btn-mobile" onClick={handleExit}>
+			<NavLink to={"/"} id="close-btn-mobile">
 				x
 			</NavLink>
 			<button

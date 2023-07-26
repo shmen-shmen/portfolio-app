@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 	displayName: "calculator",
-	display: true,
 	numbers: {
 		one: 1,
 		two: 2,
@@ -36,14 +35,6 @@ export const calculatorSlice = createSlice({
 	name: "calculator",
 	initialState,
 	reducers: {
-		show_calculator: (state) => {
-			state.display = true;
-		},
-
-		hide_calculator: (state) => {
-			state.display = false;
-		},
-
 		clear: (state) => {
 			state.output = initialState.output;
 		},
@@ -157,8 +148,6 @@ export const calculatorSlice = createSlice({
 });
 
 export const {
-	show_calculator,
-	hide_calculator,
 	clear,
 	typingNumbers,
 	typingOperators,
