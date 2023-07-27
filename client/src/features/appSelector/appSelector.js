@@ -1,45 +1,60 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import "./appSelector.scss";
 import { NavLink } from "react-router-dom";
 
 const AppSelector = () => {
-	const state = useSelector((state) => state);
-
-	// Dynamically import reducers
-	const featureContext = require.context(
-		"../../features",
-		true,
-		/.*\/[a-zA-Z0-9]+Slice\.js$/ // Assuming the reducers are named as "<featureName>Slice.js"
-	);
-
-	// Generate feature objects dynamically based on imported reducers
-	const features = {};
-	featureContext.keys().map((key) => {
-		const featureName = key.match(/\/([a-zA-Z0-9]+)Slice\.js$/)[1];
-		const featureAdress = key.match(/\.\/([^/]+)\/[^/]+\.js$/)[1];
-		const name = state[featureName]["displayName"];
-		features[name] = {
-			featureAdress: featureAdress,
-		};
-	});
-
 	return (
 		<div id="nav-wrapper">
 			<nav id="nav">
-				{Object.keys(features).map((featureName) => {
-					if (featureName !== "appSelector")
-						return (
-							<NavLink
-								to={features[featureName]["featureAdress"]}
-								id={featureName + "-id"}
-								key={featureName + "-key"}
-								className="nav-button nav"
-							>
-								{featureName}
-							</NavLink>
-						);
-				})}
+				<a
+					href="https://shmen-shmen.github.io/kabashi-sonic-10000/"
+					target="_blank"
+					id={"sythesizer-id"}
+					key={"sythesizer-key"}
+					className="nav-button nav"
+				>
+					Sythesizer
+				</a>
+				<NavLink
+					to={"/twentyFiveClock"}
+					id={"twentyFiveClock-id"}
+					key={"twentyFiveClock-key"}
+					className="nav-button nav"
+				>
+					25+5 clock
+				</NavLink>
+				<NavLink
+					to={"/randomQuoteMachine"}
+					id={"randomQuoteMachine-id"}
+					key={"randomQuoteMachine-key"}
+					className="nav-button nav"
+				>
+					random quote machine
+				</NavLink>
+				<NavLink
+					to={"/calculator"}
+					id={"calculator-id"}
+					key={"calculator-key"}
+					className="nav-button nav"
+				>
+					calculator
+				</NavLink>
+				<NavLink
+					to={"/drumMachine"}
+					id={"drumMachine-id"}
+					key={"drumMachine-key"}
+					className="nav-button nav"
+				>
+					farm machine
+				</NavLink>
+				<NavLink
+					to={"/markdownPreviewer"}
+					id={"markdownPreviewer-id"}
+					key={"markdownPreviewer-key"}
+					className="nav-button nav"
+				>
+					markdown previewer
+				</NavLink>
 			</nav>
 		</div>
 	);
