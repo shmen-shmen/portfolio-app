@@ -74,21 +74,21 @@ function RandomQuoteMachine() {
 					<TwitterShareButton
 						children="Twitter"
 						className="share-link"
-						url="https://zippy-inky-radar.glitch.me/"
+						url="https://mayweeds-app.glitch.me/randomQuoteMachine"
 						title={`"${quote.quote}"\n– ${quote.author}\n\nDamn what a deep thought 🤔. Wonder where I could find more... `}
 						resetButtonStyle={false}
 					/>
 					<LinkedinShareButton
 						children="LinkedIn"
 						className="share-link"
-						url="https://zippy-inky-radar.glitch.me/"
+						url="https://mayweeds-app.glitch.me/randomQuoteMachine"
 						title={`"${quote.quote}"\n– ${quote.author}\n\nDamn what a deep thought 🤔. Wonder where I could find more... `}
 						resetButtonStyle={false}
 					/>
 					<EmailShareButton
 						children="Email"
 						className="share-link"
-						url="https://zippy-inky-radar.glitch.me/"
+						url="https://mayweeds-app.glitch.me/randomQuoteMachine"
 						title={`"${quote.quote}"\n– ${quote.author}\n\nDamn what a deep thought 🤔. Wonder where I could find more... `}
 						resetButtonStyle={false}
 					/>
@@ -96,7 +96,7 @@ function RandomQuoteMachine() {
 					<RedditShareButton
 						children="Reddit"
 						className="share-link"
-						url="https://zippy-inky-radar.glitch.me/"
+						url="https://mayweeds-app.glitch.me/randomQuoteMachine"
 						title={`"${quote.quote}"\n– ${quote.author}\n\nDamn what a deep thought 🤔. Wonder where I could find more... `}
 						resetButtonStyle={false}
 					/>
@@ -104,7 +104,7 @@ function RandomQuoteMachine() {
 					<TelegramShareButton
 						children="Telegram"
 						className="share-link"
-						url="https://zippy-inky-radar.glitch.me/"
+						url="https://mayweeds-app.glitch.me/randomQuoteMachine"
 						title={`"${quote.quote}"\n– ${quote.author}\n\nDamn what a deep thought 🤔. Wonder where I could find more... `}
 						resetButtonStyle={false}
 					/>
