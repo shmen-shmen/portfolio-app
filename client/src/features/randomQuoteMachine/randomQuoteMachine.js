@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getNewQuote, selectCategory } from "./randomQuoteSlice";
 import "./randomQuoteMachine.scss";
+import { NavLink } from "react-router-dom";
 
 import {
 	EmailShareButton,
@@ -10,7 +11,6 @@ import {
 	TelegramShareButton,
 	TwitterShareButton,
 } from "react-share";
-import { NavLink } from "react-router-dom";
 
 function RandomQuoteMachine() {
 	const { isLoading, quote, categories, category } = useSelector(

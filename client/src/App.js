@@ -5,6 +5,7 @@ import DrumMachine from "./features/drumMachine/drumMachine.js";
 import Calculator from "./features/calculator/calculator.js";
 import TwentyFiveClock from "./features/twentyFiveClock/twentyFiveClock.js";
 import "./App.css";
+import TheWeatherHere from "./features/weatherHere/theWeatherHere";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -13,7 +14,10 @@ function App() {
 			<Routes>
 				<Route exact path="/" element={<AppSelector />}></Route>
 
+				<Route exact path="/weatherHere" element={<TheWeatherHere />}></Route>
+
 				<Route exact path="/calculator" element={<Calculator />}></Route>
+
 				<Route
 					exact
 					path="/markdownPreviewer"

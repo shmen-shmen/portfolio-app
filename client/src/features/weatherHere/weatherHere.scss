@@ -1,0 +1,17 @@
+#the-weather-here {
+	// background-color: aliceblue;
+	width: 100%;
+
+	.close-btn {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	// sizing of map container
+
+	.leaflet-container {
+		width: 100%;
+		min-height: 100vh;
+	}
+}
