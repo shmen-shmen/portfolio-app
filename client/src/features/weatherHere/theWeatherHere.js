@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
@@ -11,22 +11,52 @@ function TheWeatherHere() {
 		iconSize: [64, 64],
 	});
 
+	const [location, setLocation] = useState(null);
+
+	const MyLocation = () => {
+		const map = useMap();
+		useEffect(() => {
+			map.setView(location);
+		}, [location]);
+
+		return null;
+	};
+
+	useEffect(() => {
+		if ("geolocation" in navigator) {
+			console.log("GEOLOCATION IS AVAILABLE");
+			navigator.geolocation.getCurrentPosition(async (position) => {
+				const myLat = position.coords.latitude;
+				const myLon = position.coords.longitude;
+				setLocation([myLat, myLon]);
+			});
+		} else console.error("ERROR GEOLOCATION IS NOT AVAILABLE");
+	}, []);
+
 	return (
 		<article id="the-weather-here">
 			<NavLink to={"/"} className="btn close-btn">
 				back
 			</NavLink>
-			<MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-				<TileLayer
-					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-				/>
-				<Marker position={[51.505, -0.09]} icon={customIcon}>
-					<Popup>
-						A pretty CSS3 popup. <br /> Easily customizable.
-					</Popup>
-				</Marker>
-			</MapContainer>
+			{location ? (
+				<MapContainer
+					center={location}
+					zoom={15}
+					scrollWheelZoom={true}
+					zoomControl={false}
+				>
+					<TileLayer
+						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+					/>
+					<MyLocation />
+					<Marker position={location} icon={customIcon}>
+						<Popup>
+							Hello! You are here) <br /> {location[0] + " " + location[1]}
+						</Popup>
+					</Marker>
+				</MapContainer>
+			) : null}
 		</article>
 	);
 }
