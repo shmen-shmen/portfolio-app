@@ -41,6 +41,18 @@ app.get("/getQuote/:category", async (req, res) => {
 	}
 });
 
+//making weather request with client coordinates and sending result back to client
+app.get("/weather/:lat-:lon", async (request, response) => {
+	const { lat, lon } = request.params;
+	console.log(lat, lon);
+	const weatherApiKey = process.env.WEATHER_API_KEY;
+	const apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${weatherApiKey}&units=metric`;
+	console.log(apiURL);
+	const weather_response = await fetch(apiURL);
+	const weather_JSON = await weather_response.json();
+	response.json(weather_JSON);
+});
+
 // app.get("/getImage/:category", async (req, res) => {
 // 	try {
 // 		const { category } = req.params;
