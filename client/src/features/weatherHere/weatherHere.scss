@@ -25,6 +25,13 @@
 		.leaflet-map-pane {
 			z-index: 0;
 		}
+
+		#weather-report {
+			position: absolute;
+			z-index: 5;
+			font-size: 2rem;
+			background-color: red;
+		}
 	}
 
 	#weather-dialog {
