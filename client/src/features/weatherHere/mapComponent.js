@@ -1,13 +1,21 @@
 import React, { useEffect } from "react";
 import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
-import { Icon } from "leaflet";
-import WeatherReport from "./weatherReport";
+import { Icon, divIcon } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import WeatherReport from "./weatherReport";
 
-function MapComponent({ location, loading, weatherData }) {
+function MapComponent({ location, loading, weatherData, units, changeUnits }) {
+	// const customIcon = new divIcon({
+	// 	html: "🌝",
+	// 	className: "my-div-icon",
+	// 	iconAnchor: [20, 20],
+	// });
 	const customIcon = new Icon({
-		iconUrl: "./images/map-marker.png",
-		iconSize: [64, 64],
+		iconUrl: "./images/pin-complex.png",
+		className: "my-div-icon",
+		iconSize: [78, 78],
+		iconAnchor: [44, 78],
+		popupAnchor: [-5, -60],
 	});
 
 	const MyLocation = () => {
@@ -17,6 +25,8 @@ function MapComponent({ location, loading, weatherData }) {
 		}, [location]);
 		return null;
 	};
+
+	const metric = units == "metric";
 
 	return (
 		<MapContainer
@@ -30,12 +40,16 @@ function MapComponent({ location, loading, weatherData }) {
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			/>
 			<MyLocation />
-			<Marker position={location} icon={customIcon}>
-				<Popup>
-					Hello! You are here) <br /> {location[0] + " " + location[1]}
-				</Popup>
-			</Marker>
-			<WeatherReport loading={loading} weatherData={weatherData} />
+			{loading ? null : (
+				<Marker position={location} icon={customIcon}>
+					<WeatherReport
+						loading={loading}
+						weatherData={weatherData}
+						metric={metric}
+						changeUnits={changeUnits}
+					/>
+				</Marker>
+			)}
 		</MapContainer>
 	);
 }

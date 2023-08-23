@@ -26,11 +26,20 @@
 			z-index: 0;
 		}
 
-		#weather-report {
-			position: absolute;
-			z-index: 5;
-			font-size: 2rem;
-			background-color: red;
+		.my-div-icon {
+			font-size: 3rem;
+		}
+	}
+
+	#drag {
+		position: absolute;
+		max-width: 300px;
+		background-color: white;
+		padding: 1rem;
+		text-align: right;
+
+		p {
+			font-size: 1.25rem;
 		}
 	}
 

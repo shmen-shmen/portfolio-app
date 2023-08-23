@@ -11,8 +11,15 @@ function TheWeatherHere() {
 		Tokyo: [35.689722, 139.692222],
 		Marrakesh: [31.63, -8.008889],
 		Huliaipole: [47.65, 36.266667],
+		Novosibirsk: [55.05, 82.95],
 	};
 	const [weatherData, setWeatherData] = useState(null);
+	const [units, setUnits] = useState("metric");
+	const changeUnits = () => {
+		if (units === "metric") {
+			setUnits("imperial");
+		} else setUnits("metric");
+	};
 
 	const getLocation = async (e) => {
 		setLoadig(true);
@@ -21,7 +28,6 @@ function TheWeatherHere() {
 		if (cityName in cities) {
 			coordinates = cities[cityName];
 			setLocation(coordinates);
-			setLoadig(false);
 		} else {
 			if ("geolocation" in navigator) {
 				console.log("GEOLOCATION IS AVAILABLE");
@@ -41,6 +47,7 @@ function TheWeatherHere() {
 			// GET WEATHER DATA
 			const weather_data = await weather_response.json();
 			setWeatherData(weather_data);
+
 			setLoadig(false);
 		} catch (error) {
 			console.error(error);
@@ -48,10 +55,15 @@ function TheWeatherHere() {
 	};
 
 	useEffect(() => {
+		if (weatherData) {
+			console.log(weatherData);
+		}
+	}, [weatherData]);
+
+	useEffect(() => {
 		if (!location) {
 			return;
 		}
-		console.log("location is set to ", location);
 		getWeatherData();
 	}, [location]);
 
@@ -65,6 +77,8 @@ function TheWeatherHere() {
 					location={location}
 					loading={loading}
 					weatherData={weatherData}
+					units={units}
+					changeUnits={changeUnits}
 				/>
 			) : (
 				<WeatherDialog
