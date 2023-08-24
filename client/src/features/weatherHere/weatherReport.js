@@ -2,7 +2,14 @@ import React, { useEffect } from "react";
 import { Popup } from "react-leaflet";
 import transcribeWeatherData from "./transcribeWeatherData.js";
 
-function WeatherReport({ loading, weatherData, metric, changeUnits }) {
+function WeatherReport({
+	loading,
+	weatherData,
+	metric,
+	changeUnits,
+	day,
+	setDay,
+}) {
 	// useEffect(() => {
 	// 	dragElement(document.getElementById("drag"));
 	// }, []);
@@ -47,25 +54,21 @@ function WeatherReport({ loading, weatherData, metric, changeUnits }) {
 	// 	}
 	// }
 
-	const report = transcribeWeatherData(weatherData, metric);
+	const report = transcribeWeatherData(weatherData, metric, setDay);
 	return (
-		<Popup>
+		<Popup closeButton={false}>
 			{loading ? (
 				<p>"wait a second"</p>
 			) : (
-				<div>
+				<div className={`report ${day ? "report-day" : "report-night"}`}>
+					<p className="conditions-emoji">{report.emoji()}</p>
 					<button id="metric-imperial-btn" onClick={changeUnits}>
 						{!metric ? "°C" : "°F"}
 					</button>
-					<img
-						src={`https://openweathermap.org/img/wn/${weatherData["weather"][0]["icon"]}@2x.png`}
-						alt=""
-					/>
 					<br />
-					{report.header()}
+					<span>{report.header()}</span>
 					<br />
-					<br />
-					{report.long()}
+					<span>{report.long()}</span>
 				</div>
 			)}
 		</Popup>

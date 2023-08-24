@@ -1,10 +1,18 @@
 import React, { useEffect } from "react";
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, Marker } from "react-leaflet";
 import { Icon, divIcon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import WeatherReport from "./weatherReport";
 
-function MapComponent({ location, loading, weatherData, units, changeUnits }) {
+function MapComponent({
+	location,
+	loading,
+	weatherData,
+	units,
+	changeUnits,
+	day,
+	setDay,
+}) {
 	// const customIcon = new divIcon({
 	// 	html: "🌝",
 	// 	className: "my-div-icon",
@@ -47,6 +55,8 @@ function MapComponent({ location, loading, weatherData, units, changeUnits }) {
 						weatherData={weatherData}
 						metric={metric}
 						changeUnits={changeUnits}
+						day={day}
+						setDay={setDay}
 					/>
 				</Marker>
 			)}

@@ -16,8 +16,6 @@
 		color: black;
 	}
 
-	// sizing of map container
-
 	.leaflet-container {
 		width: 100%;
 		min-height: 100vh;
@@ -28,6 +26,62 @@
 
 		.my-div-icon {
 			font-size: 3rem;
+		}
+
+		.leaflet-popup-content-wrapper {
+			margin: 0;
+			padding: 0;
+			border: none;
+		}
+		.leaflet-popup-content {
+			margin: 0;
+			padding: 0;
+			border: none;
+		}
+		.report {
+			border-radius: 12px;
+			display: flex;
+			flex-direction: column;
+			text-align: justify;
+			padding: 1rem 2rem 1rem 2rem;
+
+			&.report-day {
+				background: linear-gradient(
+					rgb(108, 167, 239) 95px,
+					rgb(255, 255, 255) 120px
+				);
+				#metric-imperial-btn {
+					color: white;
+					background-color: transparent;
+				}
+			}
+			&.report-night {
+				background: linear-gradient(
+					rgb(2, 31, 67) 95px,
+					rgb(255, 255, 255) 120px
+				);
+				#metric-imperial-btn {
+					color: white;
+					background-color: transparent;
+				}
+			}
+
+			.conditions-emoji {
+				text-align: center;
+				font-size: 4rem;
+				margin: 0;
+				padding: 0;
+			}
+
+			#metric-imperial-btn {
+				border: none;
+				background-color: white;
+				font-size: 1.5rem;
+				text-align: left;
+				position: absolute;
+				right: 0;
+				transform: translateX(-50%);
+			}
 		}
 	}
 

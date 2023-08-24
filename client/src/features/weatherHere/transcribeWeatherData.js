@@ -1,4 +1,4 @@
-export default function transcribeWeatherData(data, metric) {
+export default function transcribeWeatherData(data, metric, setDay) {
 	const place = data["name"];
 	const country = data.sys.country;
 	const speedUnit = metric ? "kph" : "mph";
@@ -24,7 +24,7 @@ export default function transcribeWeatherData(data, metric) {
 	const calcWindDirectionCardinal = (degrees) => {
 		let cardinal = "";
 		const table = {
-			North: [348.75, 11.25],
+			North: [-11.25, 11.25],
 			"North-northeast": [11.25, 33.75],
 			Northeast: [33.75, 56.25],
 			"East-northeast": [56.25, 78.75],
@@ -43,7 +43,6 @@ export default function transcribeWeatherData(data, metric) {
 		};
 		Object.keys(table).map((key) => {
 			if (degrees >= table[key][0] && degrees < table[key][1]) {
-				console.log(degrees, table[key][0], table[key][1]);
 				cardinal = key;
 			}
 		});
@@ -52,26 +51,49 @@ export default function transcribeWeatherData(data, metric) {
 	const windDirectionCardinal = calcWindDirectionCardinal(windDirectionDeg);
 
 	const description = data["weather"][0]["description"];
-	const weatherConditionsCode = data["weather"]["id"];
+	const weatherConditionsCode = data["weather"][0]["id"];
 	const setConditionsEmoji = (code) => {
-		const table = {
-			"⛈": [200, 232],
-			"🌧": [300, 531],
-			"🌨": [600, 622],
-			"🌪": [781, 781],
-			"🌝": "800d",
-			"🌚": "800n",
-			"🌦": [801, 802],
-			"🌥": [803, 803],
-			"☁️☁️": [801, 802],
-		};
-	};
-	const sunrise = data.sys.sunrise;
-	const sunset = data.sys.sunset;
-	const utcTimestamp = data.dt;
-	const sunIsOut = sunrise <= utcTimestamp <= sunset;
+		let emoji = "";
 
-	const dateString = Intl.DateTimeFormat("kk-KZ", {
+		const sunrise = data.sys.sunrise;
+		const sunset = data.sys.sunset;
+		const utcTimestamp = data.dt;
+		const sunIsOut = utcTimestamp >= sunrise && utcTimestamp <= sunset;
+
+		// not sure if can do this but it works
+		setDay(sunIsOut);
+
+		const table = {
+			"🌧⛈🌧": [200, 232],
+			"🌧🌧🌧": [300, 531],
+			"🌨🌨": [600, 602],
+			"🌧❄️": [611, 622],
+			"🌪": [781, 781],
+			"🌝": [810, 810],
+			"🌚": [820, 820],
+			"☁️🌝☁️": [811, 812],
+			"☁️🌚☁️": [821, 822],
+			"☁️☁️☁️": [803, 804],
+		};
+
+		if (code >= 800 && code <= 802) {
+			console.log("code is chlen");
+			if (sunIsOut) {
+				code = code + 10;
+			} else code = code + 20;
+		}
+
+		Object.keys(table).map((key) => {
+			if (code >= table[key][0] && code <= table[key][1]) {
+				emoji = key;
+			}
+		});
+		return emoji;
+	};
+
+	const conditionsEmoji = setConditionsEmoji(weatherConditionsCode);
+
+	const dateString = Intl.DateTimeFormat("en-GB", {
 		weekday: "long",
 		month: "short",
 		day: "numeric",
@@ -80,26 +102,29 @@ export default function transcribeWeatherData(data, metric) {
 	}).format(new Date(Date.now()));
 
 	return {
+		emoji: () => {
+			return conditionsEmoji;
+		},
 		header: () => {
 			return `The weather in ${place} on ${dateString}`;
 		},
 		long: () => {
-			const tempString = temperature ? `is ${temperature} ${tempUnit}` : "";
+			const tempString = temperature ? `is ${temperature}${tempUnit}` : "";
 
 			const feelsLikeString = feelsLike
-				? `${temperature ? "which" : ""} feels like ${feelsLike} ${tempUnit}`
+				? `${temperature ? "which" : ""} feels like ${feelsLike}${tempUnit}`
 				: "";
 
 			const descriptionString = description ? `, with ${description}` : "";
 
 			const gustsString = windGusts
-				? `, with gusts of ${windGusts} ${speedUnit}`
+				? `, with gusts of ${windGusts}${speedUnit}`
 				: "";
 
 			const windString = windSpeed
 				? ` The wind is  ${
 						windDirectionDeg ? windDirectionCardinal + "," : ""
-				  } ${windSpeed} ${speedUnit}${gustsString}.`
+				  } ${windSpeed}${speedUnit}${gustsString}.`
 				: "";
 
 			return `Right now it ${tempString} ${feelsLikeString} outside${descriptionString}.${windString}`;

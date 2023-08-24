@@ -15,6 +15,7 @@ function TheWeatherHere() {
 	};
 	const [weatherData, setWeatherData] = useState(null);
 	const [units, setUnits] = useState("metric");
+	const [day, setDay] = useState(true);
 	const changeUnits = () => {
 		if (units === "metric") {
 			setUnits("imperial");
@@ -79,6 +80,8 @@ function TheWeatherHere() {
 					weatherData={weatherData}
 					units={units}
 					changeUnits={changeUnits}
+					day={day}
+					setDay={setDay}
 				/>
 			) : (
 				<WeatherDialog
