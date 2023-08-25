@@ -111,9 +111,10 @@ export default function transcribeWeatherData(data, metric, setDay) {
 		long: () => {
 			const tempString = temperature ? `is ${temperature}${tempUnit}` : "";
 
-			const feelsLikeString = feelsLike
-				? `${temperature ? "which" : ""} feels like ${feelsLike}${tempUnit}`
-				: "";
+			const feelsLikeString =
+				feelsLike && temperature !== feelsLike
+					? `${temperature ? "which" : ""} feels like ${feelsLike}${tempUnit}`
+					: "";
 
 			const descriptionString = description ? `, with ${description}` : "";
 
