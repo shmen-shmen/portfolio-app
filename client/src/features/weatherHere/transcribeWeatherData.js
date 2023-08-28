@@ -1,4 +1,4 @@
-export default function transcribeWeatherData(data, metric, setDay) {
+export default function transcribeWeatherData(data, metric, setTimeOfDay) {
 	const place = data["name"];
 	const country = data.sys.country;
 	const speedUnit = metric ? "kph" : "mph";
@@ -61,7 +61,7 @@ export default function transcribeWeatherData(data, metric, setDay) {
 		const sunIsOut = utcTimestamp >= sunrise && utcTimestamp <= sunset;
 
 		// not sure if can do this but it works
-		setDay(sunIsOut);
+		setTimeOfDay(sunIsOut);
 
 		const table = {
 			"🌧⛈🌧": [200, 232],

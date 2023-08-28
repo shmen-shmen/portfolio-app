@@ -1,9 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-function WeatherDialog({ loading, getLocation, cities, geoStatus }) {
+function WeatherDialog({ getLocation }) {
+	const { loadingWeather, cities, geoStatus } = useSelector(
+		(state) => state.weatherHere
+	);
+
 	return (
 		<dialog open id="weather-dialog">
-			{loading ? (
+			{loadingWeather ? (
 				<div>Kabashi satellites triangulating your exact location...</div>
 			) : (
 				<div className="dialog-contents">

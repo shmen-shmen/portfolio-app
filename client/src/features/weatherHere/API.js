@@ -1,29 +1,15 @@
 // A mock function to mimic making an async request for data
-export async function fetchQuote(category) {
+
+export const fetchWeather = async (location) => {
+	console.log(location);
 	try {
-		const response = await fetch(`/getQuote/${category}`);
-		const data = await response.json();
-		return data[0];
+		const [myLat, myLon] = location;
+		const apiURL = `/weather/${myLat}-${myLon}`;
+		const weather_response = await fetch(apiURL);
+		// GET WEATHER DATA
+		const weather_data = await weather_response.json();
+		return weather_data;
 	} catch (error) {
 		console.error(error);
 	}
-}
-// export async function fetchImage(category) {
-// 	try {
-// 		const response = await fetch(`/getImage/${category}`);
-
-// 		if (!response.ok) {
-// 			throw new Error("Failed to fetch the image.");
-// 		}
-
-// 		// Assuming the image is in Blob format (binary data)
-// 		const imageBlob = await response.blob();
-
-// 		// Create a URL for the Blob (can be used in <img> or other elements)
-// 		const imageUrl = URL.createObjectURL(imageBlob);
-
-// 		return imageUrl;
-// 	} catch (error) {
-// 		console.error(error);
-// 	}
-// }
+};
