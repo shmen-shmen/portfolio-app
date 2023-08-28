@@ -22,21 +22,67 @@ function TheWeatherHere() {
 		} else setUnits("metric");
 	};
 
+	const [geoStatus, setGeoStatus] = useState(false);
+
+	useEffect(() => {
+		if ("geolocation" in navigator) {
+			navigator.permissions.query({ name: "geolocation" }).then((result) => {
+				if (result.state === "granted") {
+					getLocation();
+					// Geolocation access is granted
+				} else if (result.state === "prompt") {
+					// Geolocation access permission has not been decided yet
+				} else {
+					// Geolocation access is denied
+				}
+				setGeoStatus(result.state);
+			});
+		} else {
+			setGeoStatus("not supported");
+			console.log("Geolocation is not supported in this browser");
+		}
+	}, []);
+
+	useEffect(() => {
+		console.log(geoStatus);
+	}, [geoStatus]);
+
 	const getLocation = async (e) => {
 		setLoadig(true);
 		let coordinates;
-		const cityName = e.target.innerText;
-		if (cityName in cities) {
-			coordinates = cities[cityName];
-			setLocation(coordinates);
-		} else {
-			if ("geolocation" in navigator) {
-				console.log("GEOLOCATION IS AVAILABLE");
-				navigator.geolocation.getCurrentPosition(async (position) => {
+		if (e) {
+			const cityName = e.target.innerText;
+			console.log(cityName);
+			if (cityName in cities) {
+				coordinates = cities[cityName];
+				setLocation(coordinates);
+				return;
+			} else {
+				console.log("you are in naivgator.getposition");
+				try {
+					const position = await new Promise((resolve, reject) => {
+						navigator.geolocation.getCurrentPosition(resolve, reject);
+					});
 					coordinates = [position.coords.latitude, position.coords.longitude];
 					setLocation(coordinates);
-				});
-			} else console.error("ERROR GEOLOCATION IS NOT AVAILABLE");
+				} catch (error) {
+					console.log("penis");
+					setGeoStatus("revoked");
+					setLoadig(false);
+					console.error(error);
+				}
+			}
+		}
+		try {
+			const position = await new Promise((resolve, reject) => {
+				navigator.geolocation.getCurrentPosition(resolve, reject);
+			});
+			coordinates = [position.coords.latitude, position.coords.longitude];
+			setLocation(coordinates);
+		} catch (error) {
+			setGeoStatus("revoked");
+			setLoadig(false);
+			console.error(error);
 		}
 	};
 
@@ -48,7 +94,6 @@ function TheWeatherHere() {
 			// GET WEATHER DATA
 			const weather_data = await weather_response.json();
 			setWeatherData(weather_data);
-
 			setLoadig(false);
 		} catch (error) {
 			console.error(error);
@@ -65,6 +110,7 @@ function TheWeatherHere() {
 		if (!location) {
 			return;
 		}
+		console.log("your location is", location);
 		getWeatherData();
 	}, [location]);
 
@@ -85,6 +131,7 @@ function TheWeatherHere() {
 				/>
 			) : (
 				<WeatherDialog
+					geoStatus={geoStatus}
 					loading={loading}
 					getLocation={getLocation}
 					cities={cities}
