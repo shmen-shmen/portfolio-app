@@ -9,6 +9,7 @@ import {
 	setLocation,
 	getWeatherData,
 	setLoadingWeather,
+	resetState,
 } from "./weatherSlice";
 
 function TheWeatherHere() {
@@ -17,16 +18,15 @@ function TheWeatherHere() {
 		(state) => state.weatherHere
 	);
 
-	useEffect(() => {
+	const checkGeoStatus = () => {
 		if ("geolocation" in navigator) {
 			navigator.permissions.query({ name: "geolocation" }).then((result) => {
 				if (result.state === "granted") {
-					getLocation();
-					// Geolocation access is granted
+					console.log("Geolocation access is granted");
 				} else if (result.state === "prompt") {
-					// Geolocation access permission has not been decided yet
+					console.log("Geolocation access permission has not been decided yet");
 				} else {
-					// Geolocation access is denied
+					console.log("Geolocation access is denied");
 				}
 				dispatch(setGeoStatus(result.state));
 			});
@@ -34,49 +34,51 @@ function TheWeatherHere() {
 			dispatch(setGeoStatus("not supported"));
 			console.log("Geolocation is not supported in this browser");
 		}
+	};
+
+	useEffect(() => {
+		checkGeoStatus();
 	}, []);
 
 	useEffect(() => {
-		console.log(geoStatus);
+		const geoAccessGranted = geoStatus == "granted";
+		if (geoAccessGranted) {
+			getLocation();
+		}
+		return;
 	}, [geoStatus]);
 
 	const getLocation = async (e) => {
 		dispatch(setLoadingWeather(true));
 		let coordinates;
+
+		const coordsFromNavigator = async () => {
+			let position;
+			try {
+				position = await new Promise((resolve, reject) => {
+					navigator.geolocation.getCurrentPosition(resolve, reject);
+				});
+			} catch (error) {
+				dispatch(setGeoStatus("revoked"));
+				dispatch(setLoadingWeather(false));
+				console.error(error);
+			}
+			return [position.coords.latitude, position.coords.longitude];
+		};
+
 		if (e) {
 			const cityName = e.target.innerText;
-			console.log(cityName);
 			if (cityName in cities) {
 				coordinates = cities[cityName];
-				dispatch(setLocation(coordinates));
-				return;
 			} else {
-				console.log("you are in naivgator.getposition");
-				try {
-					const position = await new Promise((resolve, reject) => {
-						navigator.geolocation.getCurrentPosition(resolve, reject);
-					});
-					coordinates = [position.coords.latitude, position.coords.longitude];
-					dispatch(setLocation(coordinates));
-				} catch (error) {
-					console.log("penis");
-					dispatch(setGeoStatus("revoked"));
-					dispatch(setLoadingWeather(false));
-					console.error(error);
-				}
+				coordinates = await coordsFromNavigator();
 			}
+		} else {
+			coordinates = await coordsFromNavigator();
+			console.log("coords from navigator", coordinates);
 		}
-		try {
-			const position = await new Promise((resolve, reject) => {
-				navigator.geolocation.getCurrentPosition(resolve, reject);
-			});
-			coordinates = [position.coords.latitude, position.coords.longitude];
-			dispatch(setLocation(coordinates));
-		} catch (error) {
-			dispatch(setGeoStatus("revoked"));
-			dispatch(setLoadingWeather(false));
-			console.error(error);
-		}
+
+		dispatch(setLocation(coordinates));
 	};
 
 	const getWeather = async (location) => {
@@ -84,22 +86,27 @@ function TheWeatherHere() {
 	};
 
 	useEffect(() => {
+		if (location) {
+			getWeather(location);
+		}
+	}, [location]);
+
+	useEffect(() => {
 		if (weatherData) {
 			console.log(weatherData);
 		}
 	}, [weatherData]);
 
-	useEffect(() => {
-		if (!location) {
-			return;
-		}
-		console.log("your location is", location);
-		getWeather(location);
-	}, [location]);
-
 	return (
 		<article id="the-weather-here">
-			<NavLink to={"/"} className="btn close-btn">
+			<NavLink
+				to={"/"}
+				className="btn close-btn"
+				onClick={() => {
+					console.log("reset click");
+					dispatch(resetState());
+				}}
+			>
 				back
 			</NavLink>
 			{location ? (

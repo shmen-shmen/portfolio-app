@@ -52,16 +52,17 @@ export default function transcribeWeatherData(data, metric, setTimeOfDay) {
 
 	const description = data["weather"][0]["description"];
 	const weatherConditionsCode = data["weather"][0]["id"];
-	const setConditionsEmoji = (code) => {
-		let emoji = "";
 
+	let sunIsOut = () => {
 		const sunrise = data.sys.sunrise;
 		const sunset = data.sys.sunset;
 		const utcTimestamp = data.dt;
-		const sunIsOut = utcTimestamp >= sunrise && utcTimestamp <= sunset;
 
-		// not sure if can do this but it works
-		setTimeOfDay(sunIsOut);
+		return utcTimestamp >= sunrise && utcTimestamp <= sunset;
+	};
+
+	const setConditionsEmoji = (code) => {
+		let emoji = "";
 
 		const table = {
 			"🌧⛈🌧": [200, 232],
@@ -77,8 +78,7 @@ export default function transcribeWeatherData(data, metric, setTimeOfDay) {
 		};
 
 		if (code >= 800 && code <= 802) {
-			console.log("code is chlen");
-			if (sunIsOut) {
+			if (sunIsOut()) {
 				code = code + 10;
 			} else code = code + 20;
 		}
@@ -102,6 +102,9 @@ export default function transcribeWeatherData(data, metric, setTimeOfDay) {
 	}).format(new Date(Date.now()));
 
 	return {
+		sunIsOut: () => {
+			return sunIsOut();
+		},
 		emoji: () => {
 			return conditionsEmoji;
 		},

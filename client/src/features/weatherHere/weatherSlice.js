@@ -14,12 +14,12 @@ const initialState = {
 	},
 	weatherData: null,
 	metric: true,
-	daylight: true,
 };
 
 export const getWeatherData = createAsyncThunk(
 	"weatherHere/fetchData",
 	async (location) => {
+		console.log("location from slice", location);
 		try {
 			const response = await fetchWeather(location);
 			return response;
@@ -45,9 +45,7 @@ export const weatherHereSlice = createSlice({
 		changeUnits: (state) => {
 			state.metric = !state.metric;
 		},
-		setDayNight: (state, action) => {
-			state.daylight = action.payload;
-		},
+		resetState: () => initialState,
 	},
 
 	extraReducers: (builder) => {
@@ -74,6 +72,7 @@ export const {
 	setLoadingWeather,
 	changeUnits,
 	setDayNight,
+	resetState,
 } = weatherHereSlice.actions;
 
 export default weatherHereSlice.reducer;
