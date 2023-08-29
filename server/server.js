@@ -1,7 +1,7 @@
-// import express, { static } from "express";
 import express from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
+import Datastore from "@seald-io/nedb";
 const PORT = process.env.PORT || 3001;
 const app = express();
 import { readFile } from "fs";
@@ -15,6 +15,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 app.use(express.static(resolve(__dirname, "../client/build")));
+app.use(express.json({ limit: "1mb" }));
+// initializing a database using NeDB
+const database = new Datastore({ filename: "database.db" });
+database.loadDatabase();
 
 // Handle GET requests to /api route
 app.get("/api", (req, res) => {
@@ -53,39 +57,22 @@ app.get("/weather/:lat-:lon", async (request, response) => {
 	response.json(weather_JSON);
 });
 
-// app.get("/getImage/:category", async (req, res) => {
-// 	try {
-// 		const { category } = req.params;
-// 		const APININJAS_API_KEY = process.env.APININJAS_API_KEY;
-// 		const imagesApiUrl =
-// 			"https://api.api-ninjas.com/v1/randomimage" +
-// 			(category === "no-category" ? "" : "?category=" + category);
-
-// 		const image_response = await fetch(imagesApiUrl, {
-// 			headers: { "X-Api-Key": APININJAS_API_KEY, Accept: "image/jpg" },
-// 		});
-
-// 		if (!image_response.ok) {
-// 			throw new Error("Failed to fetch the image.");
-// 		}
-
-// 		const image_data = await image_response.arrayBuffer();
-// 		// Get the raw image data
-
-// 		// If the image is in Base64 encoding, decode it
-// 		// Assuming the image is received in Base64 and needs to be decoded
-// 		const image_decoded = Buffer.from(image_data, "base64");
-
-// 		// Set the appropriate Content-Type header for the image
-// 		res.setHeader("Content-Type", "image/jpeg");
-
-// 		// Send the image data in the response
-// 		res.end(image_decoded);
-// 	} catch (error) {
-// 		console.error(error);
-// 		res.status(500).json({ error: "Failed to fetch the image." });
-// 	}
-// });
+//adding data generated from client to db
+let data;
+app.post("/api", async (request, response) => {
+	try {
+		data = request.body;
+		console.log("data that server recieved:", data);
+		database.insert(data);
+		//RESPONSE
+		//you are required to make a response, for example:
+		response.json({
+			...data,
+		});
+	} catch (error) {
+		console.error("FAILED TO WRITE TO DATABASE ", error);
+	}
+});
 
 app.get("/getMarkdown", async (req, res) => {
 	readFile("assets/initialMarkdown.txt", "utf8", (err, data) => {

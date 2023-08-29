@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchWeather } from "./API";
+import { fetchWeather, logWeather } from "./API";
 
 const initialState = {
 	displayName: "The Weather Here",
@@ -14,14 +14,26 @@ const initialState = {
 	},
 	weatherData: null,
 	metric: true,
+	logging: false,
+	logResponse: null,
 };
 
 export const getWeatherData = createAsyncThunk(
 	"weatherHere/fetchData",
 	async (location) => {
-		console.log("location from slice", location);
 		try {
 			const response = await fetchWeather(location);
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
+	}
+);
+export const saveWeatherLog = createAsyncThunk(
+	"weatherHere/logData",
+	async (data) => {
+		try {
+			const response = await logWeather(data);
 			return response;
 		} catch (error) {
 			console.error(error);
@@ -58,10 +70,23 @@ export const weatherHereSlice = createSlice({
 				state.weatherData = action.payload;
 			})
 			.addCase(getWeatherData.rejected, (state) => {
-				state.quote = {
-					author: "shmin",
-					quote: "for some reason something went wrong somewhere 🥲",
-				};
+				// state.quote = {
+				// 	author: "shmin",
+				// 	quote: "for some reason something went wrong somewhere 🥲",
+				// };
+			})
+			.addCase(saveWeatherLog.pending, (state) => {
+				state.logging = true;
+			})
+			.addCase(saveWeatherLog.fulfilled, (state, action) => {
+				state.logging = false;
+				state.logResponse = action.payload;
+			})
+			.addCase(saveWeatherLog.rejected, (state) => {
+				// state.quote = {
+				// 	author: "shmin",
+				// 	quote: "for some reason something went wrong somewhere 🥲",
+				// };
 			});
 	},
 });
