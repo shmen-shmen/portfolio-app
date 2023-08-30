@@ -8,15 +8,15 @@ import {
 	setGeoStatus,
 	setLocation,
 	getWeatherData,
+	getTimezoneData,
 	setLoadingWeather,
 	resetState,
 } from "./weatherSlice";
 
 function TheWeatherHere() {
 	const dispatch = useDispatch();
-	const { geoStatus, location, weatherData, cities } = useSelector(
-		(state) => state.weatherHere
-	);
+	const { geoStatus, location, weatherData, timezoneData, cities } =
+		useSelector((state) => state.weatherHere);
 
 	const checkGeoStatus = () => {
 		if ("geolocation" in navigator) {
@@ -81,19 +81,20 @@ function TheWeatherHere() {
 		dispatch(setLocation(coordinates));
 	};
 
-	const getWeather = async (location) => {
+	const getWeatherAndTimezone = async (location) => {
 		dispatch(getWeatherData(location));
+		dispatch(getTimezoneData(location));
 	};
 
 	useEffect(() => {
 		if (location) {
-			getWeather(location);
+			getWeatherAndTimezone(location);
 		}
 	}, [location]);
 
 	useEffect(() => {
-		if (weatherData) {
-			console.log(weatherData);
+		if (weatherData && timezoneData) {
+			console.log(weatherData, timezoneData);
 		}
 	}, [weatherData]);
 

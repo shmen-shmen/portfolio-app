@@ -5,11 +5,11 @@ import transcribeWeatherData from "./transcribeWeatherData.js";
 import { changeUnits, saveWeatherLog } from "./weatherSlice.js";
 function WeatherReport() {
 	const dispatch = useDispatch();
-	const { loadingWeather, weatherData, metric } = useSelector(
+	const { loadingWeather, weatherData, timezoneData, metric } = useSelector(
 		(state) => state.weatherHere
 	);
 
-	const report = transcribeWeatherData(weatherData, metric);
+	const report = transcribeWeatherData(weatherData, timezoneData, metric);
 
 	return (
 		<Popup closeButton={false}>

@@ -12,6 +12,20 @@ export const fetchWeather = async (location) => {
 		console.error(error);
 	}
 };
+
+export const fetchTimezone = async (location) => {
+	try {
+		const [myLat, myLon] = location;
+		const apiURL = `/timezone/${myLat}-${myLon}`;
+		const timezone_response = await fetch(apiURL);
+		// GET WEATHER DATA
+		const timezone_data = await timezone_response.json();
+		return timezone_data;
+	} catch (error) {
+		console.error(error);
+	}
+};
+
 export const logWeather = async (data) => {
 	console.log("data that i send to server:", data);
 	try {

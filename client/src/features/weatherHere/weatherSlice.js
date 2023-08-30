@@ -1,18 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchWeather, logWeather } from "./API";
+import { fetchWeather, fetchTimezone, logWeather } from "./API";
 
 const initialState = {
 	displayName: "The Weather Here",
 	geoStatus: null,
 	location: null,
 	loadingWeather: false,
+	weatherData: null,
+	timezoneData: null,
 	cities: {
 		Tokyo: [35.689722, 139.692222],
 		Marrakesh: [31.63, -8.008889],
 		Huliaipole: [47.65, 36.266667],
 		Novosibirsk: [55.05, 82.95],
 	},
-	weatherData: null,
 	metric: true,
 	logging: false,
 	logResponse: null,
@@ -23,6 +24,17 @@ export const getWeatherData = createAsyncThunk(
 	async (location) => {
 		try {
 			const response = await fetchWeather(location);
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
+	}
+);
+export const getTimezoneData = createAsyncThunk(
+	"weatherHere/fetchTimezone",
+	async (location) => {
+		try {
+			const response = await fetchTimezone(location);
 			return response;
 		} catch (error) {
 			console.error(error);
@@ -75,6 +87,16 @@ export const weatherHereSlice = createSlice({
 				// 	quote: "for some reason something went wrong somewhere 🥲",
 				// };
 			})
+			// .addCase(getTimezoneData.pending, (state) => {
+			// 	state.loadingTimezone = true;
+			// })
+			.addCase(getTimezoneData.fulfilled, (state, action) => {
+				// state.loadingTimezone = false;
+				state.timezoneData = action.payload;
+			})
+			// .addCase(getTimezoneData.rejected, (state) => {
+			// 	state.timezoneData = initialState.timezoneData;
+			// })
 			.addCase(saveWeatherLog.pending, (state) => {
 				state.logging = true;
 			})

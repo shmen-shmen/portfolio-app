@@ -47,14 +47,30 @@ app.get("/getQuote/:category", async (req, res) => {
 
 //making weather request with client coordinates and sending result back to client
 app.get("/weather/:lat-:lon", async (request, response) => {
-	const { lat, lon } = request.params;
-	console.log(lat, lon);
-	const weatherApiKey = process.env.WEATHER_API_KEY;
-	const apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${weatherApiKey}&units=metric`;
-	console.log(apiURL);
-	const weather_response = await fetch(apiURL);
-	const weather_JSON = await weather_response.json();
-	response.json(weather_JSON);
+	try {
+		const { lat, lon } = request.params;
+		const weatherApiKey = process.env.WEATHER_API_KEY;
+		const apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${weatherApiKey}&units=metric`;
+		console.log(apiURL);
+		const weather_response = await fetch(apiURL);
+		const weather_JSON = await weather_response.json();
+		response.json(weather_JSON);
+	} catch (error) {
+		console.error(error);
+	}
+});
+//making timezone request with client coordinates and sending result back to client
+app.get("/timezone/:lat-:lon", async (request, response) => {
+	try {
+		const { lat, lon } = request.params;
+		console.log(lat, lon);
+		const apiURL = `http://api.geonames.org/timezoneJSON?lat=${lat}&lng=${lon}&username=ymtktu`;
+		const timezone_response = await fetch(apiURL);
+		const timezone_JSON = await timezone_response.json();
+		response.json(timezone_JSON);
+	} catch (error) {
+		console.error(error);
+	}
 });
 
 //adding data generated from client to db

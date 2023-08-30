@@ -1,4 +1,4 @@
-export default function transcribeWeatherData(data, metric, setTimeOfDay) {
+export default function transcribeWeatherData(data, metric) {
 	const place = data["name"];
 	const country = data.sys.country;
 	const speedUnit = metric ? "kph" : "mph";
