@@ -51,7 +51,6 @@ app.get("/weather/:lat-:lon", async (request, response) => {
 		const { lat, lon } = request.params;
 		const weatherApiKey = process.env.WEATHER_API_KEY;
 		const apiURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${weatherApiKey}&units=metric`;
-		console.log(apiURL);
 		const weather_response = await fetch(apiURL);
 		const weather_JSON = await weather_response.json();
 		response.json(weather_JSON);
@@ -63,7 +62,6 @@ app.get("/weather/:lat-:lon", async (request, response) => {
 app.get("/timezone/:lat-:lon", async (request, response) => {
 	try {
 		const { lat, lon } = request.params;
-		console.log(lat, lon);
 		const apiURL = `http://api.geonames.org/timezoneJSON?lat=${lat}&lng=${lon}&username=ymtktu`;
 		const timezone_response = await fetch(apiURL);
 		const timezone_JSON = await timezone_response.json();
@@ -78,7 +76,6 @@ let data;
 app.post("/api", async (request, response) => {
 	try {
 		data = request.body;
-		console.log("data that server recieved:", data);
 		database.insert(data);
 		//RESPONSE
 		//you are required to make a response, for example:

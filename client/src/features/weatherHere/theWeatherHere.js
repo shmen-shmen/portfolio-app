@@ -75,7 +75,6 @@ function TheWeatherHere() {
 			}
 		} else {
 			coordinates = await coordsFromNavigator();
-			console.log("coords from navigator", coordinates);
 		}
 
 		dispatch(setLocation(coordinates));

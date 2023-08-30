@@ -1,8 +1,9 @@
-export default function transcribeWeatherData(data, metric) {
+export default function transcribeWeatherData(data, timezoneData, metric) {
 	const place = data["name"];
 	const country = data.sys.country;
 	const speedUnit = metric ? "kph" : "mph";
 	const tempUnit = metric ? "°C" : "°F";
+	const utcTimestamp = data.dt;
 
 	const temperature = metric
 		? Math.floor(data["main"]["temp"])
@@ -56,7 +57,6 @@ export default function transcribeWeatherData(data, metric) {
 	let sunIsOut = () => {
 		const sunrise = data.sys.sunrise;
 		const sunset = data.sys.sunset;
-		const utcTimestamp = data.dt;
 
 		return utcTimestamp >= sunrise && utcTimestamp <= sunset;
 	};
@@ -93,13 +93,26 @@ export default function transcribeWeatherData(data, metric) {
 
 	const conditionsEmoji = setConditionsEmoji(weatherConditionsCode);
 
-	const dateString = Intl.DateTimeFormat("en-GB", {
-		weekday: "long",
-		month: "short",
-		day: "numeric",
-		hour: "numeric",
-		minute: "numeric",
-	}).format(new Date(Date.now()));
+	const getDateString = () => {
+		const utcMilliseconds = utcTimestamp * 1000;
+		const timezone = timezoneData["timezoneId"];
+
+		const utcDate = new Date(utcMilliseconds);
+		const options = {
+			timezone: timezone,
+			weekday: "long",
+			month: "short",
+			day: "numeric",
+			hour: "numeric",
+			minute: "numeric",
+		};
+
+		const dateString = new Intl.DateTimeFormat([], options).format(utcDate);
+
+		return dateString;
+	};
+
+	const dateString = getDateString();
 
 	return {
 		sunIsOut: () => {
