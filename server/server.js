@@ -76,6 +76,7 @@ let data;
 app.post("/api", async (request, response) => {
 	try {
 		data = request.body;
+		console.log("data that server recieved:", data);
 		database.insert(data);
 		//RESPONSE
 		//you are required to make a response, for example:
@@ -85,6 +86,20 @@ app.post("/api", async (request, response) => {
 	} catch (error) {
 		console.error("FAILED TO WRITE TO DATABASE ", error);
 	}
+});
+
+//sending data from db upon request
+app.get("/weatherLogs", (request, response) => {
+	database.find({}, async (err, data) => {
+		if (err) {
+			console.error(err);
+			response.end;
+			return;
+		} else {
+			data = await database.findAsync({}).sort({ time: -1 });
+			response.json(data);
+		}
+	});
 });
 
 app.get("/getMarkdown", async (req, res) => {

@@ -4,9 +4,10 @@ import { MapContainer, TileLayer, useMap, Marker } from "react-leaflet";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import WeatherReport from "./weatherReport";
+import WeatherLogs from "./weatherLogs";
 
 function MapComponent() {
-	const { location, loadingWeather } = useSelector(
+	const { location, loadingWeather, showLogs } = useSelector(
 		(state) => state.weatherHere
 	);
 	const customIcon = new Icon({
@@ -37,7 +38,10 @@ function MapComponent() {
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			/>
 			<MyLocation />
-			{loadingWeather ? null : (
+
+			{showLogs ? (
+				<WeatherLogs />
+			) : loadingWeather ? null : (
 				<Marker position={location} icon={customIcon}>
 					<WeatherReport />
 				</Marker>

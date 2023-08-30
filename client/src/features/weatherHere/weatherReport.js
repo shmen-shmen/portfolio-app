@@ -2,7 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Popup } from "react-leaflet";
 import transcribeWeatherData from "./transcribeWeatherData.js";
-import { changeUnits, saveWeatherLog } from "./weatherSlice.js";
+import {
+	changeUnits,
+	saveWeatherLog,
+	changeViewCurrentLogs,
+} from "./weatherSlice.js";
 function WeatherReport() {
 	const dispatch = useDispatch();
 	const { loadingWeather, weatherData, timezoneData, metric } = useSelector(
@@ -36,10 +40,17 @@ function WeatherReport() {
 					<span>{report.long()}</span>
 					<button
 						onClick={() => {
-							dispatch(saveWeatherLog(weatherData));
+							dispatch(saveWeatherLog({ weatherData, timezoneData }));
 						}}
 					>
 						save this weather report for someone to see :3
+					</button>
+					<button
+						onClick={() => {
+							dispatch(changeViewCurrentLogs());
+						}}
+					>
+						see logs
 					</button>
 				</div>
 			)}

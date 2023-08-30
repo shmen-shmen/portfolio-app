@@ -27,7 +27,6 @@ export const fetchTimezone = async (location) => {
 };
 
 export const logWeather = async (data) => {
-	console.log("data that i send to server:", data);
 	try {
 		const options = {
 			method: "POST",
@@ -39,6 +38,16 @@ export const logWeather = async (data) => {
 		const newData = await response.json();
 		console.log("RESPONSE FROM SERVER: ", newData);
 		return newData;
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const fetchWeatherLogs = async () => {
+	try {
+		const response = await fetch("/weatherLogs");
+		const data = await response.json();
+		return data;
 	} catch (error) {
 		console.error(error);
 	}

@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchWeather, fetchTimezone, logWeather } from "./API";
+import {
+	fetchWeather,
+	fetchTimezone,
+	logWeather,
+	fetchWeatherLogs,
+} from "./API";
 
 const initialState = {
 	displayName: "The Weather Here",
@@ -17,6 +22,8 @@ const initialState = {
 	metric: true,
 	logging: false,
 	logResponse: null,
+	showLogs: false,
+	weatherLogs: null,
 };
 
 export const getWeatherData = createAsyncThunk(
@@ -52,6 +59,17 @@ export const saveWeatherLog = createAsyncThunk(
 		}
 	}
 );
+export const getWeatherLogs = createAsyncThunk(
+	"weatherHere/getLogs",
+	async (data) => {
+		try {
+			const response = await fetchWeatherLogs(data);
+			return response;
+		} catch (error) {
+			console.error(error);
+		}
+	}
+);
 
 export const weatherHereSlice = createSlice({
 	name: "weatherHere",
@@ -68,6 +86,9 @@ export const weatherHereSlice = createSlice({
 		},
 		changeUnits: (state) => {
 			state.metric = !state.metric;
+		},
+		changeViewCurrentLogs: (state) => {
+			state.showLogs = !state.showLogs;
 		},
 		resetState: () => initialState,
 	},
@@ -109,6 +130,9 @@ export const weatherHereSlice = createSlice({
 				// 	author: "shmin",
 				// 	quote: "for some reason something went wrong somewhere 🥲",
 				// };
+			})
+			.addCase(getWeatherLogs.fulfilled, (state, action) => {
+				state.weatherLogs = action.payload;
 			});
 	},
 });
@@ -119,6 +143,7 @@ export const {
 	setLoadingWeather,
 	changeUnits,
 	setDayNight,
+	changeViewCurrentLogs,
 	resetState,
 } = weatherHereSlice.actions;
 
