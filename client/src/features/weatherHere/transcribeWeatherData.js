@@ -1,4 +1,5 @@
 export default function transcribeWeatherData(data, timezoneData, metric) {
+	// console.log("name from transcribe: ", data["name"]);
 	const place = data["name"];
 	const country = data.sys.country;
 	const speedUnit = metric ? "kph" : "mph";
@@ -69,6 +70,7 @@ export default function transcribeWeatherData(data, timezoneData, metric) {
 			"🌧🌧🌧": [300, 531],
 			"🌨🌨": [600, 602],
 			"🌧❄️": [611, 622],
+			"": [701, 780],
 			"🌪": [781, 781],
 			"🌝": [810, 810],
 			"🌚": [820, 820],
@@ -85,7 +87,9 @@ export default function transcribeWeatherData(data, timezoneData, metric) {
 
 		Object.keys(table).map((key) => {
 			if (code >= table[key][0] && code <= table[key][1]) {
-				emoji = key;
+				if (key) {
+					emoji = key;
+				} else emoji = description;
 			}
 		});
 		return emoji;
@@ -94,12 +98,12 @@ export default function transcribeWeatherData(data, timezoneData, metric) {
 	const conditionsEmoji = setConditionsEmoji(weatherConditionsCode);
 
 	const getDateString = () => {
-		const utcMilliseconds = utcTimestamp * 1000;
 		const timezone = timezoneData["timezoneId"];
+		const utcMilliseconds = utcTimestamp * 1000;
 
 		const utcDate = new Date(utcMilliseconds);
 		const options = {
-			timezone: timezone,
+			timeZone: timezone,
 			weekday: "long",
 			month: "short",
 			day: "numeric",
@@ -107,7 +111,7 @@ export default function transcribeWeatherData(data, timezoneData, metric) {
 			minute: "numeric",
 		};
 
-		const dateString = new Intl.DateTimeFormat([], options).format(utcDate);
+		const dateString = utcDate.toLocaleString(["en-GB"], options);
 
 		return dateString;
 	};

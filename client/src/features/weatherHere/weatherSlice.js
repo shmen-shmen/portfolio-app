@@ -12,6 +12,7 @@ const initialState = {
 	location: null,
 	loadingWeather: false,
 	weatherData: null,
+	loadingTimezone: false,
 	timezoneData: null,
 	cities: {
 		Tokyo: [35.689722, 139.692222],
@@ -108,16 +109,16 @@ export const weatherHereSlice = createSlice({
 				// 	quote: "for some reason something went wrong somewhere 🥲",
 				// };
 			})
-			// .addCase(getTimezoneData.pending, (state) => {
-			// 	state.loadingTimezone = true;
-			// })
+			.addCase(getTimezoneData.pending, (state) => {
+				state.loadingTimezone = true;
+			})
 			.addCase(getTimezoneData.fulfilled, (state, action) => {
-				// state.loadingTimezone = false;
+				state.loadingTimezone = false;
 				state.timezoneData = action.payload;
 			})
-			// .addCase(getTimezoneData.rejected, (state) => {
-			// 	state.timezoneData = initialState.timezoneData;
-			// })
+			.addCase(getTimezoneData.rejected, (state) => {
+				state.timezoneData = initialState.timezoneData;
+			})
 			.addCase(saveWeatherLog.pending, (state) => {
 				state.logging = true;
 			})

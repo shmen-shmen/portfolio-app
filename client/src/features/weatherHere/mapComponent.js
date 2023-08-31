@@ -1,22 +1,20 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { MapContainer, TileLayer, useMap, Marker } from "react-leaflet";
-import { Icon } from "leaflet";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
+
 import "leaflet/dist/leaflet.css";
 import WeatherReport from "./weatherReport";
 import WeatherLogs from "./weatherLogs";
 
 function MapComponent() {
-	const { location, loadingWeather, showLogs } = useSelector(
-		(state) => state.weatherHere
-	);
-	const customIcon = new Icon({
-		iconUrl: "./images/pin-complex.png",
-		className: "my-div-icon",
-		iconSize: [78, 78],
-		iconAnchor: [44, 78],
-		popupAnchor: [-5, -60],
-	});
+	const {
+		location,
+		loadingWeather,
+		loadingTimezone,
+		showLogs,
+		weatherData,
+		timezoneData,
+	} = useSelector((state) => state.weatherHere);
 
 	const MyLocation = () => {
 		const map = useMap();
@@ -38,14 +36,15 @@ function MapComponent() {
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			/>
 			<MyLocation />
-
 			{showLogs ? (
 				<WeatherLogs />
-			) : loadingWeather ? null : (
-				<Marker position={location} icon={customIcon}>
-					<WeatherReport />
-				</Marker>
-			)}
+			) : weatherData && timezoneData ? (
+				<WeatherReport
+					weatherData={weatherData}
+					timezoneData={timezoneData}
+					location={location}
+				/>
+			) : null}
 		</MapContainer>
 	);
 }
