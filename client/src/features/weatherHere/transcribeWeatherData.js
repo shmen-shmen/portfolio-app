@@ -1,7 +1,5 @@
-export default function transcribeWeatherData(data, timezoneData, metric) {
-	// console.log("name from transcribe: ", data["name"]);
+export default function transcribeWeatherData(data, metric) {
 	const place = data["name"];
-	const country = data.sys.country;
 	const speedUnit = metric ? "kph" : "mph";
 	const tempUnit = metric ? "°C" : "°F";
 	const utcTimestamp = data.dt;
@@ -98,7 +96,7 @@ export default function transcribeWeatherData(data, timezoneData, metric) {
 	const conditionsEmoji = setConditionsEmoji(weatherConditionsCode);
 
 	const getDateString = () => {
-		const timezone = timezoneData["timezoneId"];
+		const timezone = data["timezone"];
 		const utcMilliseconds = utcTimestamp * 1000;
 
 		const utcDate = new Date(utcMilliseconds);
@@ -149,6 +147,9 @@ export default function transcribeWeatherData(data, timezoneData, metric) {
 				: "";
 
 			return `Right now it ${tempString} ${feelsLikeString} outside${descriptionString}.${windString}`;
+		},
+		dbEntry: () => {
+			return data;
 		},
 	};
 }

@@ -16,6 +16,7 @@ const __dirname = dirname(__filename);
 
 app.use(express.static(resolve(__dirname, "../client/build")));
 app.use(express.json({ limit: "1mb" }));
+
 // initializing a database using NeDB
 const database = new Datastore({ filename: "database.db" });
 database.loadDatabase();
@@ -70,7 +71,6 @@ app.get("/timezone/:lat-:lon", async (request, response) => {
 		console.error(error);
 	}
 });
-
 //adding data generated from client to db
 let data;
 app.post("/api", async (request, response) => {
@@ -87,7 +87,6 @@ app.post("/api", async (request, response) => {
 		console.error("FAILED TO WRITE TO DATABASE ", error);
 	}
 });
-
 //sending data from db upon request
 app.get("/weatherLogs", (request, response) => {
 	database.find({}, async (err, data) => {
@@ -96,7 +95,7 @@ app.get("/weatherLogs", (request, response) => {
 			response.end;
 			return;
 		} else {
-			data = await database.findAsync({}).sort({ time: -1 });
+			data = await database.findAsync({}).sort({ dt: -1 });
 			response.json(data);
 		}
 	});

@@ -9,11 +9,25 @@ import {
 	changeViewCurrentLogs,
 } from "./weatherSlice.js";
 
-function WeatherReport({ weatherData, timezoneData }) {
+function WeatherReport(props) {
 	const dispatch = useDispatch();
-	const { loadingWeather, loadingTimezone, metric } = useSelector(
+
+	const { loadingWeather, loadingTimezone, metric, showLogs } = useSelector(
 		(state) => state.weatherHere
 	);
+
+	const data = showLogs
+		? props["data"]
+		: {
+				...props["weatherData"],
+				timezone: props["timezoneData"]["timezoneId"],
+		  };
+
+	const report = transcribeWeatherData(data, metric, showLogs);
+
+	const { lat, lon } = data["coord"];
+	const location = [lat, lon];
+
 	const customIcon = new Icon({
 		iconUrl: "./images/pin-complex.png",
 		className: "my-div-icon",
@@ -21,14 +35,11 @@ function WeatherReport({ weatherData, timezoneData }) {
 		iconAnchor: [44, 78],
 		popupAnchor: [-5, -60],
 	});
-	const { lat, lon } = weatherData["coord"];
-	const location = [lat, lon];
-	const report = transcribeWeatherData(weatherData, timezoneData, metric);
 
 	return (
 		<Marker position={location} icon={customIcon}>
 			<Popup closeButton={false}>
-				{loadingWeather && loadingTimezone ? (
+				{loadingWeather || loadingTimezone ? (
 					<p>"wait a second"</p>
 				) : (
 					<div
@@ -51,7 +62,7 @@ function WeatherReport({ weatherData, timezoneData }) {
 						<span>{report.long()}</span>
 						<button
 							onClick={() => {
-								dispatch(saveWeatherLog({ weatherData, timezoneData }));
+								dispatch(saveWeatherLog(report.dbEntry()));
 							}}
 						>
 							save this weather report for someone to see :3

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import WeatherReport from "./weatherReport";
-import { getWeatherLogs } from "./weatherSlice";
+import { getWeatherLogs, setLocation } from "./weatherSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function WeatherLogs() {
@@ -11,18 +11,30 @@ function WeatherLogs() {
 		dispatch(getWeatherLogs());
 	}, []);
 
+	useEffect(() => {
+		if (weatherLogs) {
+			// console.log(weatherLogs);
+			function getRandomNumberBetween(arr) {
+				const random = Math.random();
+				const range = arr.length - 1 - 1;
+				const randomNumber = 1 + random * range;
+				return Math.floor(randomNumber);
+			}
+
+			const randomPlace = getRandomNumberBetween(weatherLogs);
+			const { lat, lon } = weatherLogs[randomPlace]["coord"];
+			const location = [lat, lon];
+
+			dispatch(setLocation(location));
+		}
+		return;
+	}, [weatherLogs]);
+
 	return (
 		<>
 			{weatherLogs
 				? weatherLogs.map((log) => {
-						const { weatherData, timezoneData, _id } = log;
-						return (
-							<WeatherReport
-								key={"key-" + _id}
-								weatherData={weatherData}
-								timezoneData={timezoneData}
-							/>
-						);
+						return <WeatherReport key={"key-" + log["_id"]} data={log} />;
 				  })
 				: null}
 		</>
