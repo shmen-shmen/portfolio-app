@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import WeatherReport from "./weatherReport";
-import { getWeatherLogs, setLocation } from "./weatherSlice";
+import { getWeatherLogs, setLocation, typingMessage } from "./weatherSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function WeatherLogs() {
@@ -13,7 +13,6 @@ function WeatherLogs() {
 
 	useEffect(() => {
 		if (weatherLogs) {
-			// console.log(weatherLogs);
 			function getRandomNumberBetween(arr) {
 				const random = Math.random();
 				const range = arr.length - 1 - 1;
@@ -24,8 +23,6 @@ function WeatherLogs() {
 			const randomPlace = getRandomNumberBetween(weatherLogs);
 			const { lat, lon } = weatherLogs[randomPlace]["coord"];
 			const location = [lat, lon];
-
-			dispatch(setLocation(location));
 		}
 		return;
 	}, [weatherLogs]);

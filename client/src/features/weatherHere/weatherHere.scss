@@ -72,6 +72,23 @@
 				}
 			}
 
+			textarea {
+				margin: 0;
+				padding: 0;
+				height: 3rem;
+				text-align: center;
+				border: none;
+				font-family: "IBM ISO 9", Georgia, "Times New Roman", Times, serif;
+				resize: none;
+				padding: 5px;
+			}
+
+			button {
+				border: none;
+				margin-top: 0.5rem;
+				padding: 0.5rem;
+			}
+
 			.conditions-emoji {
 				text-align: center;
 				font-size: 4rem;
@@ -91,17 +108,17 @@
 		}
 	}
 
-	#drag {
-		position: absolute;
-		max-width: 300px;
-		background-color: white;
-		padding: 1rem;
-		text-align: right;
+	// #drag {
+	// 	position: absolute;
+	// 	max-width: 300px;
+	// 	background-color: white;
+	// 	padding: 1rem;
+	// 	text-align: right;
 
-		p {
-			font-size: 1.25rem;
-		}
-	}
+	// 	p {
+	// 		font-size: 1.25rem;
+	// 	}
+	// }
 
 	#weather-dialog {
 		max-width: 600px;

@@ -1,4 +1,5 @@
-export default function transcribeWeatherData(data, metric) {
+export default function transcribeWeatherData(data, metric, showLogs) {
+	const presentTense = !showLogs;
 	const place = data["name"];
 	const speedUnit = metric ? "kph" : "mph";
 	const tempUnit = metric ? "°C" : "°F";
@@ -127,11 +128,17 @@ export default function transcribeWeatherData(data, metric) {
 			return `The weather in ${place} on ${dateString}`;
 		},
 		long: () => {
-			const tempString = temperature ? `is ${temperature}${tempUnit}` : "";
+			const whenString = presentTense ? "Right now it" : "It";
+
+			const tempString = temperature
+				? `${presentTense ? "is" : "was"} ${temperature}${tempUnit}`
+				: "";
 
 			const feelsLikeString =
 				feelsLike && temperature !== feelsLike
-					? `${temperature ? "which" : ""} feels like ${feelsLike}${tempUnit}`
+					? `${temperature ? "which" : ""} ${
+							presentTense ? "feels" : "felt"
+					  } like ${feelsLike}${tempUnit}`
 					: "";
 
 			const descriptionString = description ? `, with ${description}` : "";
@@ -141,12 +148,16 @@ export default function transcribeWeatherData(data, metric) {
 				: "";
 
 			const windString = windSpeed
-				? ` The wind is  ${
+				? ` The wind ${presentTense ? "is" : "was"} ${
 						windDirectionDeg ? windDirectionCardinal + "," : ""
-				  } ${windSpeed}${speedUnit}${gustsString}.`
+				  } ${windSpeed}${speedUnit}${gustsString}`
 				: "";
 
-			return `Right now it ${tempString} ${feelsLikeString} outside${descriptionString}.${windString}`;
+			const endString = presentTense ? "and I say:" : "and I said";
+
+			const messageString = showLogs ? `"${data.message}"` || "nothing 😔" : "";
+
+			return `${whenString} ${tempString} ${feelsLikeString} outside${descriptionString}.${windString} ${endString} ${messageString}`;
 		},
 		dbEntry: () => {
 			return data;

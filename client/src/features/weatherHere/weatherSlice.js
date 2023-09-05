@@ -25,6 +25,7 @@ const initialState = {
 	logResponse: null,
 	showLogs: false,
 	weatherLogs: null,
+	message: "",
 };
 
 export const getWeatherData = createAsyncThunk(
@@ -91,6 +92,9 @@ export const weatherHereSlice = createSlice({
 		changeViewCurrentLogs: (state) => {
 			state.showLogs = !state.showLogs;
 		},
+		typingMessage: (state, action) => {
+			state.message = action.payload;
+		},
 		resetState: () => initialState,
 	},
 
@@ -145,6 +149,7 @@ export const {
 	changeUnits,
 	setDayNight,
 	changeViewCurrentLogs,
+	typingMessage,
 	resetState,
 } = weatherHereSlice.actions;
 

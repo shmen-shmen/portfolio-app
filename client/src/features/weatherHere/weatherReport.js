@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Popup, Marker } from "react-leaflet";
 import { Icon } from "leaflet";
@@ -7,14 +7,14 @@ import {
 	changeUnits,
 	saveWeatherLog,
 	changeViewCurrentLogs,
+	typingMessage,
 } from "./weatherSlice.js";
 
 function WeatherReport(props) {
 	const dispatch = useDispatch();
 
-	const { loadingWeather, loadingTimezone, metric, showLogs } = useSelector(
-		(state) => state.weatherHere
-	);
+	const { loadingWeather, loadingTimezone, metric, showLogs, message } =
+		useSelector((state) => state.weatherHere);
 
 	const data = showLogs
 		? props["data"]
@@ -35,6 +35,21 @@ function WeatherReport(props) {
 		iconAnchor: [44, 78],
 		popupAnchor: [-5, -60],
 	});
+
+	const handleTypingMessage = (e) => {
+		dispatch(typingMessage(e.target.value));
+	};
+
+	const handleMessageSubmit = () => {
+		console.log("penis");
+		dispatch(saveWeatherLog({ ...report.dbEntry(), message: message }));
+		dispatch(
+			typingMessage("nice! now go see what people from other places had to say")
+		);
+		setTimeout(() => {
+			dispatch(typingMessage(""));
+		}, 3000);
+	};
 
 	return (
 		<Marker position={location} icon={customIcon}>
@@ -60,19 +75,28 @@ function WeatherReport(props) {
 						<span>{report.header()}</span>
 						<br />
 						<span>{report.long()}</span>
-						<button
-							onClick={() => {
-								dispatch(saveWeatherLog(report.dbEntry()));
-							}}
-						>
-							save this weather report for someone to see :3
-						</button>
+						{showLogs ? null : (
+							<>
+								<textarea
+									id="report-message"
+									name="story"
+									rows="5"
+									cols="33"
+									placeholder="(Leave a message for someone else to see ✍️)"
+									onChange={handleTypingMessage}
+									maxLength={140}
+								>
+									{message}
+								</textarea>
+								<button onClick={handleMessageSubmit}>Post message</button>
+							</>
+						)}
 						<button
 							onClick={() => {
 								dispatch(changeViewCurrentLogs());
 							}}
 						>
-							see logs
+							{showLogs ? "Back to my location" : "See other places"}
 						</button>
 					</div>
 				)}
