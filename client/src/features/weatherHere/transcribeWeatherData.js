@@ -127,6 +127,9 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 		header: () => {
 			return `The weather in ${place} on ${dateString}`;
 		},
+		message: () => {
+			return showLogs ? data.message || "🙋‍♀️" : conditionsEmoji;
+		},
 		long: () => {
 			const whenString = presentTense ? "Right now it" : "It";
 

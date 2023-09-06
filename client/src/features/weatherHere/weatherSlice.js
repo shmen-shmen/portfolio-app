@@ -93,6 +93,7 @@ export const weatherHereSlice = createSlice({
 			state.showLogs = !state.showLogs;
 		},
 		typingMessage: (state, action) => {
+			console.log("TYPING", action.payload);
 			state.message = action.payload;
 		},
 		resetState: () => initialState,

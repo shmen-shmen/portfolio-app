@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Popup, Marker } from "react-leaflet";
-import { Icon } from "leaflet";
+import { Popup, Marker, Tooltip } from "react-leaflet";
+import { Icon, divIcon, tooltip } from "leaflet";
 import transcribeWeatherData from "./transcribeWeatherData.js";
 import {
 	changeUnits,
@@ -28,12 +28,22 @@ function WeatherReport(props) {
 	const { lat, lon } = data["coord"];
 	const location = [lat, lon];
 
-	const customIcon = new Icon({
-		iconUrl: "./images/pin-complex.png",
-		className: "my-div-icon",
-		iconSize: [78, 78],
+	// const customIcon = new Icon({
+	// 	iconUrl: "./images/pin-complex.png",
+	// 	className: "my-div-icon",
+	// 	iconSize: [78, 78],
+	// 	iconAnchor: [44, 78],
+	// 	popupAnchor: [-5, -60],
+	// });
+	const customIcon = new divIcon({
+		html:
+			'<img src="/images/pin-complex.png" alt="marker" />' +
+			`<span class="tooltip ${
+				report.sunIsOut() ? "tooltip-day" : "tooltip-night"
+			} ${showLogs ? "tooltip-logs" : ""}">${report.message()}</span>`,
 		iconAnchor: [44, 78],
 		popupAnchor: [-5, -60],
+		className: "my-div-icon",
 	});
 
 	const handleTypingMessage = (e) => {
@@ -43,11 +53,11 @@ function WeatherReport(props) {
 	const handleMessageSubmit = () => {
 		console.log("penis");
 		dispatch(saveWeatherLog({ ...report.dbEntry(), message: message }));
-		dispatch(
-			typingMessage("nice! now go see what people from other places had to say")
-		);
+		dispatch(typingMessage(""));
+		document.getElementById("report-message").value =
+			"nice! now go see other places";
 		setTimeout(() => {
-			dispatch(typingMessage(""));
+			document.getElementById("report-message").value = "";
 		}, 3000);
 	};
 
@@ -76,25 +86,29 @@ function WeatherReport(props) {
 						<br />
 						<span>{report.long()}</span>
 						{showLogs ? null : (
-							<>
+							<div className="checkin-wrapper">
 								<textarea
 									id="report-message"
 									name="story"
 									rows="5"
 									cols="33"
-									placeholder="(Leave a message for someone else to see ✍️)"
+									// placeholder="(You can leave a message for someone else to see ✍️)"
+									// placeholder="(You can leave a message for someone else to see ✍️)"
 									onChange={handleTypingMessage}
 									maxLength={140}
 								>
 									{message}
 								</textarea>
-								<button onClick={handleMessageSubmit}>Post message</button>
-							</>
+								<button onClick={handleMessageSubmit} id="checkin-btn">
+									Check in
+								</button>
+							</div>
 						)}
 						<button
 							onClick={() => {
 								dispatch(changeViewCurrentLogs());
 							}}
+							id="toggle-logs-btn"
 						>
 							{showLogs ? "Back to my location" : "See other places"}
 						</button>
