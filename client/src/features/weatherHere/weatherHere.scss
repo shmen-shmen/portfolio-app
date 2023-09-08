@@ -16,164 +16,6 @@
 		color: black;
 	}
 
-	.leaflet-container {
-		width: 100%;
-		min-height: 100vh;
-
-		.leaflet-map-pane {
-			z-index: 0;
-		}
-
-		.my-div-icon {
-			img {
-				width: 75px;
-				height: 75px;
-			}
-			.tooltip {
-				top: 0;
-				left: 0;
-				transform: translate(30%, -70%);
-				position: absolute;
-				padding: 10px 10px 5px 10px;
-				font-size: 2rem;
-				line-height: 2rem;
-				border-radius: 3rem;
-				text-align: center;
-				width: max-content;
-				max-width: 300px;
-				border: 2px solid black;
-			}
-			.tooltip-day {
-				background: linear-gradient(rgb(108, 167, 239), rgb(255, 255, 255));
-				&.tooltip-logs {
-					background: white;
-				}
-			}
-			.tooltip-night {
-				// background: linear-gradient(rgb(2, 31, 67) 50%, rgb(255, 255, 255));
-				background-color: white;
-				&.tooltip-logs {
-					background: white;
-				}
-			}
-			.tooltip-logs {
-				top: -100%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				background-color: white;
-				font-size: 1rem;
-				border-radius: 1rem;
-				padding: 2px 6px 2px 6px;
-			}
-		}
-
-		.leaflet-popup-content-wrapper {
-			margin: 0;
-			padding: 0;
-			border: none;
-		}
-		.leaflet-popup-content {
-			margin: 0;
-			padding: 0;
-			border: none;
-		}
-		.report {
-			border-radius: 12px;
-			display: flex;
-			flex-direction: column;
-			text-align: justify;
-			padding: 1rem 2rem 1rem 2rem;
-
-			&.report-day {
-				background: linear-gradient(
-					rgb(108, 167, 239) 95px,
-					rgb(255, 255, 255) 120px
-				);
-				#metric-imperial-btn {
-					color: white;
-					background-color: transparent;
-				}
-				.conditions-emoji {
-					color: rgb(2, 31, 67);
-				}
-			}
-			&.report-night {
-				background: linear-gradient(
-					rgb(2, 31, 67) 95px,
-					rgb(255, 255, 255) 120px
-				);
-				#metric-imperial-btn {
-					color: white;
-					background-color: transparent;
-				}
-				.conditions-emoji {
-					color: white;
-				}
-			}
-
-			.checkin-wrapper {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-
-				textarea {
-					width: 80%;
-					height: 3rem;
-					text-align: center;
-					border: none;
-					font-family: "IBM ISO 9", Georgia, "Times New Roman", Times, serif;
-					resize: none;
-					padding: 5px;
-					background-color: transparent;
-					background-color: rgb(225, 225, 225);
-					border-radius: 10px;
-					align-self: baseline;
-				}
-				button {
-					width: fit-content;
-					padding: 4px;
-					border-radius: 5px;
-					border: none;
-					align-self: flex-end;
-					margin: 5px;
-				}
-			}
-
-			#toggle-logs-btn {
-				width: fit-content;
-			}
-
-			.conditions-emoji {
-				text-align: center;
-				font-size: 4rem;
-				margin: 0;
-				padding: 0;
-			}
-
-			#metric-imperial-btn {
-				border: none;
-				background-color: white;
-				font-size: 1.5rem;
-				text-align: left;
-				position: absolute;
-				right: 0;
-				transform: translateX(-50%);
-			}
-		}
-	}
-
-	// #drag {
-	// 	position: absolute;
-	// 	max-width: 300px;
-	// 	background-color: white;
-	// 	padding: 1rem;
-	// 	text-align: right;
-
-	// 	p {
-	// 		font-size: 1.25rem;
-	// 	}
-	// }
-
 	#weather-dialog {
 		max-width: 600px;
 		margin: 0 auto;
@@ -204,4 +46,239 @@
 			}
 		}
 	}
+
+	.leaflet-container {
+		width: 100%;
+		min-height: 100vh;
+
+		.leaflet-map-pane {
+			z-index: 0;
+		}
+
+		.leaflet-popup {
+			background-color: transparent;
+		}
+		.leaflet-popup-content-wrapper {
+			margin: 0;
+			padding: 0;
+			border: none;
+			background-color: transparent;
+			box-shadow: none;
+		}
+		.leaflet-popup-content {
+			margin: 0;
+			padding: 0;
+			border: none;
+			background-color: transparent;
+		}
+
+		.report {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			flex-grow: 1;
+			text-align: justify;
+			height: 316px;
+
+			#report-top {
+				border-radius: 20px;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				padding: 0rem 0.5rem 0rem 0.5rem;
+				z-index: 2;
+				&.report-night {
+					background-color: rgb(2, 31, 67);
+					box-shadow: 0px 0px 5px 5px rgb(2, 31, 67);
+				}
+				&.report-day {
+					background-color: rgb(108, 167, 239);
+					box-shadow: 0px 0px 10px 10px rgb(108, 167, 239);
+				}
+				.report-header {
+					margin-top: 1rem;
+					font-size: 1.1rem;
+					font-weight: 900;
+					color: white;
+				}
+				#metric-imperial-btn {
+					position: absolute;
+					right: 0;
+					font-size: 2rem;
+					border: none;
+					color: white;
+					background-color: transparent;
+					user-select: none;
+				}
+				.conditions-emoji {
+					width: max-content;
+					font-size: 6rem;
+					line-height: 3rem;
+					margin: 0;
+					margin-top: 1.5rem;
+					user-select: none;
+				}
+			}
+
+			#report-bottom {
+				flex: 1;
+				padding: 0rem 0.5rem 0rem 0.5rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				background-color: white;
+				border-radius: 20px;
+				box-shadow: 0px 0px 5px 5px white;
+
+				#report-text {
+					margin-top: 1rem;
+					font-weight: 900;
+					span {
+						font-size: 1.1rem;
+					}
+				}
+				#report-buttons-wrapper {
+					display: flex;
+					flex-direction: column;
+					margin-bottom: 0.5rem;
+				}
+				.weather-report-btn {
+					font-weight: 900;
+					padding: 4px;
+					border: none;
+					align-self: flex-end;
+					margin: 4px;
+					background-color: transparent;
+					font-size: 1.1rem;
+					user-select: none;
+
+					&.show-false {
+						display: none;
+					}
+
+					&.weather-report-btn-day {
+						color: rgba(108, 167, 239, 0.8);
+						color: white;
+						box-shadow: 0px 0px 2px 0px inset rgb(108, 167, 239),
+							0px 0px 2px 0px rgb(108, 167, 239);
+						background-color: rgb(108, 167, 239);
+
+						@media (hover: hover) {
+							&:hover {
+								box-shadow: 0px 0px 2px 0px inset rgb(108, 167, 239),
+									0px 0px 4px 1px rgb(108, 167, 239);
+								// color: rgb(108, 167, 239);
+							}
+						}
+
+						&:active {
+							transform: translate(1px, 1px);
+							box-shadow: 0px 0px 2px 0px inset rgb(108, 167, 239),
+								0px 0px 4px 0px rgb(108, 167, 239);
+							// color: rgb(108, 167, 239);
+						}
+					}
+
+					&.weather-report-btn-night {
+						color: rgba(2, 31, 67, 0.8);
+						color: white;
+						box-shadow: 0px 0px 2px 0px inset rgb(2, 31, 67),
+							0px 0px 2px 0px rgb(2, 31, 67);
+						background-color: rgba(2, 31, 67);
+
+						@media (hover: hover) {
+							&:hover {
+								box-shadow: 0px 0px 2px 0px inset rgb(2, 31, 67),
+									0px 0px 4px 1px rgb(2, 31, 67);
+								// color: rgb(2, 31, 67);
+							}
+						}
+
+						&:active {
+							transform: translate(1px, 1px);
+							box-shadow: 0px 0px 2px 0px inset rgb(2, 31, 67),
+								0px 0px 4px 0px rgb(2, 31, 67);
+							// color: rgb(2, 31, 67);
+						}
+					}
+				}
+			}
+
+			.checkin-wrapper {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				// textarea {
+				// 	width: 100%;
+				// 	height: 4rem;
+				// 	text-align: center;
+				// 	// border: 2px solid rgba(0, 0, 0, 0.2);
+				// 	border: none;
+				// 	font-family: "IBM ISO 9", Georgia, "Times New Roman", Times, serif;
+				// 	resize: none;
+				// 	padding: 5px;
+				// 	background-color: transparent;
+				// 	// background-color: rgba(255, 0, 0, 0.1);
+				// 	border-radius: 10px;
+				// 	align-self: flex-start;
+				// }
+			}
+		}
+
+		.my-div-icon {
+			img {
+				width: 75px;
+				height: 75px;
+			}
+			.tooltip {
+				top: 0;
+				left: 0;
+				transform: translate(30%, -70%);
+				position: absolute;
+				padding: 10px 10px 5px 10px;
+				font-size: 4rem;
+				line-height: 2rem;
+				border-radius: 1.5rem;
+				text-align: center;
+				min-width: 4rem;
+				width: max-content;
+				max-width: 300px;
+			}
+			.tooltip-day {
+				background: linear-gradient(rgb(108, 167, 239), rgb(255, 255, 255));
+				// &.tooltip-logs {
+				// 	background: white;
+				// }
+			}
+			.tooltip-night {
+				// background: linear-gradient(rgb(2, 31, 67) 30%, rgb(6, 48, 121));
+				background-color: transparent;
+				// background-color: white;
+				// &.tooltip-logs {
+				// 	background: white;
+				// }
+			}
+			// .tooltip-logs {
+			// 	top: -100%;
+			// 	left: 50%;
+			// 	transform: translate(-50%, -50%);
+			// 	background-color: white;
+			// 	font-size: 1rem;
+			// 	border-radius: 1rem;
+			// 	padding: 2px 6px 2px 6px;
+			// }
+		}
+	}
+
+	// #drag {
+	// 	position: absolute;
+	// 	max-width: 300px;
+	// 	background-color: white;
+	// 	padding: 1rem;
+	// 	text-align: right;
+
+	// 	p {
+	// 		font-size: 1.25rem;
+	// 	}
+	// }
 }

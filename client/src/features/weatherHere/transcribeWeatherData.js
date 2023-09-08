@@ -125,7 +125,7 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 			return conditionsEmoji;
 		},
 		header: () => {
-			return `The weather in ${place} on ${dateString}`;
+			return `The weather in ${place} on ${dateString}:`;
 		},
 		message: () => {
 			return showLogs ? data.message || "🙋‍♀️" : conditionsEmoji;
@@ -156,11 +156,11 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 				  } ${windSpeed}${speedUnit}${gustsString}`
 				: "";
 
-			const endString = presentTense ? "and I say:" : "and I said";
+			// const endString = presentTense ? "and I say:" : "and I said";
 
-			const messageString = showLogs ? `"${data.message}"` || "nothing 😔" : "";
+			// const messageString = showLogs ? `"${data.message}"` || "nothing 😔" : "";
 
-			return `${whenString} ${tempString} ${feelsLikeString} outside${descriptionString}.${windString} ${endString} ${messageString}`;
+			return `${whenString} ${tempString} ${feelsLikeString} outside${descriptionString}.${windString}.`;
 		},
 		dbEntry: () => {
 			return data;

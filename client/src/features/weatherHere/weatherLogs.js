@@ -11,21 +11,21 @@ function WeatherLogs() {
 		dispatch(getWeatherLogs());
 	}, []);
 
-	useEffect(() => {
-		if (weatherLogs) {
-			function getRandomNumberBetween(arr) {
-				const random = Math.random();
-				const range = arr.length - 1 - 1;
-				const randomNumber = 1 + random * range;
-				return Math.floor(randomNumber);
-			}
+	// useEffect(() => {
+	// 	if (weatherLogs) {
+	// 		function getRandomNumberBetween(arr) {
+	// 			const random = Math.random();
+	// 			const range = arr.length - 1 - 1;
+	// 			const randomNumber = 1 + random * range;
+	// 			return Math.floor(randomNumber);
+	// 		}
 
-			const randomPlace = getRandomNumberBetween(weatherLogs);
-			const { lat, lon } = weatherLogs[randomPlace]["coord"];
-			const location = [lat, lon];
-		}
-		return;
-	}, [weatherLogs]);
+	// 		const randomPlace = getRandomNumberBetween(weatherLogs);
+	// 		const { lat, lon } = weatherLogs[randomPlace]["coord"];
+	// 		const location = [lat, lon];
+	// 	}
+	// 	return;
+	// }, [weatherLogs]);
 
 	return (
 		<>

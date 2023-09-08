@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 
@@ -7,13 +7,15 @@ import WeatherLogs from "./weatherLogs";
 import WeatherRightNow from "./weatherRightNow";
 
 function MapComponent() {
-	const { location, showLogs } = useSelector((state) => state.weatherHere);
+	const { location, showLogs, metric } = useSelector(
+		(state) => state.weatherHere
+	);
 
 	const MyLocation = () => {
 		const map = useMap();
 		useEffect(() => {
 			map.setView(location);
-			const zoom = showLogs ? 3 : 14;
+			const zoom = showLogs ? 5 : 14;
 			map.setZoom(zoom);
 		}, [location]);
 		return null;
