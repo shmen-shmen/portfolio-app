@@ -63,6 +63,7 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 
 	const setConditionsEmoji = (code) => {
 		let emoji = "";
+		let emojiAlt = "";
 
 		const table = {
 			"🌧⛈🌧": [200, 232],
@@ -88,10 +89,21 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 			if (code >= table[key][0] && code <= table[key][1]) {
 				if (key) {
 					emoji = key;
-				} else emoji = description;
+				}
 			}
 		});
-		return emoji;
+
+		const icon = data["weather"][0]["icon"];
+		const description = data["weather"][0]["description"];
+		emojiAlt = (
+			<img
+				className="emoji-alternative"
+				src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+				alt={description}
+			/>
+		);
+
+		return { emoji, emojiAlt };
 	};
 
 	const conditionsEmoji = setConditionsEmoji(weatherConditionsCode);
@@ -122,7 +134,7 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 			return sunIsOut();
 		},
 		emoji: () => {
-			return conditionsEmoji;
+			return conditionsEmoji["emoji"] || conditionsEmoji["emojiAlt"];
 		},
 		header: () => {
 			return `The weather in ${place} on ${dateString}:`;

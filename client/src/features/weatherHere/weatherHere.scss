@@ -114,9 +114,17 @@
 					width: max-content;
 					font-size: 6rem;
 					line-height: 3rem;
-					margin: 0;
+					margin: 0 auto;
 					margin-top: 1.5rem;
 					user-select: none;
+
+					.emoji-alternative {
+						display: inline;
+						width: 150px;
+						aspect-ratio: 1 / 1;
+						margin: -3.5rem 0rem -2.5rem 0rem;
+						font: 6rem "IBM ISO 9";
+					}
 				}
 			}
 
