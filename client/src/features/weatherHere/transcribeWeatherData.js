@@ -22,6 +22,7 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 		: Math.round(data["wind"]["gust"] * 2.2369 * 1) / 1;
 
 	const windDirectionDeg = data["wind"]["deg"];
+	console.log("DEG", windDirectionDeg);
 	const calcWindDirectionCardinal = (degrees) => {
 		let cardinal = "";
 		const table = {
@@ -42,6 +43,11 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 			Northwest: [303.75, 326.25],
 			"North-northwest": [326.25, 348.75],
 		};
+
+		if (degrees >= 348.75 && degrees <= 360) {
+			degrees = degrees - 360;
+		}
+
 		Object.keys(table).map((key) => {
 			if (degrees >= table[key][0] && degrees < table[key][1]) {
 				cardinal = key;
@@ -50,6 +56,7 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 		return cardinal;
 	};
 	const windDirectionCardinal = calcWindDirectionCardinal(windDirectionDeg);
+	console.log("CARDINAL", windDirectionCardinal);
 
 	const description = data["weather"][0]["description"];
 	const weatherConditionsCode = data["weather"][0]["id"];
@@ -162,10 +169,14 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 				? `, with gusts of ${windGusts}${speedUnit}`
 				: "";
 
+			const windDirectionString = windDirectionDeg
+				? `${windDirectionCardinal} ,`
+				: "";
+
 			const windString = windSpeed
-				? ` The wind ${presentTense ? "is" : "was"} ${
-						windDirectionDeg ? windDirectionCardinal + "," : ""
-				  } ${windSpeed}${speedUnit}${gustsString}`
+				? ` The wind ${
+						presentTense ? "is" : "was"
+				  } ${windDirectionString} ${windSpeed}${speedUnit}${gustsString}`
 				: "";
 
 			// const endString = presentTense ? "and I say:" : "and I said";
