@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import WeatherReport from "./weatherReport";
-import { getWeatherLogs, setLocation, typingMessage } from "./weatherSlice";
+import { getWeatherLogs } from "./weatherSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function WeatherLogs() {
@@ -9,6 +9,14 @@ function WeatherLogs() {
 
 	useEffect(() => {
 		dispatch(getWeatherLogs());
+	}, []);
+
+	useEffect(() => {
+		setTimeout(() => {
+			document
+				.getElementById("weather-logs-message-wrapper")
+				.classList.add("hidden");
+		}, 3000);
 	}, []);
 
 	// useEffect(() => {
@@ -29,6 +37,12 @@ function WeatherLogs() {
 
 	return (
 		<>
+			<div id="weather-logs-message-wrapper">
+				<span>you can look about the map to see</span>
+				<span> check ins from other users!</span>
+				<br />
+				<span className="weather-logs-message-emoji">🪂</span>
+			</div>
 			{weatherLogs
 				? weatherLogs.map((log) => {
 						return <WeatherReport key={"key-" + log["_id"]} data={log} />;

@@ -13,7 +13,7 @@ function MapComponent() {
 		const MyLocation = () => {
 			const map = useMap();
 			useEffect(() => {
-				map.setView(location, showLogs ? 5 : 14);
+				map.setView(location, showLogs ? 4 : 14);
 			}, []);
 			return null;
 		};

@@ -20,12 +20,13 @@ const initialState = {
 		Huliaipole: [47.65, 36.266667],
 	},
 	metric: true,
+	message: "",
 	logging: false,
 	checkedIn: false,
+	showCheckInElements: true,
 	logResponse: null,
 	showLogs: false,
 	weatherLogs: null,
-	message: "",
 };
 
 export const getWeatherData = createAsyncThunk(
@@ -52,12 +53,12 @@ export const getTimezoneData = createAsyncThunk(
 );
 export const saveWeatherLog = createAsyncThunk(
 	"weatherHere/logData",
-	async (data) => {
-		try {
-			const response = await logWeather(data);
+	async (data, { rejectWithValue }) => {
+		const response = await logWeather(data);
+		if (response) {
 			return response;
-		} catch (error) {
-			console.error(error);
+		} else {
+			return rejectWithValue("there was an error checking in"); // Reject with an error payload
 		}
 	}
 );
@@ -93,8 +94,10 @@ export const weatherHereSlice = createSlice({
 			state.showLogs = !state.showLogs;
 		},
 		typingMessage: (state, action) => {
-			console.log("TYPING", action.payload);
 			state.message = action.payload;
+		},
+		hideCheckInElements: (state) => {
+			state.showCheckInElements = false;
 		},
 		resetState: () => initialState,
 	},
@@ -109,10 +112,7 @@ export const weatherHereSlice = createSlice({
 				state.weatherData = action.payload;
 			})
 			.addCase(getWeatherData.rejected, (state) => {
-				// state.quote = {
-				// 	author: "shmin",
-				// 	quote: "for some reason something went wrong somewhere 🥲",
-				// };
+				console.error("ERROR GET WEATHER DATA");
 			})
 			.addCase(getTimezoneData.pending, (state) => {
 				state.loadingTimezone = true;
@@ -122,20 +122,24 @@ export const weatherHereSlice = createSlice({
 				state.timezoneData = action.payload;
 			})
 			.addCase(getTimezoneData.rejected, (state) => {
+				console.error("ERROR GET TIMEZONE DATA");
 				state.timezoneData = initialState.timezoneData;
 			})
 			.addCase(saveWeatherLog.pending, (state) => {
 				state.logging = true;
+				state.checkedIn = false;
 			})
 			.addCase(saveWeatherLog.fulfilled, (state, action) => {
+				console.log("SAVE WEATHER LOG FULLFILLED");
 				state.logging = false;
+				state.checkedIn = true;
 				state.logResponse = action.payload;
 			})
-			.addCase(saveWeatherLog.rejected, (state) => {
-				// state.quote = {
-				// 	author: "shmin",
-				// 	quote: "for some reason something went wrong somewhere 🥲",
-				// };
+			.addCase(saveWeatherLog.rejected, (state, action) => {
+				console.error(action.payload);
+				state.logging = false;
+				state.checkedIn = "error";
+				state.logResponse = action.payload;
 			})
 			.addCase(getWeatherLogs.fulfilled, (state, action) => {
 				state.weatherLogs = action.payload;
@@ -151,6 +155,7 @@ export const {
 	setDayNight,
 	changeViewCurrentLogs,
 	typingMessage,
+	hideCheckInElements,
 	resetState,
 } = weatherHereSlice.actions;
 

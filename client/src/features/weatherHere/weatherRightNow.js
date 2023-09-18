@@ -6,6 +6,7 @@ function WeatherRightNow() {
 	const { weatherData, timezoneData } = useSelector(
 		(state) => state.weatherHere
 	);
+
 	return (
 		<>
 			{weatherData && timezoneData ? (

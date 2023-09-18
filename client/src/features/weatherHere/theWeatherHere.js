@@ -97,18 +97,48 @@ function TheWeatherHere() {
 		}
 	}, [weatherData]);
 
+	const aboutDialogToggle = () => {
+		const aboutDialog = document.getElementById("weather-here-about-dialog");
+		if (!aboutDialog.open) {
+			aboutDialog.show();
+		} else aboutDialog.close();
+	};
+
 	return (
 		<article id="the-weather-here">
-			<NavLink
-				to={"/"}
-				className="btn close-btn"
-				onClick={() => {
-					console.log("reset click");
-					dispatch(resetState());
-				}}
-			>
-				back
-			</NavLink>
+			<nav id="weather-here-nav">
+				<NavLink
+					to={"/"}
+					id="weather-here-exit"
+					className="weather-here-nav-btn"
+					onClick={() => {
+						dispatch(resetState());
+					}}
+				>
+					exit
+				</NavLink>
+				<button
+					id="weather-here-about"
+					className="weather-here-nav-btn"
+					onClick={aboutDialogToggle}
+				>
+					about
+				</button>
+			</nav>
+			<dialog id="weather-here-about-dialog">
+				<div className="weather-here-about-dialog-contents">
+					<p>
+						This is a little application that gets your location and then shows
+						you a weather report for this location. Users can also 'check in' –
+						save their reports along with a little message and then navigate the
+						map to see each other's check ins.
+					</p>
+					<form method="dialog">
+						<br />
+						<button>OK</button>
+					</form>
+				</div>
+			</dialog>
 			{location ? (
 				<MapComponent location={location} />
 			) : (

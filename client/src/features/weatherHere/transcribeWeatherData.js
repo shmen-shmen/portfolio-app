@@ -1,4 +1,9 @@
-export default function transcribeWeatherData(data, metric, showLogs) {
+export default function transcribeWeatherData(
+	data,
+	metric,
+	showLogs,
+	checkedIn
+) {
 	const presentTense = !showLogs;
 	const place = data["name"];
 	const speedUnit = metric ? "kph" : "mph";
@@ -144,7 +149,7 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 			return conditionsEmoji["emoji"] || conditionsEmoji["emojiAlt"];
 		},
 		header: () => {
-			return `The weather in ${place} on ${dateString}:`;
+			return `The weather in ${place} on ${dateString}`;
 		},
 		message: () => {
 			return showLogs ? data.message || "🙋‍♀️" : conditionsEmoji;
@@ -170,7 +175,7 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 				: "";
 
 			const windDirectionString = windDirectionDeg
-				? `${windDirectionCardinal} ,`
+				? `${windDirectionCardinal},`
 				: "";
 
 			const windString = windSpeed
@@ -179,11 +184,17 @@ export default function transcribeWeatherData(data, metric, showLogs) {
 				  } ${windDirectionString} ${windSpeed}${speedUnit}${gustsString}`
 				: "";
 
-			// const endString = presentTense ? "and I say:" : "and I said";
+			const endString = () => {
+				if (presentTense) {
+					if (checkedIn === true) {
+						return ".";
+					} else return ", and I say:";
+				} else return ", and I said";
+			};
 
-			// const messageString = showLogs ? `"${data.message}"` || "nothing 😔" : "";
+			const messageString = showLogs ? `"${data.message}"` || "nothing 😔" : "";
 
-			return `${whenString} ${tempString} ${feelsLikeString} outside${descriptionString}.${windString}.`;
+			return `${whenString} ${tempString} ${feelsLikeString} outside${descriptionString}.${windString}${endString()} ${messageString}`;
 		},
 		dbEntry: () => {
 			return data;
