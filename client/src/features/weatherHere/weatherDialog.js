@@ -2,13 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 function WeatherDialog({ getLocation }) {
-	const { loadingWeather, cities, geoStatus } = useSelector(
+	const { loadingWeather, loadingTimezone, cities, geoStatus } = useSelector(
 		(state) => state.weatherHere
 	);
 
 	return (
 		<dialog open id="weather-dialog">
-			{loadingWeather ? (
+			{loadingWeather || loadingTimezone ? (
 				<div>Kabashi satellites triangulating your exact location...</div>
 			) : (
 				<div className="dialog-contents">

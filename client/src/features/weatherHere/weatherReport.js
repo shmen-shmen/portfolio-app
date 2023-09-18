@@ -51,7 +51,6 @@ function WeatherReport(props) {
 	};
 
 	useEffect(() => {
-		console.log("CHECKED IN", checkedIn);
 		if (checkedIn === true) {
 			document.getElementById("checkin-message-textarea").value = "👍";
 			setTimeout(() => {

@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
 import "./weatherHere.scss";
 import MapComponent from "./mapComponent";
 import WeatherDialog from "./weatherDialog";
+import WeatherNavComponent from "./WeatherNavComponent";
+import WeatherAboutDialogComponent from "./WeatherAboutDialogComponent";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	setGeoStatus,
@@ -10,7 +11,6 @@ import {
 	getWeatherData,
 	getTimezoneData,
 	setLoadingWeather,
-	resetState,
 } from "./weatherSlice";
 
 function TheWeatherHere() {
@@ -97,48 +97,10 @@ function TheWeatherHere() {
 		}
 	}, [weatherData]);
 
-	const aboutDialogToggle = () => {
-		const aboutDialog = document.getElementById("weather-here-about-dialog");
-		if (!aboutDialog.open) {
-			aboutDialog.show();
-		} else aboutDialog.close();
-	};
-
 	return (
 		<article id="the-weather-here">
-			<nav id="weather-here-nav">
-				<NavLink
-					to={"/"}
-					id="weather-here-exit"
-					className="weather-here-nav-btn"
-					onClick={() => {
-						dispatch(resetState());
-					}}
-				>
-					exit
-				</NavLink>
-				<button
-					id="weather-here-about"
-					className="weather-here-nav-btn"
-					onClick={aboutDialogToggle}
-				>
-					about
-				</button>
-			</nav>
-			<dialog id="weather-here-about-dialog">
-				<div className="weather-here-about-dialog-contents">
-					<p>
-						This is a little application that gets your location and then shows
-						you a weather report for this location. Users can also 'check in' –
-						save their reports along with a little message and then navigate the
-						map to see each other's check ins.
-					</p>
-					<form method="dialog">
-						<br />
-						<button>OK</button>
-					</form>
-				</div>
-			</dialog>
+			<WeatherNavComponent />
+			<WeatherAboutDialogComponent />
 			{location ? (
 				<MapComponent location={location} />
 			) : (
