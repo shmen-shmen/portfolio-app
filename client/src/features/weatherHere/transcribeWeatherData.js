@@ -2,8 +2,11 @@ export default function transcribeWeatherData(
 	data,
 	metric,
 	showLogs,
-	checkedIn
+	showCheckInElements
 ) {
+	if (data === null) {
+		return;
+	}
 	const presentTense = !showLogs;
 	const place = data["name"];
 	const speedUnit = metric ? "kph" : "mph";
@@ -27,7 +30,6 @@ export default function transcribeWeatherData(
 		: Math.round(data["wind"]["gust"] * 2.2369 * 1) / 1;
 
 	const windDirectionDeg = data["wind"]["deg"];
-	console.log("DEG", windDirectionDeg);
 	const calcWindDirectionCardinal = (degrees) => {
 		let cardinal = "";
 		const table = {
@@ -61,7 +63,6 @@ export default function transcribeWeatherData(
 		return cardinal;
 	};
 	const windDirectionCardinal = calcWindDirectionCardinal(windDirectionDeg);
-	console.log("CARDINAL", windDirectionCardinal);
 
 	const description = data["weather"][0]["description"];
 	const weatherConditionsCode = data["weather"][0]["id"];
@@ -121,7 +122,7 @@ export default function transcribeWeatherData(
 	const conditionsEmoji = setConditionsEmoji(weatherConditionsCode);
 
 	const getDateString = () => {
-		const timezone = data["timezone"];
+		const timezone = data["timezone"] || "UTC";
 		const utcMilliseconds = utcTimestamp * 1000;
 
 		const utcDate = new Date(utcMilliseconds);
@@ -134,7 +135,9 @@ export default function transcribeWeatherData(
 			minute: "numeric",
 		};
 
-		const dateString = utcDate.toLocaleString(["en-GB"], options);
+		const dateString = `${utcDate.toLocaleString(["en-GB"], options)}${
+			timezone === "UTC" ? " Universal Time." : ""
+		}`;
 
 		return dateString;
 	};
@@ -186,7 +189,7 @@ export default function transcribeWeatherData(
 
 			const endString = () => {
 				if (presentTense) {
-					if (checkedIn === true) {
+					if (showCheckInElements === false) {
 						return ".";
 					} else return ", and I say:";
 				} else return ", and I said";

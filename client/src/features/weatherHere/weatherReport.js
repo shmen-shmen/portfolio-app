@@ -1,8 +1,6 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Popup, Marker } from "react-leaflet";
-import { divIcon } from "leaflet";
+import { Popup } from "react-leaflet";
 import transcribeWeatherData from "./transcribeWeatherData.js";
 import ReportMessage from "./reportMessage.js";
 import {
@@ -13,12 +11,11 @@ import {
 	typingMessage,
 } from "./weatherSlice.js";
 
-function WeatherReport(props) {
+function WeatherReport({ data }) {
 	const dispatch = useDispatch();
-
 	const {
-		loadingWeather,
-		loadingTimezone,
+		location,
+		weatherError,
 		metric,
 		showLogs,
 		logging,
@@ -27,103 +24,119 @@ function WeatherReport(props) {
 		showCheckInElements,
 	} = useSelector((state) => state.weatherHere);
 
-	const data = showLogs
-		? props["data"]
-		: {
-				...props["weatherData"],
-				timezone: props["timezoneData"]["timezoneId"],
-		  };
-
-	const report = transcribeWeatherData(data, metric, showLogs, checkedIn);
-
-	const { lat, lon } = data["coord"];
-	const location = [lat, lon];
-
-	const customIcon = new divIcon({
-		html: '<img src="/images/pin-complex.png" alt="marker" />',
-		iconAnchor: [44, 78],
-		popupAnchor: [-6, -65],
-		className: "my-div-icon",
-	});
+	const report = data
+		? transcribeWeatherData(
+				data,
+				metric,
+				showLogs,
+				showCheckInElements,
+				weatherError
+		  )
+		: null;
 
 	const handleCheckIn = () => {
 		dispatch(saveWeatherLog({ ...report.dbEntry(), message: message }));
 	};
 
 	useEffect(() => {
-		if (checkedIn === true) {
-			document.getElementById("checkin-message-textarea").value = "👍";
-			setTimeout(() => {
-				dispatch(hideCheckInElements());
-				document.getElementById("checkin-message-textarea").value = message;
-			}, 3000);
-		} else if (checkedIn == "error") {
-			document.getElementById("checkin-message-textarea").value =
-				"could not check in(( try again later";
-			setTimeout(() => {
-				document.getElementById("checkin-message-textarea").value = message;
-			}, 3000);
+		const messageTextarea = document.getElementById("checkin-message-textarea");
+		if (messageTextarea) {
+			if (checkedIn === true) {
+				messageTextarea.value = "you are checked in allright ✍️";
+				setTimeout(() => {
+					dispatch(hideCheckInElements());
+					messageTextarea.value = message;
+				}, 3000);
+			} else if (checkedIn == "error") {
+				messageTextarea.value = "could not check in(( try again later";
+				setTimeout(() => {
+					messageTextarea.value = message;
+				}, 3000);
+			}
+			dispatch(typingMessage(""));
 		}
+		return;
 	}, [checkedIn]);
 
-	return (
-		<Marker position={location} icon={customIcon}>
-			<Popup closeButton={false}>
-				{loadingWeather || loadingTimezone ? (
-					<p>"wait a second"</p>
-				) : (
-					<div className="report">
-						<div
-							id="report-top"
-							className={`${report.sunIsOut() ? "report-day" : "report-night"}`}
+	const renderConditional = () => {
+		if (!data) {
+			return (
+				<div id="report-bottom">
+					{weatherError ? (
+						<p className="popup-noreport-message">
+							{` ${location[0].toString().slice(0, 6)} ${location[1]
+								.toString()
+								.slice(0, 6)}`}
+							<br />
+							{`Could not get weather for your location `}
+							<span>😞</span>
+							{` please try again later`}
+						</p>
+					) : (
+						<p className="popup-noreport-message">
+							<span>🌝</span> please wait a second...
+						</p>
+					)}
+				</div>
+			);
+		} else
+			return (
+				<>
+					<div
+						id="report-top"
+						className={`${report.sunIsOut() ? "report-day" : "report-night"}`}
+					>
+						<p className="conditions-emoji">{report.emoji()}</p>
+						<button
+							id="metric-imperial-btn"
+							onClick={() => {
+								dispatch(changeUnits());
+							}}
 						>
-							<p className="conditions-emoji">{report.emoji()}</p>
-							<button
-								id="metric-imperial-btn"
-								onClick={() => {
-									dispatch(changeUnits());
-								}}
-							>
-								{!metric ? "°C" : "°F"}
-							</button>
-							<span className="report-header">{report.header()}</span>
+							{!metric ? "°C" : "°F"}
+						</button>
+						<span className="report-header">{report.header()}</span>
+					</div>
+					<div id="report-bottom">
+						<div id="report-text">
+							<span>{report.long()}</span>
 						</div>
-						<div id="report-bottom">
-							<div id="report-text">
-								<span>{report.long()}</span>
-							</div>
+						{showCheckInElements && !showLogs ? (
+							<ReportMessage sunIsOut={report.sunIsOut()} />
+						) : null}
+						<div id="report-buttons-wrapper">
 							{showCheckInElements ? (
-								<ReportMessage sunIsOut={report.sunIsOut()} />
-							) : null}
-							<div id="report-buttons-wrapper">
-								{showCheckInElements ? (
-									<button
-										onClick={handleCheckIn}
-										id="checkin-btn"
-										className={`weather-report-btn weather-report-btn-${
-											report.sunIsOut() ? "day" : "night"
-										} show-${!showLogs}`}
-									>
-										{logging ? "checking in..." : "Check in"}
-									</button>
-								) : null}
 								<button
-									onClick={() => {
-										dispatch(changeViewCurrentLogs());
-									}}
-									id="toggle-logs-btn"
+									onClick={handleCheckIn}
+									id="checkin-btn"
 									className={`weather-report-btn weather-report-btn-${
 										report.sunIsOut() ? "day" : "night"
-									} `}
+									} show-${!showLogs}`}
 								>
-									{showLogs ? "Back to my location" : "See other places"}
+									{logging ? "checking in..." : "Check in"}
 								</button>
-							</div>
+							) : null}
+							<button
+								onClick={() => {
+									dispatch(changeViewCurrentLogs());
+								}}
+								id="toggle-logs-btn"
+								className={`weather-report-btn weather-report-btn-${
+									report.sunIsOut() ? "day" : "night"
+								} `}
+							>
+								{showLogs ? "Back to my location" : "See other places"}
+							</button>
 						</div>
 					</div>
-				)}
-			</Popup>
-		</Marker>
+				</>
+			);
+	};
+
+	return (
+		<Popup closeButton={false}>
+			<div className="report">{renderConditional()}</div>
+		</Popup>
 	);
 }
 

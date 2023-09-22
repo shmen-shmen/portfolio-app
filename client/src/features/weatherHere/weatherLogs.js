@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import WeatherReport from "./weatherReport";
+import WeatherMapMarker from "./weatherMapMarker";
 import { getWeatherLogs } from "./weatherSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,27 +13,14 @@ function WeatherLogs() {
 
 	useEffect(() => {
 		setTimeout(() => {
-			document
-				.getElementById("weather-logs-message-wrapper")
-				.classList.add("hidden");
+			const logMessageWrapper = document.getElementById(
+				"weather-logs-message-wrapper"
+			);
+			if (logMessageWrapper) {
+				logMessageWrapper.classList.add("hidden");
+			} else return;
 		}, 3000);
 	}, []);
-
-	// useEffect(() => {
-	// 	if (weatherLogs) {
-	// 		function getRandomNumberBetween(arr) {
-	// 			const random = Math.random();
-	// 			const range = arr.length - 1 - 1;
-	// 			const randomNumber = 1 + random * range;
-	// 			return Math.floor(randomNumber);
-	// 		}
-
-	// 		const randomPlace = getRandomNumberBetween(weatherLogs);
-	// 		const { lat, lon } = weatherLogs[randomPlace]["coord"];
-	// 		const location = [lat, lon];
-	// 	}
-	// 	return;
-	// }, [weatherLogs]);
 
 	return (
 		<>
@@ -45,7 +32,7 @@ function WeatherLogs() {
 			</div>
 			{weatherLogs
 				? weatherLogs.map((log) => {
-						return <WeatherReport key={"key-" + log["_id"]} data={log} />;
+						return <WeatherMapMarker key={"key-" + log["_id"]} data={log} />;
 				  })
 				: null}
 		</>

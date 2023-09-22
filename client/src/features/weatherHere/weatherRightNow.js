@@ -1,5 +1,5 @@
 import React from "react";
-import WeatherReport from "./weatherReport";
+import WeatherMapMarker from "./weatherMapMarker";
 import { useSelector } from "react-redux";
 
 function WeatherRightNow() {
@@ -9,9 +9,7 @@ function WeatherRightNow() {
 
 	return (
 		<>
-			{weatherData && timezoneData ? (
-				<WeatherReport weatherData={weatherData} timezoneData={timezoneData} />
-			) : null}
+			<WeatherMapMarker weatherData={weatherData} timezoneData={timezoneData} />
 		</>
 	);
 }
