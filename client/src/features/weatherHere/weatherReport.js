@@ -134,7 +134,7 @@ function WeatherReport({ data }) {
 	};
 
 	return (
-		<Popup closeButton={false}>
+		<Popup closeButton={false} autoPanPadding={[25, 25]}>
 			<div className="report">{renderConditional()}</div>
 		</Popup>
 	);
