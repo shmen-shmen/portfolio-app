@@ -1,23 +1,31 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { hideCheckInElements } from "./weatherSlice";
 
 function WeatherDialog({ getLocation }) {
 	const { loadingWeather, loadingTimezone, cities, geoStatus } = useSelector(
 		(state) => state.weatherHere
 	);
 
+	const dispatch = useDispatch();
+
 	return (
 		<dialog open id="weather-dialog">
 			{loadingWeather || loadingTimezone ? (
-				<div>Kabashi satellites triangulating your exact location...</div>
+				<div className="dialog-contents">
+					Kabashi satellites triangulating your exact location...
+				</div>
 			) : (
 				<div className="dialog-contents">
+					{/* <p>your geo status: {geoStatus}</p> */}
 					{geoStatus == "prompt" ? (
 						<>
 							<p>
 								You will see a browser popup asking you to share your location
-								data. The app will use it to show you weather at your location.
-								If you are fine with that, press OK
+								data. The app will use it to show you
+								<span className="emoji"> 🌝</span>weather
+								<span className="emoji">⛈ </span>at your location. If you are
+								fine with that, press OK
 							</p>
 							<button onClick={getLocation} className="weather-btn">
 								OK
@@ -31,7 +39,8 @@ function WeatherDialog({ getLocation }) {
 					) : (
 						<p>
 							I'm sorry, it seems that your browser does not allow access to
-							geolocation data, thus you can't see weather at your location😞
+							geolocation data so you can't see weather at your location
+							<span className="emoji">😞</span>
 							<br />
 							But you can still check weather in one of those beautiful cities
 							instead:
@@ -43,7 +52,10 @@ function WeatherDialog({ getLocation }) {
 							<button
 								key={`weather-city-btn-${city}`}
 								className="weather-btn"
-								onClick={getLocation}
+								onClick={(e) => {
+									getLocation(e);
+									dispatch(hideCheckInElements());
+								}}
 							>
 								{city}
 							</button>

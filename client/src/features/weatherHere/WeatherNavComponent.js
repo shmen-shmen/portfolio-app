@@ -15,23 +15,25 @@ function WeatherNavComponent() {
 
 	return (
 		<nav id="weather-here-nav">
-			<NavLink
-				to={"/"}
-				id="weather-here-exit"
-				className="weather-here-nav-btn"
-				onClick={() => {
-					dispatch(resetState());
-				}}
-			>
-				exit
-			</NavLink>
-			<button
-				id="weather-here-about"
-				className="weather-here-nav-btn"
-				onClick={aboutDialogToggle}
-			>
-				about
-			</button>
+			<div className="weather-nav-btn-wrapper">
+				<NavLink
+					to={"/"}
+					id="weather-here-exit"
+					className="weather-here-nav-btn navlink"
+					onClick={() => {
+						dispatch(resetState());
+					}}
+				>
+					◄←◄←
+				</NavLink>
+				<button
+					id="weather-here-about"
+					className="weather-here-nav-btn"
+					onClick={aboutDialogToggle}
+				>
+					¿?¿?
+				</button>
+			</div>
 		</nav>
 	);
 }

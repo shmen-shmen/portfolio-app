@@ -157,6 +157,7 @@ export const weatherHereSlice = createSlice({
 			})
 			.addCase(getWeatherLogs.fulfilled, (state, action) => {
 				state.weatherLogs = action.payload;
+				state.message = initialState.message;
 			});
 	},
 });

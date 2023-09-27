@@ -3,16 +3,16 @@
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	align-content: center;
+	justify-content: center;
 	width: 100%;
 	margin: 0 auto;
 	@include for-tablet-portrait-up {
 		width: 600px;
 	}
+	overflow: scroll;
 }
 
 #nav {
-	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

@@ -19,7 +19,7 @@ function WeatherLogs() {
 			if (logMessageWrapper) {
 				logMessageWrapper.classList.add("hidden");
 			} else return;
-		}, 3000);
+		}, 3500);
 	}, []);
 
 	return (

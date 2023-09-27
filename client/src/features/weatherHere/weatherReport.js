@@ -35,7 +35,9 @@ function WeatherReport({ data }) {
 		: null;
 
 	const handleCheckIn = () => {
-		dispatch(saveWeatherLog({ ...report.dbEntry(), message: message }));
+		if (!checkedIn) {
+			dispatch(saveWeatherLog({ ...report.dbEntry(), message: message }));
+		}
 	};
 
 	useEffect(() => {
@@ -53,7 +55,6 @@ function WeatherReport({ data }) {
 					messageTextarea.value = message;
 				}, 3000);
 			}
-			dispatch(typingMessage(""));
 		}
 		return;
 	}, [checkedIn]);
@@ -86,7 +87,7 @@ function WeatherReport({ data }) {
 						id="report-top"
 						className={`${report.sunIsOut() ? "report-day" : "report-night"}`}
 					>
-						<p className="conditions-emoji">{report.emoji()}</p>
+						<div className="conditions-emoji">{report.emoji()}</div>
 						<button
 							id="metric-imperial-btn"
 							onClick={() => {
@@ -134,7 +135,7 @@ function WeatherReport({ data }) {
 	};
 
 	return (
-		<Popup closeButton={false} autoPanPadding={[25, 25]}>
+		<Popup closeButton={false} autoPanPadding={[25, 55]}>
 			<div className="report">{renderConditional()}</div>
 		</Popup>
 	);

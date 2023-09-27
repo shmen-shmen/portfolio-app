@@ -1,4 +1,4 @@
-@import url("../../index.scss");
+@import "../../index.scss";
 
 #the-weather-here {
 	width: 100%;
@@ -7,21 +7,46 @@
 	flex-direction: column;
 	align-items: center;
 
+	.emoji {
+		font-family: Apple Color Emoji, "NotoColorEmoji", "NotoEmoji";
+	}
+
 	#weather-here-nav {
+		position: absolute;
 		z-index: 2;
-		line-height: 2rem;
 		display: flex;
 		flex-direction: row;
 		min-width: 100vw;
-		background-color: white;
+		border-bottom: 3px solid black;
+
+		.weather-nav-btn-wrapper {
+			display: flex;
+			gap: 2rem;
+		}
 
 		.weather-here-nav-btn {
+			display: block;
 			font-size: 2rem;
-			padding: 0 1rem 0 1rem;
+			line-height: 2.2rem;
+			height: 2rem;
 			background-color: white;
 			color: black;
-			border: none;
-			text-decoration: underline;
+			border: 3px solid black;
+			border-bottom: none;
+			border-top: none;
+			text-decoration: none;
+			padding: 0 1rem 0 1rem;
+			&:hover {
+				color: red;
+			}
+
+			&:active {
+				color: red;
+			}
+
+			&.navlink {
+				border-left: none;
+			}
 		}
 	}
 
@@ -31,9 +56,11 @@
 		z-index: 1;
 		background-color: transparent;
 		backdrop-filter: saturate(0%);
+		backdrop-filter: blur(5px);
 		border: none;
 
 		.weather-here-about-dialog-contents {
+			border: 3px solid black;
 			width: 100%;
 			position: absolute;
 			max-width: 600px;
@@ -42,6 +69,11 @@
 			transform: translate(-50%, -50%);
 			padding: 2rem;
 			background-color: white;
+
+			@include for-phone-only {
+				border-left: none;
+				border-right: none;
+			}
 		}
 		p {
 			font-size: 1.25rem;
@@ -74,12 +106,17 @@
 		top: calc(50%);
 		left: 50%;
 		transform: translate(-50%, -50%);
+		border: none;
 		.dialog-contents {
-			text-align: justify;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			padding: 1rem;
+			border: 3px solid black;
+			@include for-phone-only {
+				border-left: none;
+				border-right: none;
+			}
 		}
 
 		* {
@@ -104,7 +141,7 @@
 
 	.leaflet-container {
 		width: 100%;
-		min-height: calc(100vh - 2rem);
+		min-height: calc(100vh);
 
 		.leaflet-map-pane {
 			z-index: 0;
@@ -146,6 +183,7 @@
 				font-size: 1.4rem;
 			}
 			.weather-logs-message-emoji {
+				font-family: Apple Color Emoji, "NotoEmoji";
 				line-height: 3rem;
 				font-size: 2.5rem;
 			}
@@ -161,7 +199,6 @@
 			justify-content: space-between;
 			flex-grow: 1;
 			text-align: justify;
-			// height: 316px;
 
 			#report-top {
 				border-radius: 20px;
@@ -173,35 +210,52 @@
 				&.report-night {
 					background-color: rgb(2, 31, 67);
 					box-shadow: 0px 0px 5px 5px rgb(2, 31, 67);
+					#metric-imperial-btn {
+						color: rgb(255, 255, 255, 1);
+						background-color: rgba(2, 31, 67, 0.5);
+						box-shadow: 0px 0px 4px 4px rgb(2, 31, 67, 0.5);
+						border-radius: 10px;
+					}
 				}
 				&.report-day {
 					background-color: rgb(108, 167, 239);
 					box-shadow: 0px 0px 10px 10px rgb(108, 167, 239);
+					#metric-imperial-btn {
+						color: rgb(2, 31, 67, 0.8);
+					}
 				}
 				.report-header {
 					margin-top: 1rem;
 					font-size: 1.1rem;
 					font-weight: 900;
 					color: white;
+					z-index: 2;
 				}
 				#metric-imperial-btn {
 					position: absolute;
 					right: 0;
+					transform: translate(-10px, 5px);
 					font-size: 2rem;
+					line-height: 2rem;
+					height: 1.7rem;
+					font-weight: 900;
 					border: none;
-					color: white;
 					background-color: transparent;
 					user-select: none;
 				}
 				.conditions-emoji {
+					font-family: Apple Color Emoji, "NotoColorEmoji", "NotoEmoji";
+					transform: translateX(-50%);
 					width: max-content;
 					font-size: 6rem;
 					line-height: 3rem;
 					margin: 0 auto;
 					margin-top: 1.5rem;
+					margin-left: 50%;
 					user-select: none;
 
 					.emoji-alternative {
+						font-family: Apple Color Emoji, "NotoColorEmoji", "NotoEmoji";
 						display: inline;
 						width: 150px;
 						aspect-ratio: 1 / 1;
@@ -296,8 +350,6 @@
 
 						&:active {
 							transform: translate(1px, 1px);
-							// box-shadow: 0px 0px 2px 0px inset rgb(108, 167, 239),
-							// 	0px 0px 4px 0px rgb(108, 167, 239);
 						}
 					}
 
