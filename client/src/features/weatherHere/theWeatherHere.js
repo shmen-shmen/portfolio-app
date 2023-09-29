@@ -20,20 +20,53 @@ function TheWeatherHere() {
 
 	const checkGeoStatus = () => {
 		if ("geolocation" in navigator) {
-			navigator.permissions.query({ name: "geolocation" }).then((result) => {
-				if (result.state === "granted") {
-					console.log("Geolocation access is granted");
-				} else if (result.state === "prompt") {
-					console.log("Geolocation access permission has not been decided yet");
-				} else {
-					console.log("Geolocation access is denied");
-				}
-				dispatch(setGeoStatus(result.state));
-			});
+			if (!navigator.permissions) {
+				checkGeoStatusSafari();
+				return;
+			} else {
+				navigator.permissions.query({ name: "geolocation" }).then((result) => {
+					if (result.state === "granted") {
+						console.log("Geolocation access is granted");
+					} else if (result.state === "prompt") {
+						console.log(
+							"Geolocation access permission has not been decided yet"
+						);
+					} else {
+						console.log("Geolocation access is denied");
+					}
+					dispatch(setGeoStatus(result.state));
+				});
+			}
 		} else {
 			dispatch(setGeoStatus("not supported"));
 			console.log("Geolocation is not supported in this browser");
 		}
+	};
+
+	const checkGeoStatusSafari = () => {
+		// for no apparent reason this way is slow and buggy, thus it is not default and only kicks in if navigator.permissions is undefined (Safari)
+		navigator.geolocation.getCurrentPosition(
+			() => {
+				console.log("Geolocation access is granted");
+				dispatch(setGeoStatus("granted"));
+			},
+			(error) => {
+				if (error.code === error.PERMISSION_DENIED) {
+					console.log("Geolocation access is denied");
+					dispatch(setGeoStatus("denied"));
+				} else if (error.code === error.POSITION_UNAVAILABLE) {
+					console.log("Geolocation information is unavailable");
+					dispatch(setGeoStatus("unavailable"));
+				} else if (error.code === error.TIMEOUT) {
+					console.log("Geolocation request timed out");
+					dispatch(setGeoStatus("timeout"));
+				} else {
+					console.log("Geolocation access permission has not been decided yet");
+					dispatch(setGeoStatus("prompt"));
+				}
+			}
+		);
+		return;
 	};
 
 	useEffect(() => {
@@ -41,8 +74,7 @@ function TheWeatherHere() {
 	}, []);
 
 	useEffect(() => {
-		const geoAccessGranted = geoStatus == "granted";
-		if (geoAccessGranted) {
+		if (geoStatus == "granted") {
 			getLocation();
 		}
 		return;
@@ -51,7 +83,6 @@ function TheWeatherHere() {
 	const getLocation = async (e) => {
 		dispatch(setLoadingWeather(true));
 		let coordinates;
-
 		const coordsFromNavigator = async () => {
 			let position;
 			try {
@@ -63,6 +94,10 @@ function TheWeatherHere() {
 				dispatch(setLoadingWeather(false));
 				console.error(error);
 			}
+			console.log("geolocation:", [
+				position.coords.latitude,
+				position.coords.longitude,
+			]);
 			return [position.coords.latitude, position.coords.longitude];
 		};
 
@@ -80,14 +115,10 @@ function TheWeatherHere() {
 		dispatch(setLocation(coordinates));
 	};
 
-	const getWeatherAndTimezone = async (location) => {
-		dispatch(getWeatherData(location));
-		dispatch(getTimezoneData(location));
-	};
-
 	useEffect(() => {
 		if (location) {
-			getWeatherAndTimezone(location);
+			dispatch(getWeatherData(location));
+			dispatch(getTimezoneData(location));
 		}
 	}, [location]);
 
