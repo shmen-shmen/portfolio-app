@@ -195,7 +195,7 @@ export default function transcribeWeatherData(
 				} else return ", and I said";
 			};
 
-			const messageString = showLogs ? `"${data.message}"` || "nothing 😔" : "";
+			const messageString = showLogs ? data.message || "nothing 🤭" : "";
 
 			return `${whenString} ${tempString} ${feelsLikeString} outside${descriptionString}.${windString}${endString()} ${messageString}`;
 		},
