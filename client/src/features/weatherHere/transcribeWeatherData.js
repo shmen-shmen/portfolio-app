@@ -192,12 +192,12 @@ export default function transcribeWeatherData(
 					if (showCheckInElements === false) {
 						return ".";
 					} else return ", and I say:";
-				} else return ", and I said:";
+				} else return `, and I said: ${messageString}`;
 			};
 
-			const messageString = showLogs ? data.message || "nothing 🤭" : "";
+			const messageString = `"${data.message}"` || "nothing 🤭";
 
-			return `${whenString} ${tempString} ${feelsLikeString} outside${descriptionString}.${windString}${endString()} "${messageString}"`;
+			return `${whenString} ${tempString} ${feelsLikeString} outside${descriptionString}.${windString}${endString()}`;
 		},
 		dbEntry: () => {
 			return data;
