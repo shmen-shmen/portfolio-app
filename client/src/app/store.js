@@ -5,6 +5,7 @@ import drumMachineSlice from "../features/drumMachine/drumMachineSlice";
 import calculatorSlice from "../features/calculator/calculatorSlice";
 import twentyFiveClockSlice from "../features/twentyFiveClock/twentyFiveClockSlice";
 import weatherHereSlice from "../features/weatherHere/weatherSlice";
+import chatSlice from "../features/chatApp/chatSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
 		calculator: calculatorSlice,
 		twentyFiveClock: twentyFiveClockSlice,
 		weatherHere: weatherHereSlice,
+		chat: chatSlice,
 	},
 });
