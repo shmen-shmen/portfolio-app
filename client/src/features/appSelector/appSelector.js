@@ -16,6 +16,14 @@ const AppSelector = () => {
 					Sythesizer
 				</a>
 				<NavLink
+					to={"/chatApp"}
+					id={"chatApp-id"}
+					key={"chatApp-key"}
+					className="nav-button nav"
+				>
+					Chat App
+				</NavLink>
+				<NavLink
 					to={"/weatherHere"}
 					id={"weatherHere-id"}
 					key={"weatherHere-key"}

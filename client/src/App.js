@@ -6,6 +6,7 @@ import Calculator from "./features/calculator/calculator.js";
 import TwentyFiveClock from "./features/twentyFiveClock/twentyFiveClock.js";
 import "./App.css";
 import TheWeatherHere from "./features/weatherHere/theWeatherHere";
+import ChatMain from "./features/chatApp/ChatMain";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
 		<main id="App">
 			<Routes>
 				<Route exact path="/" element={<AppSelector />}></Route>
+
+				<Route exact path="/chatApp" element={<ChatMain />}></Route>
 
 				<Route exact path="/weatherHere" element={<TheWeatherHere />}></Route>
 
