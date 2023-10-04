@@ -4,9 +4,9 @@ import ChatSidebar from "../containers/ChatSidebar";
 import { NavLink } from "react-router-dom";
 import "../chat.scss";
 
-function Chat() {
+function ChatApp() {
 	return (
-		<div className="Chat">
+		<div className="ChatApp">
 			<nav>
 				<NavLink
 					to={"/"}
@@ -22,4 +22,4 @@ function Chat() {
 	);
 }
 
-export default Chat;
+export default ChatApp;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Empty from "../components/Empty";
 import ChatWindow from "./ChatWindow";
 import { useSelector } from "react-redux";
@@ -8,7 +8,11 @@ function ChatMain() {
 
 	return (
 		<main className="ChatMain">
-			{activeUserId ? <ChatWindow></ChatWindow> : <Empty user={user}></Empty>}
+			{activeUserId ? (
+				<ChatWindow activeUserId={activeUserId}></ChatWindow>
+			) : (
+				<Empty user={user}></Empty>
+			)}
 		</main>
 	);
 }
