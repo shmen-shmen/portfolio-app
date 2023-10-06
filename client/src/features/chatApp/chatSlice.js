@@ -1,19 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { contacts, getMessages, generateUser } from "./static-data.js";
+import { startRecording } from "./mediaRecorder.js";
+
+const initialState = {
+	user: generateUser(),
+	messages: getMessages(10),
+	typing: "",
+	contacts,
+	activeUserId: null,
+	recordingVoice: false,
+	voiceDraft: null,
+};
+
+export const getDataStream = createAsyncThunk(
+	"chat/getDataStream",
+	async (_, { rejectWithValue }) => {
+		console.log("GETDATASTREAM FIRED");
+		const response = await startRecording();
+		if (response) {
+			return response;
+		} else {
+			return rejectWithValue(
+				"there was an error getting weather data 😞 please try again later"
+			);
+		}
+	}
+);
 
 const chatSlice = createSlice({
 	name: "chat",
-	initialState: {
-		user: generateUser(),
-		messages: getMessages(10),
-		typing: "",
-		contacts,
-		activeUserId: null,
-	},
+	initialState,
 	reducers: {
-		// userReducer: (state) => state,
-		// messagesReducer: (state) => state,
-		// contactsReducer: (state) => state,
 		typingChatMessage: (state, action) => {
 			state.typing = action.payload;
 		},
@@ -33,9 +50,30 @@ const chatSlice = createSlice({
 			state.activeUserId = action.payload;
 		},
 	},
+	extraReducers: (builder) => {
+		builder
+			.addCase(getDataStream.pending, (state) => {
+				state.recordingVoice = true;
+			})
+			.addCase(getDataStream.fulfilled, (state, action) => {
+				state.recordingVoice = false;
+				state.voiceDraft = action.payload;
+			})
+			.addCase(getDataStream.rejected, (state, action) => {
+				console.error(action.payload);
+				state.recordingVoice = false;
+				state.voiceDraft = initialState.voiceDraft;
+			});
+	},
 });
 
-export const { setActiveUserId, typingChatMessage, submitChatMessage } =
-	chatSlice.actions;
+export const {
+	setActiveUserId,
+	typingChatMessage,
+	submitChatMessage,
+	startRecordingVoice,
+	abortRecordigVoice,
+	newVoiceDraft,
+} = chatSlice.actions;
 
 export default chatSlice.reducer;

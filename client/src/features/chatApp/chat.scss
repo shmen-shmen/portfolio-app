@@ -147,18 +147,25 @@
 				}
 			}
 			.Message {
-				width: 80%;
+				width: 95%;
 				margin: 1rem auto;
-			}
-			.Message__input {
-				width: 100%;
-				padding: 1rem;
-				background: rgba(0, 0, 0, 0.8);
-				color: #fff;
-				border: 0;
-				border-radius: 10px;
-				font-size: 1rem;
-				outline: 0;
+				display: flex;
+				background-color: red;
+				.Message__input {
+					width: 100%;
+					padding: 1rem;
+					background: rgba(0, 0, 0, 0.8);
+					color: #fff;
+					border: 0;
+					border-radius: 10px;
+					font-size: 1rem;
+					outline: 0;
+				}
+
+				.Message__rec_btn {
+					padding: 1rem;
+					margin-left: auto;
+				}
 			}
 		}
 	}
