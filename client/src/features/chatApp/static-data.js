@@ -43,7 +43,8 @@ export function generateUser() {
 function generateMsg(number) {
 	return {
 		number,
-		text: txtgen.sentence(),
+		type: "text",
+		payload: txtgen.sentence(),
 		is_user_msg: faker.datatype.boolean(),
 	};
 }

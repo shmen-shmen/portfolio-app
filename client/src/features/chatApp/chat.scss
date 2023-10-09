@@ -132,8 +132,14 @@
 					max-width: 90%;
 					border-top-right-radius: 10px;
 					border-bottom-right-radius: 10px;
+					&.type-voice {
+						width: 90%;
+					}
 					@include for-tablet-portrait-up {
 						max-width: 60%;
+						&.type-voice {
+							width: 60%;
+						}
 					}
 
 					&.is_user_msg {
@@ -144,13 +150,18 @@
 						border-top-left-radius: 10px;
 						border-bottom-left-radius: 10px;
 					}
+
+					audio {
+						width: 100%;
+					}
 				}
 			}
 			.Message {
 				width: 95%;
 				margin: 1rem auto;
 				display: flex;
-				background-color: red;
+				align-items: center;
+
 				.Message__input {
 					width: 100%;
 					padding: 1rem;
@@ -161,10 +172,40 @@
 					font-size: 1rem;
 					outline: 0;
 				}
+				.Message__input__VoiceDraft {
+					width: 100%;
+					display: flex;
+					padding: 1rem 0.75rem 1rem 0.75rem;
+					border-radius: 10px;
+					background: rgba(0, 0, 0, 0.8);
 
-				.Message__rec_btn {
-					padding: 1rem;
+					.voice-message-control {
+						width: 50px;
+						font-weight: 900;
+						height: fit-content;
+						background-color: transparent;
+						color: white;
+						border: none;
+
+						&:active {
+							transform: translate(1px, 1px);
+						}
+					}
+
+					input {
+						flex: 1 1 0;
+					}
+				}
+
+				.Message__send_rec_btn {
+					width: 50px;
 					margin-left: auto;
+					font-weight: 900;
+					border-radius: 10px;
+					background: rgba(0, 0, 0, 0.8);
+					border: none;
+					color: white;
+					height: 100%;
 				}
 			}
 		}

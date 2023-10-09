@@ -35,19 +35,24 @@ const chatSlice = createSlice({
 			state.typing = action.payload;
 		},
 		submitChatMessage: (state, action) => {
-			const { newMsgText, id } = action.payload;
+			const { type, payload, id } = action.payload;
 			const activeDialog = state.messages[id];
 			const newMsgNumber = Object.keys(activeDialog).length + 1;
 			const newMsg = {
 				number: newMsgNumber,
-				text: newMsgText,
+				type,
+				payload,
 				is_user_msg: true,
 			};
 			state.messages[id][newMsgNumber] = newMsg;
-			state.typing = "";
+			state.typing = initialState.typing;
+			state.voiceDraft = initialState.voiceDraft;
 		},
 		setActiveUserId: (state, action) => {
 			state.activeUserId = action.payload;
+		},
+		discardVoiceDraft: (state, action) => {
+			state.voiceDraft = initialState.voiceDraft;
 		},
 	},
 	extraReducers: (builder) => {
@@ -74,6 +79,7 @@ export const {
 	startRecordingVoice,
 	abortRecordigVoice,
 	newVoiceDraft,
+	discardVoiceDraft,
 } = chatSlice.actions;
 
 export default chatSlice.reducer;
