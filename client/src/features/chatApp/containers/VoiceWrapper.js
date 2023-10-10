@@ -3,15 +3,17 @@ import { useState } from "react";
 import { discardVoiceDraft } from "../chatSlice";
 import { useDispatch } from "react-redux";
 
-const VoiceDraft = ({ voiceDraft }) => {
-	const { url } = voiceDraft;
+const VoiceWrapper = ({ src, draft, number }) => {
+	console.log("VOICE DRAFT SRC ", src);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [timeline, setTimeline] = useState(0);
 	const dispatch = useDispatch();
+	const identifier = `voice-${draft ? "draft" : "message-" + number}`;
 
 	const handlePlayPausePress = (e) => {
 		e.preventDefault();
-		const audio = document.getElementById("audio");
+		const audio = document.getElementById(identifier);
+		console.log(audio.src);
 		if (audio.paused) {
 			setIsPlaying(true);
 			audio.play();
@@ -27,7 +29,7 @@ const VoiceDraft = ({ voiceDraft }) => {
 		switch (e.type) {
 			case "change":
 				// console.log("onchange");
-				audio = document.getElementById(`audio`);
+				audio = document.getElementById(identifier);
 
 				const audioHasLoaded = isFinite(audio.duration);
 				if (audioHasLoaded) {
@@ -66,11 +68,10 @@ const VoiceDraft = ({ voiceDraft }) => {
 	};
 
 	return (
-		<div className="Message__input__VoiceDraft">
+		<div className="VoiceWrapper">
 			<audio
-				src={url}
-				className="Message__input"
-				id="audio"
+				src={src}
+				id={identifier}
 				onEnded={changeTimelinePosition}
 				onTimeUpdate={changeTimelinePosition}
 			></audio>
@@ -83,11 +84,13 @@ const VoiceDraft = ({ voiceDraft }) => {
 				value={timeline}
 				onChange={changeTimelinePosition}
 			></input>
-			<button className="voice-message-control" onClick={handleScrapPress}>
-				scrap
-			</button>
+			{draft ? (
+				<button className="voice-message-control" onClick={handleScrapPress}>
+					scrap
+				</button>
+			) : null}
 		</div>
 	);
 };
 
-export default VoiceDraft;
+export default VoiceWrapper;

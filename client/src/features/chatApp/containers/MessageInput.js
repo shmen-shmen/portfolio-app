@@ -5,7 +5,7 @@ import {
 	submitChatMessage,
 	getDataStream,
 } from "../chatSlice";
-import VoiceDraft from "./VoiceDraft";
+import VoiceWrapper from "./VoiceWrapper";
 import { stopRecording } from "../mediaRecorder";
 
 function MessageInput() {
@@ -68,18 +68,20 @@ function MessageInput() {
 
 	return (
 		<article className="Message" onSubmit={handleMessageSubmit}>
-			{voiceDraft ? (
-				<VoiceDraft voiceDraft={voiceDraft}></VoiceDraft>
-			) : (
-				<input
-					type="text"
-					className="Message__input"
-					value={typing}
-					placeholder="say something cunt"
-					onChange={handleInputChange}
-					onKeyDown={handleMessageSubmit}
-				/>
-			)}
+			<div className="Message__input_preview">
+				{voiceDraft ? (
+					<VoiceWrapper src={voiceDraft.url} draft={true}></VoiceWrapper>
+				) : (
+					<input
+						type="text"
+						className="Message__input_text"
+						value={typing}
+						placeholder="say something cunt"
+						onChange={handleInputChange}
+						onKeyDown={handleMessageSubmit}
+					/>
+				)}
+			</div>
 			{messageInputBtn()}
 		</article>
 	);

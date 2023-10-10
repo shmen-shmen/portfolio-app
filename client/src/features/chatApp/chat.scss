@@ -134,6 +134,7 @@
 					border-bottom-right-radius: 10px;
 					&.type-voice {
 						width: 90%;
+						padding: 0;
 					}
 					@include for-tablet-portrait-up {
 						max-width: 60%;
@@ -162,39 +163,20 @@
 				display: flex;
 				align-items: center;
 
-				.Message__input {
+				.Message__input_preview {
 					width: 100%;
-					padding: 1rem;
 					background: rgba(0, 0, 0, 0.8);
-					color: #fff;
-					border: 0;
 					border-radius: 10px;
+				}
+
+				.Message__input_text {
+					width: 100%;
+					border: none;
+					padding: 1rem;
+					color: #fff;
+					background-color: transparent;
 					font-size: 1rem;
 					outline: 0;
-				}
-				.Message__input__VoiceDraft {
-					width: 100%;
-					display: flex;
-					padding: 1rem 0.75rem 1rem 0.75rem;
-					border-radius: 10px;
-					background: rgba(0, 0, 0, 0.8);
-
-					.voice-message-control {
-						width: 50px;
-						font-weight: 900;
-						height: fit-content;
-						background-color: transparent;
-						color: white;
-						border: none;
-
-						&:active {
-							transform: translate(1px, 1px);
-						}
-					}
-
-					input {
-						flex: 1 1 0;
-					}
 				}
 
 				.Message__send_rec_btn {
@@ -206,6 +188,41 @@
 					border: none;
 					color: white;
 					height: 100%;
+					user-select: none;
+
+					&:active {
+						background-color: red;
+					}
+				}
+
+				@include for-tablet-portrait-up {
+					gap: 0.5rem;
+				}
+			}
+
+			.VoiceWrapper {
+				width: 100%;
+				display: flex;
+				padding: 1rem 0.75rem 1rem 0.75rem;
+				border-radius: 10px;
+				background: rgba(0, 0, 0, 0.8);
+				background-color: transparent;
+
+				.voice-message-control {
+					width: 50px;
+					font-weight: 900;
+					height: fit-content;
+					background-color: transparent;
+					color: white;
+					border: none;
+
+					&:active {
+						transform: translate(1px, 1px);
+					}
+				}
+
+				input {
+					flex: 1 1 0;
 				}
 			}
 		}
