@@ -91,14 +91,14 @@ function MessageInput() {
 						draft={true}
 					></VoiceWrapper>
 				) : (
-					<input
+					<textarea
 						type="text"
 						className="Message__input_text"
 						value={typing}
 						placeholder="say something cunt"
 						onChange={handleInputChange}
 						onKeyDown={handleMessageSubmit}
-					/>
+					></textarea>
 				)}
 			</div>
 			{messageInputBtn()}

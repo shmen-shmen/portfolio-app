@@ -155,6 +155,9 @@
 					audio {
 						width: 100%;
 					}
+					span {
+						word-break: break-all;
+					}
 				}
 			}
 			.Message {
@@ -167,16 +170,20 @@
 					width: 100%;
 					background: rgba(0, 0, 0, 0.8);
 					border-radius: 10px;
+					padding: 1rem;
+					display: flex;
 				}
 
 				.Message__input_text {
 					width: 100%;
 					border: none;
-					padding: 1rem;
+					padding: 0;
 					color: #fff;
 					background-color: transparent;
 					font-size: 1rem;
 					outline: 0;
+					resize: none;
+					height: 1rem;
 				}
 
 				.Message__send_rec_btn {
