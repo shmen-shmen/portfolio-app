@@ -10,6 +10,7 @@ const initialState = {
 	activeUserId: null,
 	recordingVoice: false,
 	voiceDraft: null,
+	mediaPlaybackRate: 1,
 };
 
 export const getDataStream = createAsyncThunk(
@@ -35,13 +36,13 @@ const chatSlice = createSlice({
 			state.typing = action.payload;
 		},
 		submitChatMessage: (state, action) => {
-			const { type, payload, id } = action.payload;
+			const { type, contents, id } = action.payload;
 			const activeDialog = state.messages[id];
 			const newMsgNumber = Object.keys(activeDialog).length + 1;
 			const newMsg = {
 				number: newMsgNumber,
 				type,
-				payload,
+				contents,
 				is_user_msg: true,
 			};
 			state.messages[id][newMsgNumber] = newMsg;
@@ -51,8 +52,19 @@ const chatSlice = createSlice({
 		setActiveUserId: (state, action) => {
 			state.activeUserId = action.payload;
 		},
-		discardVoiceDraft: (state, action) => {
+		discardVoiceDraft: (state) => {
 			state.voiceDraft = initialState.voiceDraft;
+		},
+		setPlaybackRate: (state) => {
+			if (state.mediaPlaybackRate === 1) {
+				state.mediaPlaybackRate = 1.5;
+			} else if (state.mediaPlaybackRate === 1.5) {
+				state.mediaPlaybackRate = 2;
+			} else if (state.mediaPlaybackRate === 2) {
+				state.mediaPlaybackRate = 0.5;
+			} else {
+				state.mediaPlaybackRate = 1;
+			}
 		},
 	},
 	extraReducers: (builder) => {
@@ -80,6 +92,7 @@ export const {
 	abortRecordigVoice,
 	newVoiceDraft,
 	discardVoiceDraft,
+	setPlaybackRate,
 } = chatSlice.actions;
 
 export default chatSlice.reducer;

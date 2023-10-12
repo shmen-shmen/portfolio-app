@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { discardVoiceDraft } from "../chatSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setPlaybackRate } from "../chatSlice";
 
-const VoiceWrapper = ({ src, draft, number }) => {
-	console.log("VOICE DRAFT SRC ", src);
+const VoiceWrapper = ({ voice, draft, number }) => {
+	const dispatch = useDispatch();
+
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [timeline, setTimeline] = useState(0);
-	const dispatch = useDispatch();
+	const { mediaPlaybackRate } = useSelector((state) => state.chat);
+
+	const audioRef = useRef(null);
 	const identifier = `voice-${draft ? "draft" : "message-" + number}`;
 
 	const handlePlayPausePress = (e) => {
 		e.preventDefault();
-		const audio = document.getElementById(identifier);
-		console.log(audio.src);
+		const audio = audioRef.current;
 		if (audio.paused) {
 			setIsPlaying(true);
 			audio.play();
@@ -23,14 +26,21 @@ const VoiceWrapper = ({ src, draft, number }) => {
 		}
 	};
 
+	const handlePlaybackRatePress = () => {
+		dispatch(setPlaybackRate());
+	};
+
+	useEffect(() => {
+		audioRef.current.playbackRate = mediaPlaybackRate;
+	}, [mediaPlaybackRate]);
+
 	const changeTimelinePosition = (e) => {
-		console.log("timeupdate");
 		let audio;
+		// console.log("timeupdate");
 		switch (e.type) {
 			case "change":
 				// console.log("onchange");
-				audio = document.getElementById(identifier);
-
+				audio = audioRef.current;
 				const audioHasLoaded = isFinite(audio.duration);
 				if (audioHasLoaded) {
 					const time = (audio.duration * e.target.value) / 100;
@@ -70,8 +80,9 @@ const VoiceWrapper = ({ src, draft, number }) => {
 	return (
 		<div className="VoiceWrapper">
 			<audio
-				src={src}
+				src={voice}
 				id={identifier}
+				ref={audioRef}
 				onEnded={changeTimelinePosition}
 				onTimeUpdate={changeTimelinePosition}
 			></audio>
@@ -88,7 +99,14 @@ const VoiceWrapper = ({ src, draft, number }) => {
 				<button className="voice-message-control" onClick={handleScrapPress}>
 					scrap
 				</button>
-			) : null}
+			) : (
+				<button
+					className="voice-message-control"
+					onClick={handlePlaybackRatePress}
+				>
+					{mediaPlaybackRate + "x"}
+				</button>
+			)}
 		</div>
 	);
 };

@@ -44,7 +44,7 @@ function generateMsg(number) {
 	return {
 		number,
 		type: "text",
-		payload: txtgen.sentence(),
+		contents: txtgen.sentence(),
 		is_user_msg: faker.datatype.boolean(),
 	};
 }

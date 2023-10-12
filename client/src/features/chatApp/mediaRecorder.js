@@ -24,7 +24,7 @@ export const startRecording = () => {
 						const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
 						chunks = [];
 						audioURL = URL.createObjectURL(blob);
-						resolve({ url: audioURL, isPlaying: false, timeline: 0 });
+						resolve(audioURL);
 					};
 
 					mediaRecorder.ondataavailable = (e) => {

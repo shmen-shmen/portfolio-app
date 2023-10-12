@@ -27,7 +27,7 @@ function MessageInput() {
 			dispatch(
 				submitChatMessage({
 					type: voiceDraft ? "voice" : "text",
-					payload: voiceDraft ? voiceDraft.url : typing,
+					contents: voiceDraft || typing,
 					id: activeUserId,
 				})
 			);
@@ -70,7 +70,7 @@ function MessageInput() {
 		<article className="Message" onSubmit={handleMessageSubmit}>
 			<div className="Message__input_preview">
 				{voiceDraft ? (
-					<VoiceWrapper src={voiceDraft.url} draft={true}></VoiceWrapper>
+					<VoiceWrapper voice={voiceDraft} draft={true}></VoiceWrapper>
 				) : (
 					<input
 						type="text"
