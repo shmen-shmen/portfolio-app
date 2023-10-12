@@ -4,7 +4,7 @@ import { discardVoiceDraft } from "../chatSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaybackRate } from "../chatSlice";
 
-const VoiceWrapper = ({ voice, draft, number }) => {
+const VoiceWrapper = ({ type, contents, draft, number }) => {
 	const dispatch = useDispatch();
 
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -78,35 +78,50 @@ const VoiceWrapper = ({ voice, draft, number }) => {
 	};
 
 	return (
-		<div className="VoiceWrapper">
-			<audio
-				src={voice}
-				id={identifier}
-				ref={audioRef}
-				onEnded={changeTimelinePosition}
-				onTimeUpdate={changeTimelinePosition}
-			></audio>
-			<button onClick={handlePlayPausePress} className="voice-message-control">
-				{isPlaying ? "pause" : "play"}
-			</button>
-			<input
-				type="range"
-				max="100"
-				value={timeline}
-				onChange={changeTimelinePosition}
-			></input>
-			{draft ? (
-				<button className="voice-message-control" onClick={handleScrapPress}>
-					scrap
-				</button>
+		<div className={`MediaWrapper type-${type}`}>
+			{type == "audio" ? (
+				<audio
+					src={contents}
+					id={identifier}
+					ref={audioRef}
+					onEnded={changeTimelinePosition}
+					onTimeUpdate={changeTimelinePosition}
+				></audio>
 			) : (
-				<button
-					className="voice-message-control"
-					onClick={handlePlaybackRatePress}
-				>
-					{mediaPlaybackRate + "x"}
-				</button>
+				<video
+					src={contents}
+					id={identifier}
+					ref={audioRef}
+					onEnded={changeTimelinePosition}
+					onTimeUpdate={changeTimelinePosition}
+				></video>
 			)}
+			<div className={"MediaWrapper_controls_wrapper"}>
+				<button
+					onClick={handlePlayPausePress}
+					className="media-message-control"
+				>
+					{isPlaying ? "pause" : "play"}
+				</button>
+				<input
+					type="range"
+					max="100"
+					value={timeline}
+					onChange={changeTimelinePosition}
+				></input>
+				{draft ? (
+					<button className="media-message-control" onClick={handleScrapPress}>
+						scrap
+					</button>
+				) : (
+					<button
+						className="media-message-control"
+						onClick={handlePlaybackRatePress}
+					>
+						{mediaPlaybackRate + "x"}
+					</button>
+				)}
+			</div>
 		</div>
 	);
 };

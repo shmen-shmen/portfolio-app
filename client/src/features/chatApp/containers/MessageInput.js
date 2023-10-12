@@ -4,14 +4,14 @@ import {
 	typingChatMessage,
 	submitChatMessage,
 	getDataStream,
+	switchVideoMode,
 } from "../chatSlice";
 import VoiceWrapper from "./VoiceWrapper";
 import { stopRecording } from "../mediaRecorder";
 
 function MessageInput() {
-	const { typing, activeUserId, voiceDraft, recordingVoice } = useSelector(
-		(state) => state.chat
-	);
+	const { typing, activeUserId, videoMode, voiceDraft, recordingVoice } =
+		useSelector((state) => state.chat);
 
 	const dispatch = useDispatch();
 
@@ -26,8 +26,8 @@ function MessageInput() {
 		if ((btnClick || ctrlEnter) && notEmpty) {
 			dispatch(
 				submitChatMessage({
-					type: voiceDraft ? "voice" : "text",
-					contents: voiceDraft || typing,
+					type: voiceDraft ? voiceDraft.type : "text",
+					contents: voiceDraft ? voiceDraft.contents : typing,
 					id: activeUserId,
 				})
 			);
@@ -35,13 +35,26 @@ function MessageInput() {
 		return;
 	};
 
+	let recPressTimeoutId = null;
+	let touchStartTime = 0;
+	const clickHoldCutoff = 200;
+
 	const handleRecPress = () => {
-		if (!recordingVoice) {
-			dispatch(getDataStream());
-		}
+		touchStartTime = new Date();
+		recPressTimeoutId = setTimeout(() => {
+			if (!recordingVoice) {
+				dispatch(getDataStream(videoMode));
+			}
+		}, clickHoldCutoff);
 	};
 
 	const handleRecRelease = () => {
+		if (new Date() - touchStartTime < clickHoldCutoff) {
+			dispatch(switchVideoMode());
+		}
+		if (recPressTimeoutId) {
+			clearTimeout(recPressTimeoutId);
+		}
 		if (recordingVoice) {
 			stopRecording();
 		}
@@ -57,11 +70,13 @@ function MessageInput() {
 		} else
 			return (
 				<button
-					className="Message__send_rec_btn"
+					className={`Message__send_rec_btn ${recordingVoice ? "active" : ""}`}
 					onMouseDown={handleRecPress}
 					onMouseUp={handleRecRelease}
 				>
-					rec
+					<span className={"Message__send_rec_btn_emoji"}>
+						{videoMode ? "📷" : "🎤"}
+					</span>
 				</button>
 			);
 	};
@@ -70,7 +85,11 @@ function MessageInput() {
 		<article className="Message" onSubmit={handleMessageSubmit}>
 			<div className="Message__input_preview">
 				{voiceDraft ? (
-					<VoiceWrapper voice={voiceDraft} draft={true}></VoiceWrapper>
+					<VoiceWrapper
+						contents={voiceDraft.contents}
+						type={voiceDraft.type}
+						draft={true}
+					></VoiceWrapper>
 				) : (
 					<input
 						type="text"

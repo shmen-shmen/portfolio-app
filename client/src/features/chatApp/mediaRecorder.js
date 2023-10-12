@@ -1,12 +1,12 @@
 let mediaRecorder;
-let audioURL;
+let mediaURL;
 
-export const startRecording = () => {
+export const startRecording = (videoMode) => {
 	return new Promise((resolve, reject) => {
 		if (navigator.mediaDevices) {
 			console.log("getUserMedia supported.");
 
-			const constraints = { audio: true };
+			const constraints = { audio: true, video: videoMode };
 			let chunks = [];
 
 			navigator.mediaDevices
@@ -23,8 +23,11 @@ export const startRecording = () => {
 						}
 						const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
 						chunks = [];
-						audioURL = URL.createObjectURL(blob);
-						resolve(audioURL);
+						mediaURL = URL.createObjectURL(blob);
+						resolve({
+							type: videoMode ? "video" : "audio",
+							contents: mediaURL,
+						});
 					};
 
 					mediaRecorder.ondataavailable = (e) => {

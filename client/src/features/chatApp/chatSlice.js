@@ -8,6 +8,7 @@ const initialState = {
 	typing: "",
 	contacts,
 	activeUserId: null,
+	videoMode: false,
 	recordingVoice: false,
 	voiceDraft: null,
 	mediaPlaybackRate: 1,
@@ -15,9 +16,9 @@ const initialState = {
 
 export const getDataStream = createAsyncThunk(
 	"chat/getDataStream",
-	async (_, { rejectWithValue }) => {
+	async (videoMode, { rejectWithValue }) => {
 		console.log("GETDATASTREAM FIRED");
-		const response = await startRecording();
+		const response = await startRecording(videoMode);
 		if (response) {
 			return response;
 		} else {
@@ -51,6 +52,9 @@ const chatSlice = createSlice({
 		},
 		setActiveUserId: (state, action) => {
 			state.activeUserId = action.payload;
+		},
+		switchVideoMode: (state) => {
+			state.videoMode = !state.videoMode;
 		},
 		discardVoiceDraft: (state) => {
 			state.voiceDraft = initialState.voiceDraft;
@@ -88,6 +92,7 @@ export const {
 	setActiveUserId,
 	typingChatMessage,
 	submitChatMessage,
+	switchVideoMode,
 	startRecordingVoice,
 	abortRecordigVoice,
 	newVoiceDraft,

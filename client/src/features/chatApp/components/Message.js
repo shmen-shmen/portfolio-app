@@ -6,14 +6,15 @@ function Message({ message }) {
 
 	return (
 		<div className={`Chat ${is_user_msg ? "is_user_msg" : ""} type-${type}`}>
-			{type == "voice" ? (
+			{type == "text" ? (
+				<span>{contents}</span>
+			) : (
 				<VoiceWrapper
-					voice={contents}
+					contents={contents}
 					draft={false}
 					number={number}
+					type={type}
 				></VoiceWrapper>
-			) : (
-				<span>{contents}</span>
 			)}
 		</div>
 	);

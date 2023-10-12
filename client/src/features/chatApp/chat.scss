@@ -186,11 +186,17 @@
 					border-radius: 10px;
 					background: rgba(0, 0, 0, 0.8);
 					border: none;
-					color: white;
 					height: 100%;
 					user-select: none;
+					background-color: white;
+					color: black;
 
-					&:active {
+					.Message__send_rec_btn_emoji {
+						transform: scaleX(-1);
+						font-size: 2rem;
+					}
+
+					&.active {
 						background-color: red;
 					}
 				}
@@ -200,29 +206,44 @@
 				}
 			}
 
-			.VoiceWrapper {
+			.MediaWrapper {
 				width: 100%;
 				display: flex;
-				padding: 1rem 0.75rem 1rem 0.75rem;
+				// padding: 0;
+				// padding: 1rem 0.75rem 1rem 0.75rem;
 				border-radius: 10px;
 				background: rgba(0, 0, 0, 0.8);
 				background-color: transparent;
 
-				.voice-message-control {
-					width: 50px;
-					font-weight: 900;
-					height: fit-content;
-					background-color: transparent;
-					color: white;
-					border: none;
-
-					&:active {
-						transform: translate(1px, 1px);
-					}
+				&.type-video {
+					flex-direction: column;
 				}
 
-				input {
-					flex: 1 1 0;
+				video {
+					border-radius: 10px;
+					width: 100%;
+					margin-bottom: 1rem;
+				}
+
+				.MediaWrapper_controls_wrapper {
+					display: flex;
+					width: 100%;
+					.media-message-control {
+						width: 50px;
+						font-weight: 900;
+						height: fit-content;
+						background-color: transparent;
+						color: white;
+						border: none;
+
+						&:active {
+							transform: translate(1px, 1px);
+						}
+					}
+
+					input {
+						flex: 1 1 0;
+					}
 				}
 			}
 		}
