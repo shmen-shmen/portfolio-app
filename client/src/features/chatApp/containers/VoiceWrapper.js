@@ -99,9 +99,9 @@ const VoiceWrapper = ({ type, contents, draft, number }) => {
 			<div className={"MediaWrapper_controls_wrapper"}>
 				<button
 					onClick={handlePlayPausePress}
-					className="media-message-control"
+					className="media-message-control start-stop-btn"
 				>
-					{isPlaying ? "pause" : "play"}
+					{isPlaying ? "■" : "►"}
 				</button>
 				<input
 					type="range"
