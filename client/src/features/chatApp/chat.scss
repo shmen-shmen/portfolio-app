@@ -235,9 +235,11 @@
 				}
 
 				video {
+					aspect-ratio: 4 / 3;
+					min-width: 200px;
 					border-radius: 10px;
-					width: 100%;
 					margin-bottom: 1rem;
+					transform: scaleX(-1);
 				}
 
 				.MediaWrapper_controls_wrapper {

@@ -6,7 +6,10 @@ export const startRecording = (videoMode) => {
 		if (navigator.mediaDevices) {
 			console.log("getUserMedia supported.");
 
-			const constraints = { audio: true, video: videoMode };
+			const constraints = {
+				audio: true,
+				video: videoMode,
+			};
 			let chunks = [];
 
 			navigator.mediaDevices
@@ -21,7 +24,14 @@ export const startRecording = (videoMode) => {
 						if (dataIsEmpty) {
 							return;
 						}
-						const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
+						const options = {
+							audioBitsPerSecond: 128000,
+							videoBitsPerSecond: 2500000,
+							mimeType: videoMode
+								? "video/webm;codecs=vp8,vorbis"
+								: "audio/webm;codecs=opus",
+						};
+						const blob = new Blob(chunks, options);
 						chunks = [];
 						mediaURL = URL.createObjectURL(blob);
 						resolve({
