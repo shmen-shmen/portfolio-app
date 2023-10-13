@@ -28,6 +28,10 @@ export const startRecording = (videoMode) => {
 							type: videoMode ? "video" : "audio",
 							contents: mediaURL,
 						});
+						if (stream) {
+							const tracks = stream.getTracks();
+							tracks.forEach((track) => track.stop());
+						}
 					};
 
 					mediaRecorder.ondataavailable = (e) => {
