@@ -189,18 +189,30 @@
 				margin: 1rem auto;
 				display: flex;
 				align-items: flex-end;
+				min-height: 3rem;
 
 				.Message__input_preview {
+					height: 100%;
 					width: 100%;
 					background: rgba(0, 0, 0, 0.8);
 					border-radius: 10px;
 					padding: 1rem;
 					display: flex;
 					justify-content: flex-end;
+					position: relative;
 
 					.type-audio {
 						width: 100%;
 						max-width: 100%;
+					}
+
+					.voiceVisualizer {
+						position: absolute;
+						width: 100%;
+						height: 100%;
+						left: 0;
+						top: 0;
+						border-radius: 10px;
 					}
 				}
 
@@ -217,8 +229,8 @@
 				}
 
 				.Message__send_rec_btn {
-					width: 50px;
-					height: 50px;
+					height: 3rem;
+					aspect-ratio: 1 / 1;
 					margin-left: auto;
 					font-weight: 900;
 					border-radius: 10px;

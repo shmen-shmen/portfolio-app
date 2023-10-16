@@ -103,27 +103,24 @@ function MessageInput() {
 	return (
 		<article className="Message" onSubmit={handleMessageSubmit}>
 			<div className="Message__input_preview">
-				{
-					// recordingVoice && videoMode ? (
-					// 	<video ref={previewRef} src={videoPreview}></video>
-					// ) :
-					voiceDraft ? (
-						<VoiceWrapper
-							contents={voiceDraft.contents}
-							type={voiceDraft.type}
-							draft={true}
-						></VoiceWrapper>
-					) : (
-						<textarea
-							type="text"
-							className="Message__input_text"
-							value={typing}
-							placeholder="say something cunt"
-							onChange={handleInputChange}
-							onKeyDown={handleMessageSubmit}
-						></textarea>
-					)
-				}
+				{recordingVoice ? (
+					<canvas className="voiceVisualizer"></canvas>
+				) : voiceDraft ? (
+					<VoiceWrapper
+						contents={voiceDraft.contents}
+						type={voiceDraft.type}
+						draft={true}
+					></VoiceWrapper>
+				) : (
+					<textarea
+						type="text"
+						className="Message__input_text"
+						value={typing}
+						placeholder="say something cunt"
+						onChange={handleInputChange}
+						onKeyDown={handleMessageSubmit}
+					></textarea>
+				)}
 			</div>
 			{messageInputBtn()}
 		</article>

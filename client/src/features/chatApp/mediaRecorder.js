@@ -1,3 +1,5 @@
+import { visualize } from "./audioStreamVisualizer";
+
 let mediaRecorder;
 let mediaURL;
 
@@ -86,8 +88,8 @@ export const stopRecording = () => {
 let videoPreview = null;
 let videoPreviewWrapper = null;
 const videoPreviewSetup = (stream, videoMode) => {
-	// console.log("VIDEOMODE", videoMode);
 	if (!videoMode) {
+		visualize(stream);
 		return;
 	}
 	console.log("PENIS PENIS");
@@ -102,6 +104,7 @@ const videoPreviewSetup = (stream, videoMode) => {
 	videoPreviewWrapper.appendChild(videoPreview);
 	document.querySelector(".Chats").appendChild(videoPreviewWrapper);
 };
+
 const videoPreviewDispose = () => {
 	if (!videoPreview) {
 		return;
