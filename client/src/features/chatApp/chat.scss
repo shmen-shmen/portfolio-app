@@ -163,6 +163,26 @@
 						word-break: break-all;
 					}
 				}
+
+				#video-preview-wrapper {
+					// position: absolute;
+					// min-width: 100%;
+					// min-height: 100%;
+					// backdrop-filter: grayscale(30%);
+					// background-color: red;
+					// left: 0;
+
+					#video-preview {
+						position: absolute;
+						max-width: 300px;
+						top: 50%;
+						left: 50%;
+						transform: translate(-50%, -50%) scaleX(-1);
+						z-index: 1;
+						background: linear-gradient(white, transparent);
+						border-radius: 10px;
+					}
+				}
 			}
 			.Message {
 				width: 95%;
@@ -236,7 +256,7 @@
 
 				video {
 					aspect-ratio: 4 / 3;
-					min-width: 200px;
+					width: 100%;
 					border-radius: 10px;
 					margin-bottom: 1rem;
 					transform: scaleX(-1);

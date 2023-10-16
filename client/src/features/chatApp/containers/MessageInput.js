@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	typingChatMessage,
@@ -13,7 +13,18 @@ function MessageInput() {
 	const { typing, activeUserId, videoMode, voiceDraft, recordingVoice } =
 		useSelector((state) => state.chat);
 
+	// const [voiceDraft, setVoiceDraft] = useState(null);
+	// const [recordingVoice, setRecordingVoice] = useState(false);
+	// const [videoPreview, setVideoPreview] = useState(null);
+	// useEffect(() => {
+	// 	console.log("VIDEOPREVIEW: ", videoPreview);
+	// }, [videoPreview]);
+	// useEffect(() => {
+	// 	console.log("VOICEDRAFT: ", voiceDraft);
+	// }, [voiceDraft]);
+
 	const dispatch = useDispatch();
+	// const previewRef = useRef(null);
 
 	const handleInputChange = (e) => {
 		dispatch(typingChatMessage(e.target.value));
@@ -43,7 +54,15 @@ function MessageInput() {
 		touchStartTime = new Date();
 		recPressTimeoutId = setTimeout(() => {
 			if (!recordingVoice) {
+				// let preview = previewRef;
 				dispatch(getDataStream(videoMode));
+				// startRecording(
+				// 	videoMode,
+				// 	setRecordingVoice,
+				// 	setVoiceDraft,
+				// 	setVideoPreview,
+				// 	preview
+				// );
 			}
 		}, clickHoldCutoff);
 	};
@@ -84,22 +103,27 @@ function MessageInput() {
 	return (
 		<article className="Message" onSubmit={handleMessageSubmit}>
 			<div className="Message__input_preview">
-				{voiceDraft ? (
-					<VoiceWrapper
-						contents={voiceDraft.contents}
-						type={voiceDraft.type}
-						draft={true}
-					></VoiceWrapper>
-				) : (
-					<textarea
-						type="text"
-						className="Message__input_text"
-						value={typing}
-						placeholder="say something cunt"
-						onChange={handleInputChange}
-						onKeyDown={handleMessageSubmit}
-					></textarea>
-				)}
+				{
+					// recordingVoice && videoMode ? (
+					// 	<video ref={previewRef} src={videoPreview}></video>
+					// ) :
+					voiceDraft ? (
+						<VoiceWrapper
+							contents={voiceDraft.contents}
+							type={voiceDraft.type}
+							draft={true}
+						></VoiceWrapper>
+					) : (
+						<textarea
+							type="text"
+							className="Message__input_text"
+							value={typing}
+							placeholder="say something cunt"
+							onChange={handleInputChange}
+							onKeyDown={handleMessageSubmit}
+						></textarea>
+					)
+				}
 			</div>
 			{messageInputBtn()}
 		</article>

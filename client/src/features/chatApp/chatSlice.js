@@ -17,7 +17,6 @@ const initialState = {
 export const getDataStream = createAsyncThunk(
 	"chat/getDataStream",
 	async (videoMode, { rejectWithValue }) => {
-		console.log("GETDATASTREAM FIRED");
 		const response = await startRecording(videoMode);
 		if (response) {
 			return response;
