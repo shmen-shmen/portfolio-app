@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { contacts, getMessages, generateUser } from "./static-data.js";
 import { startRecording } from "./mediaRecorder.js";
+import _ from "lodash";
 
 const initialState = {
 	user: generateUser(),
 	messages: getMessages(10),
 	typing: "",
 	contacts,
-	activeUserId: null,
+	activeContactId: null,
 	videoMode: false,
 	recordingVoice: false,
 	voiceDraft: null,
@@ -49,8 +50,24 @@ const chatSlice = createSlice({
 			state.typing = initialState.typing;
 			state.voiceDraft = initialState.voiceDraft;
 		},
-		setActiveUserId: (state, action) => {
-			state.activeUserId = action.payload;
+		setPreviewValue: (state, action) => {
+			const id = action.payload;
+
+			const messagesArr = _.values(state.messages[id]);
+			const lastMsg = messagesArr[messagesArr.length - 1];
+
+			const value = () => {
+				if (lastMsg.type == "text") {
+					return lastMsg.contents;
+				} else if (lastMsg.type == "video") {
+					return "Video Message";
+				} else return "Audio Message";
+			};
+
+			state.contacts[id].previewValue = value();
+		},
+		setActiveContactId: (state, action) => {
+			state.activeContactId = action.payload;
 		},
 		switchVideoMode: (state) => {
 			state.videoMode = !state.videoMode;
@@ -88,7 +105,8 @@ const chatSlice = createSlice({
 });
 
 export const {
-	setActiveUserId,
+	setPreviewValue,
+	setActiveContactId,
 	typingChatMessage,
 	submitChatMessage,
 	switchVideoMode,

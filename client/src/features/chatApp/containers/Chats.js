@@ -1,16 +1,22 @@
 import React, { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import Message from "../components/Message";
+import { setPreviewValue } from "../chatSlice";
 
-function Chats({ activeUserId }) {
-	const messages = useSelector((state) => state.chat.messages[activeUserId]);
+function Chats({ activeContactId }) {
+	const messages = useSelector((state) => state.chat.messages[activeContactId]);
 	const chatsRef = useRef(null);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (chatsRef.current) {
 			chatsRef.current.scrollTop = chatsRef.current.scrollHeight;
 		}
+	}, [messages]);
+
+	useEffect(() => {
+		dispatch(setPreviewValue(activeContactId));
 	}, [messages]);
 
 	const messagesIterator = () => {
@@ -19,7 +25,7 @@ function Chats({ activeUserId }) {
 			return (
 				<Message
 					message={message}
-					key={`${message.number}-${activeUserId}`}
+					key={`${message.number}-${activeContactId}`}
 				></Message>
 			);
 		});

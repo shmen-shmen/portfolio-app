@@ -33,7 +33,7 @@ export function generateUser() {
 		name: faker.person.fullName(),
 		email: faker.internet.email(),
 		profile_pic: faker.internet.avatar(),
-		status: txtgen.sentence(),
+		previewValue: "",
 		user_id: shortid.generate(),
 	};
 }

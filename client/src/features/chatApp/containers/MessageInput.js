@@ -10,7 +10,7 @@ import VoiceWrapper from "./VoiceWrapper";
 import { stopRecording } from "../mediaRecorder";
 
 function MessageInput() {
-	const { typing, activeUserId, videoMode, voiceDraft, recordingVoice } =
+	const { typing, activeContactId, videoMode, voiceDraft, recordingVoice } =
 		useSelector((state) => state.chat);
 
 	// const [voiceDraft, setVoiceDraft] = useState(null);
@@ -39,7 +39,7 @@ function MessageInput() {
 				submitChatMessage({
 					type: voiceDraft ? voiceDraft.type : "text",
 					contents: voiceDraft ? voiceDraft.contents : typing,
-					id: activeUserId,
+					id: activeContactId,
 				})
 			);
 		}

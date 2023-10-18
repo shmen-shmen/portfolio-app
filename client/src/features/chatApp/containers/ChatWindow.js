@@ -5,13 +5,15 @@ import ChatHeader from "../components/ChatHeader";
 import Chats from "./Chats";
 import MessageInput from "./MessageInput";
 
-const ChatWindow = ({ activeUserId }) => {
-	const activeUser = useSelector((state) => state.chat.contacts[activeUserId]);
+const ChatWindow = ({ activeContactId }) => {
+	const activeUser = useSelector(
+		(state) => state.chat.contacts[activeContactId]
+	);
 
 	return (
 		<div className="ChatWindow">
 			<ChatHeader user={activeUser}></ChatHeader>
-			<Chats activeUserId={activeUserId}></Chats>
+			<Chats activeContactId={activeContactId}></Chats>
 			<MessageInput></MessageInput>
 		</div>
 	);

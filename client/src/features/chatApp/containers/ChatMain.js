@@ -4,12 +4,12 @@ import ChatWindow from "./ChatWindow";
 import { useSelector } from "react-redux";
 
 function ChatMain() {
-	const { user, activeUserId } = useSelector((state) => state.chat);
+	const { user, activeContactId } = useSelector((state) => state.chat);
 
 	return (
 		<main className="ChatMain">
-			{activeUserId ? (
-				<ChatWindow activeUserId={activeUserId}></ChatWindow>
+			{activeContactId ? (
+				<ChatWindow activeContactId={activeContactId}></ChatWindow>
 			) : (
 				<Empty user={user}></Empty>
 			)}
