@@ -6,6 +6,7 @@ import Contact from "../components/Contact";
 
 function ChatSidebar() {
 	const { contacts } = useSelector((state) => state.chat);
+
 	const contactsIterator = () => {
 		const contactsArr = _.values(contacts);
 		return contactsArr.map((contact) => {

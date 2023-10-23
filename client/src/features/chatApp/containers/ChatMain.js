@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Empty from "../components/Empty";
 import ChatWindow from "./ChatWindow";
 import { useSelector } from "react-redux";

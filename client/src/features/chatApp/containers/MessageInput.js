@@ -13,28 +13,36 @@ function MessageInput() {
 	const { typing, activeContactId, videoMode, voiceDraft, recordingVoice } =
 		useSelector((state) => state.chat);
 
-	// const [voiceDraft, setVoiceDraft] = useState(null);
-	// const [recordingVoice, setRecordingVoice] = useState(false);
-	// const [videoPreview, setVideoPreview] = useState(null);
-	// useEffect(() => {
-	// 	console.log("VIDEOPREVIEW: ", videoPreview);
-	// }, [videoPreview]);
-	// useEffect(() => {
-	// 	console.log("VOICEDRAFT: ", voiceDraft);
-	// }, [voiceDraft]);
-
 	const dispatch = useDispatch();
-	// const previewRef = useRef(null);
 
 	const handleInputChange = (e) => {
 		dispatch(typingChatMessage(e.target.value));
 	};
 
+	// useEffect(() => {
+	// 	window.addEventListener("keydown", checkCtrlEnter);
+	// 	return () => {
+	// 		window.removeEventListener("keydown", checkCtrlEnter);
+	// 	};
+	// }, []);
+
+	// const checkCtrlEnter = (e) => {
+	// 	if ((e.key === "Enter" || e.keyCode === 13) && (e.metaKey || e.ctrlKey)) {
+	// 		console.log("typing from checkctrlenter", typing);
+	// 		console.log("ctrl+enter");
+	// 		handleMessageSubmit();
+	// 	} else return;
+	// };
+
 	const handleMessageSubmit = (e) => {
-		const btnClick = e.type === "click";
-		const ctrlEnter = e.keyCode === 13 && (e.metaKey || e.ctrlKey);
 		const notEmpty = typing || voiceDraft;
-		if ((btnClick || ctrlEnter) && notEmpty) {
+
+		const sendBtnClick = e.type === "click";
+		const ctrlEnter =
+			(e.key === "Enter" || e.keyCode === 13) && (e.metaKey || e.ctrlKey);
+		const correctTrigger = ctrlEnter || sendBtnClick;
+
+		if (notEmpty && correctTrigger) {
 			dispatch(
 				submitChatMessage({
 					type: voiceDraft ? voiceDraft.type : "text",
@@ -54,15 +62,7 @@ function MessageInput() {
 		touchStartTime = new Date();
 		recPressTimeoutId = setTimeout(() => {
 			if (!recordingVoice) {
-				// let preview = previewRef;
 				dispatch(getDataStream(videoMode));
-				// startRecording(
-				// 	videoMode,
-				// 	setRecordingVoice,
-				// 	setVoiceDraft,
-				// 	setVideoPreview,
-				// 	preview
-				// );
 			}
 		}, clickHoldCutoff);
 	};
@@ -101,7 +101,7 @@ function MessageInput() {
 	};
 
 	return (
-		<article className="Message" onSubmit={handleMessageSubmit}>
+		<article className="Message" onKeyDown={handleMessageSubmit}>
 			<div className="Message__input_preview">
 				{recordingVoice ? (
 					<canvas className="voiceVisualizer"></canvas>
@@ -118,7 +118,6 @@ function MessageInput() {
 						value={typing}
 						placeholder="say something cunt"
 						onChange={handleInputChange}
-						onKeyDown={handleMessageSubmit}
 					></textarea>
 				)}
 			</div>

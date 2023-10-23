@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setActiveContactId, setPreviewValue } from "../chatSlice";
 
 function Contact({ contact }) {
 	const { name, email, profile_pic, previewValue, user_id } = contact;
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -15,11 +16,11 @@ function Contact({ contact }) {
 	};
 
 	function truncateText(text) {
-		let shortText = text.substring(0, 60);
+		let shortText = text.substring(0, 35);
 		if (shortText.slice(-1) == " ") {
 			shortText = shortText.slice(0, -1);
 		}
-		if (shortText.length >= 59) {
+		if (shortText.length >= 34) {
 			shortText += "...";
 		}
 		return shortText;

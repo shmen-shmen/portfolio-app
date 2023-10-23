@@ -1,11 +1,11 @@
 import React from "react";
 
 function ChatHeader({ user }) {
-	const { name, status } = user;
+	const { name } = user;
 	return (
 		<header className="ChatHeader">
+			<span>talking to: </span>
 			<h1 className="ChatHeader__name">{name}</h1>
-			<p className="ChatHeader__status">{status}</p>
 		</header>
 	);
 }
