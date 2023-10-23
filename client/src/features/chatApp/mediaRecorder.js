@@ -1,16 +1,10 @@
-import { visualize } from "./audioStreamVisualizer";
+import { visualizeAudio } from "./audioVisualizer";
+import { visualizeVideo, videoPreviewDispose } from "./videoPreviewVisualizer";
 
 let mediaRecorder;
 let mediaURL;
 
-export const startRecording = (
-	videoMode,
-	setRecordingVoice,
-	setVoiceDraft,
-	setVideoPreview,
-	preview
-) => {
-	// console.log("PREVIEWREF", preview.current);
+export const startRecording = (videoMode) => {
 	return new Promise((resolve, reject) => {
 		if (navigator.mediaDevices) {
 			console.log("getUserMedia supported.");
@@ -25,25 +19,33 @@ export const startRecording = (
 				.getUserMedia(constraints)
 				.then((stream) => {
 					mediaRecorder = new MediaRecorder(stream);
+					// gives camera some time to load
 					setTimeout(
 						() => {
 							mediaRecorder.start();
-							videoPreviewSetup(stream, videoMode);
+							previewSetup(stream, videoMode);
 						},
 						videoMode ? 1000 : 0
 					);
-					// setRecordingVoice(true);
-					// preview.current.srcObject = stream;
+
+					// store media
+					mediaRecorder.ondataavailable = (e) => {
+						chunks.push(e.data);
+					};
 
 					mediaRecorder.onstop = () => {
 						console.log("data available after MediaRecorder.stop() called.");
 
+						// stop showing preview
 						videoPreviewDispose();
 
+						// check if anything was recorded
 						const dataIsEmpty = chunks[0]["size"] == 0;
 						if (dataIsEmpty) {
 							return;
 						}
+
+						// saving recorded media
 						const options = {
 							audioBitsPerSecond: 128000,
 							videoBitsPerSecond: 2500000,
@@ -54,23 +56,16 @@ export const startRecording = (
 						const blob = new Blob(chunks, options);
 						chunks = [];
 						mediaURL = URL.createObjectURL(blob);
-						// setRecordingVoice(false);
-						// setVoiceDraft({
-						// 	type: videoMode ? "video" : "audio",
-						// 	contents: mediaURL,
-						// });
 						resolve({
 							type: videoMode ? "video" : "audio",
 							contents: mediaURL,
 						});
+
+						// turn off camera/microphone
 						if (stream) {
 							const tracks = stream.getTracks();
 							tracks.forEach((track) => track.stop());
 						}
-					};
-
-					mediaRecorder.ondataavailable = (e) => {
-						chunks.push(e.data);
 					};
 				})
 				.catch((err) => {
@@ -80,35 +75,16 @@ export const startRecording = (
 	});
 };
 
+// shows user his face or pretty waveform
+const previewSetup = (stream, videoMode) => {
+	if (!videoMode) {
+		visualizeAudio(stream);
+		return;
+	}
+	visualizeVideo(stream);
+};
+
 export const stopRecording = () => {
 	console.log("STOP RECORDING");
 	mediaRecorder.stop();
-};
-
-let videoPreview = null;
-let videoPreviewWrapper = null;
-const videoPreviewSetup = (stream, videoMode) => {
-	if (!videoMode) {
-		visualize(stream);
-		return;
-	}
-	console.log("PENIS PENIS");
-	videoPreviewWrapper = document.createElement("div");
-	videoPreviewWrapper.id = "video-preview-wrapper";
-	videoPreview = document.createElement("video");
-	videoPreview.id = "video-preview";
-	videoPreview.autoplay = true;
-	videoPreview.muted = true;
-	videoPreview.srcObject = stream;
-	console.log("VIDEOPEVIEW", videoPreview);
-	videoPreviewWrapper.appendChild(videoPreview);
-	document.querySelector(".Chats").appendChild(videoPreviewWrapper);
-};
-
-const videoPreviewDispose = () => {
-	if (!videoPreview) {
-		return;
-	}
-	videoPreview.remove();
-	videoPreviewWrapper.remove();
 };

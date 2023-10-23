@@ -23,7 +23,9 @@ export const getDataStream = createAsyncThunk(
 			return response;
 		} else {
 			return rejectWithValue(
-				"there was an error getting weather data 😞 please try again later"
+				`there was an error accessing your ${
+					videoMode ? "camera" : "microphone"
+				} 😞 please try again later`
 			);
 		}
 	}

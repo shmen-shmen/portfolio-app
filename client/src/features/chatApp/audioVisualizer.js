@@ -1,7 +1,7 @@
 let audioCtx;
 let canvas;
 
-export function visualize(stream) {
+export function visualizeAudio(stream) {
 	if (!audioCtx) {
 		audioCtx = new AudioContext();
 	}
@@ -15,7 +15,6 @@ export function visualize(stream) {
 	const dataArray = new Uint8Array(bufferLength);
 
 	source.connect(analyser);
-	// analyser.connect(audioCtx.destination);
 
 	canvas = document.querySelector(".voiceVisualizer");
 	const canvasCtx = canvas.getContext("2d");
