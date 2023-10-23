@@ -10,31 +10,17 @@ import MediaWrapper from "./MediaWrapper";
 import { stopRecording } from "../mediaRecorder";
 
 function MessageInput() {
+	const dispatch = useDispatch();
+	const messageInputRef = useRef(null);
 	const { typing, activeContactId, videoMode, mediaDraft, recordingVoice } =
 		useSelector((state) => state.chat);
 
-	const dispatch = useDispatch();
-
 	const handleInputChange = (e) => {
 		dispatch(typingChatMessage(e.target.value));
+		resizeMessageInput();
 	};
 
-	// useEffect(() => {
-	// 	window.addEventListener("keydown", checkCtrlEnter);
-	// 	return () => {
-	// 		window.removeEventListener("keydown", checkCtrlEnter);
-	// 	};
-	// }, []);
-
-	// const checkCtrlEnter = (e) => {
-	// 	if ((e.key === "Enter" || e.keyCode === 13) && (e.metaKey || e.ctrlKey)) {
-	// 		console.log("typing from checkctrlenter", typing);
-	// 		console.log("ctrl+enter");
-	// 		handleMessageSubmit();
-	// 	} else return;
-	// };
-
-	const handleMessageSubmit = (e) => {
+	const sendMessage = (e) => {
 		const notEmpty = typing || mediaDraft;
 
 		const sendBtnClick = e.type === "click";
@@ -50,6 +36,7 @@ function MessageInput() {
 					id: activeContactId,
 				})
 			);
+			resizeMessageInput(true);
 		}
 		return;
 	};
@@ -82,7 +69,7 @@ function MessageInput() {
 	const messageInputBtn = () => {
 		if (typing || mediaDraft) {
 			return (
-				<button className="Message__send_rec_btn" onClick={handleMessageSubmit}>
+				<button className="Message__send_rec_btn" onClick={sendMessage}>
 					send
 				</button>
 			);
@@ -100,8 +87,38 @@ function MessageInput() {
 			);
 	};
 
+	const resizeMessageInput = (reset) => {
+		console.log(messageInputRef.current.scrollHeight);
+		messageInputRef.current.setAttribute(
+			"style",
+			"height:" + messageInputRef.current.scrollHeight + "px;overflow-y:hidden;"
+		);
+		if (reset) {
+			messageInputRef.current.style.height = "18px";
+		} else {
+			messageInputRef.current.style.height = 0;
+			messageInputRef.current.style.height =
+				messageInputRef.current.scrollHeight + "px";
+		}
+	};
+
+	// useEffect(() => {
+	// 	window.addEventListener("keydown", checkCtrlEnter);
+	// 	return () => {
+	// 		window.removeEventListener("keydown", checkCtrlEnter);
+	// 	};
+	// }, []);
+
+	// const checkCtrlEnter = (e) => {
+	// 	if ((e.key === "Enter" || e.keyCode === 13) && (e.metaKey || e.ctrlKey)) {
+	// 		console.log("typing from checkctrlenter", typing);
+	// 		console.log("ctrl+enter");
+	// 		sendMessage();
+	// 	} else return;
+	// };
+
 	return (
-		<article className="Message" onKeyDown={handleMessageSubmit}>
+		<article className="Message" onKeyDown={sendMessage}>
 			<div className="Message__input_preview">
 				{recordingVoice ? (
 					<canvas className="voiceVisualizer"></canvas>
@@ -113,6 +130,7 @@ function MessageInput() {
 					></MediaWrapper>
 				) : (
 					<textarea
+						ref={messageInputRef}
 						type="text"
 						className="Message__input_text"
 						value={typing}
