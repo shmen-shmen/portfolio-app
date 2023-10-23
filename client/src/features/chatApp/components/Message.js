@@ -1,5 +1,5 @@
 import React from "react";
-import VoiceWrapper from "../containers/VoiceWrapper";
+import MediaWrapper from "../containers/MediaWrapper";
 
 function Message({ message }) {
 	const { is_user_msg, contents, type, number } = message;
@@ -9,12 +9,12 @@ function Message({ message }) {
 			{type == "text" ? (
 				<span>{contents}</span>
 			) : (
-				<VoiceWrapper
+				<MediaWrapper
 					contents={contents}
 					draft={false}
 					number={number}
 					type={type}
-				></VoiceWrapper>
+				></MediaWrapper>
 			)}
 		</div>
 	);

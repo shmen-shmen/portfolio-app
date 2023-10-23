@@ -11,7 +11,7 @@ const initialState = {
 	activeContactId: null,
 	videoMode: false,
 	recordingVoice: false,
-	voiceDraft: null,
+	mediaDraft: null,
 	mediaPlaybackRate: 1,
 };
 
@@ -50,7 +50,7 @@ const chatSlice = createSlice({
 			};
 			state.messages[id][newMsgNumber] = newMsg;
 			state.typing = initialState.typing;
-			state.voiceDraft = initialState.voiceDraft;
+			state.mediaDraft = initialState.mediaDraft;
 		},
 		setPreviewValue: (state, action) => {
 			const id = action.payload;
@@ -74,8 +74,8 @@ const chatSlice = createSlice({
 		switchVideoMode: (state) => {
 			state.videoMode = !state.videoMode;
 		},
-		discardVoiceDraft: (state) => {
-			state.voiceDraft = initialState.voiceDraft;
+		discardMediaDraft: (state) => {
+			state.mediaDraft = initialState.mediaDraft;
 		},
 		setPlaybackRate: (state) => {
 			if (state.mediaPlaybackRate === 1) {
@@ -96,12 +96,12 @@ const chatSlice = createSlice({
 			})
 			.addCase(getDataStream.fulfilled, (state, action) => {
 				state.recordingVoice = false;
-				state.voiceDraft = action.payload;
+				state.mediaDraft = action.payload;
 			})
 			.addCase(getDataStream.rejected, (state, action) => {
 				console.error(action.payload);
 				state.recordingVoice = false;
-				state.voiceDraft = initialState.voiceDraft;
+				state.mediaDraft = initialState.mediaDraft;
 			});
 	},
 });
@@ -114,8 +114,7 @@ export const {
 	switchVideoMode,
 	startRecordingVoice,
 	abortRecordigVoice,
-	newVoiceDraft,
-	discardVoiceDraft,
+	discardMediaDraft,
 	setPlaybackRate,
 } = chatSlice.actions;
 

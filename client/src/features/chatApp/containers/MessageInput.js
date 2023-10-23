@@ -6,11 +6,11 @@ import {
 	getDataStream,
 	switchVideoMode,
 } from "../chatSlice";
-import VoiceWrapper from "./VoiceWrapper";
+import MediaWrapper from "./MediaWrapper";
 import { stopRecording } from "../mediaRecorder";
 
 function MessageInput() {
-	const { typing, activeContactId, videoMode, voiceDraft, recordingVoice } =
+	const { typing, activeContactId, videoMode, mediaDraft, recordingVoice } =
 		useSelector((state) => state.chat);
 
 	const dispatch = useDispatch();
@@ -35,7 +35,7 @@ function MessageInput() {
 	// };
 
 	const handleMessageSubmit = (e) => {
-		const notEmpty = typing || voiceDraft;
+		const notEmpty = typing || mediaDraft;
 
 		const sendBtnClick = e.type === "click";
 		const ctrlEnter =
@@ -45,8 +45,8 @@ function MessageInput() {
 		if (notEmpty && correctTrigger) {
 			dispatch(
 				submitChatMessage({
-					type: voiceDraft ? voiceDraft.type : "text",
-					contents: voiceDraft ? voiceDraft.contents : typing,
+					type: mediaDraft ? mediaDraft.type : "text",
+					contents: mediaDraft ? mediaDraft.contents : typing,
 					id: activeContactId,
 				})
 			);
@@ -80,7 +80,7 @@ function MessageInput() {
 	};
 
 	const messageInputBtn = () => {
-		if (typing || voiceDraft) {
+		if (typing || mediaDraft) {
 			return (
 				<button className="Message__send_rec_btn" onClick={handleMessageSubmit}>
 					send
@@ -105,12 +105,12 @@ function MessageInput() {
 			<div className="Message__input_preview">
 				{recordingVoice ? (
 					<canvas className="voiceVisualizer"></canvas>
-				) : voiceDraft ? (
-					<VoiceWrapper
-						contents={voiceDraft.contents}
-						type={voiceDraft.type}
+				) : mediaDraft ? (
+					<MediaWrapper
+						contents={mediaDraft.contents}
+						type={mediaDraft.type}
 						draft={true}
-					></VoiceWrapper>
+					></MediaWrapper>
 				) : (
 					<textarea
 						type="text"

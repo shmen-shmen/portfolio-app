@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
-import { discardVoiceDraft } from "../chatSlice";
+import { discardMediaDraft } from "../chatSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaybackRate } from "../chatSlice";
 
-const VoiceWrapper = ({ type, contents, draft, number }) => {
+const MediaWrapper = ({ type, contents, draft, number }) => {
 	const dispatch = useDispatch();
 
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -74,7 +74,7 @@ const VoiceWrapper = ({ type, contents, draft, number }) => {
 
 	const handleScrapPress = (e) => {
 		e.preventDefault();
-		dispatch(discardVoiceDraft());
+		dispatch(discardMediaDraft());
 	};
 
 	return (
@@ -126,4 +126,4 @@ const VoiceWrapper = ({ type, contents, draft, number }) => {
 	);
 };
 
-export default VoiceWrapper;
+export default MediaWrapper;
