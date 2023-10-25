@@ -251,15 +251,17 @@
 				.Message__input_text {
 					width: 100%;
 					border: none;
-					padding: 0;
+					outline: 0;
 					color: #fff;
+					resize: none;
 					background-color: transparent;
 					font-size: 1rem;
-					outline: 0;
-					resize: none;
 					height: 18px;
 					line-height: 18px;
-					max-height: calc(18px * 10);
+					max-height: 50vh;
+					overflow-y: scroll;
+					scrollbar-color: red orange;
+					scrollbar-width: thin;
 				}
 
 				.Message__send_rec_btn {

@@ -15,6 +15,28 @@ function MessageInput() {
 	const { typing, activeContactId, videoMode, mediaDraft, recordingVoice } =
 		useSelector((state) => state.chat);
 
+	const resizeMessageInput = (reset) => {
+		messageInputRef.current.setAttribute(
+			"style",
+			"height:" + messageInputRef.current.scrollHeight + "px;overflow-y:hidden;"
+		);
+		if (reset) {
+			messageInputRef.current.style.height = "18px";
+			return;
+		} else {
+			if (messageInputRef.current.scrollHeight > window.innerHeight * 0.6) {
+				console.log(messageInputRef.current.scrollHeight);
+				messageInputRef.current.style.overflow = "scroll";
+				return;
+			} else {
+				messageInputRef.current.style.overflow = "hidden";
+				messageInputRef.current.style.height = 0;
+				messageInputRef.current.style.height =
+					messageInputRef.current.scrollHeight + "px";
+			}
+		}
+	};
+
 	const handleInputChange = (e) => {
 		dispatch(typingChatMessage(e.target.value));
 		resizeMessageInput();
@@ -85,21 +107,6 @@ function MessageInput() {
 					</span>
 				</button>
 			);
-	};
-
-	const resizeMessageInput = (reset) => {
-		console.log(messageInputRef.current.scrollHeight);
-		messageInputRef.current.setAttribute(
-			"style",
-			"height:" + messageInputRef.current.scrollHeight + "px;overflow-y:hidden;"
-		);
-		if (reset) {
-			messageInputRef.current.style.height = "18px";
-		} else {
-			messageInputRef.current.style.height = 0;
-			messageInputRef.current.style.height =
-				messageInputRef.current.scrollHeight + "px";
-		}
 	};
 
 	// useEffect(() => {
