@@ -16,11 +16,11 @@ function Contact({ contact }) {
 	};
 
 	function truncateText(text) {
-		let shortText = text.substring(0, 35);
+		let shortText = text.substring(0, 25);
 		if (shortText.slice(-1) == " ") {
 			shortText = shortText.slice(0, -1);
 		}
-		if (shortText.length >= 34) {
+		if (shortText.length >= 24) {
 			shortText += "...";
 		}
 		return shortText;

@@ -37,9 +37,12 @@ function MessageInput() {
 		}
 	};
 
+	useEffect(() => {
+		resizeMessageInput();
+	}, [typing]);
+
 	const handleInputChange = (e) => {
 		dispatch(typingChatMessage(e.target.value));
-		resizeMessageInput();
 	};
 
 	const sendMessage = (e) => {
@@ -51,6 +54,9 @@ function MessageInput() {
 		const correctTrigger = ctrlEnter || sendBtnClick;
 
 		if (notEmpty && correctTrigger) {
+			if (!mediaDraft) {
+				resizeMessageInput(true);
+			}
 			dispatch(
 				submitChatMessage({
 					type: mediaDraft ? mediaDraft.type : "text",
@@ -58,7 +64,6 @@ function MessageInput() {
 					id: activeContactId,
 				})
 			);
-			resizeMessageInput(true);
 		}
 		return;
 	};
@@ -124,6 +129,18 @@ function MessageInput() {
 	// 	} else return;
 	// };
 
+	const [placeholderMobile, setPlaceholderMobile] = useState(
+		window.innerWidth <= 600
+	);
+	useEffect(() => {
+		const placeholderCallback = () => {
+			setPlaceholderMobile(window.innerWidth <= 600);
+			return;
+		};
+		window.addEventListener("resize", placeholderCallback);
+		return () => window.removeEventListener("resize", placeholderCallback);
+	}, []);
+
 	return (
 		<article className="Message" onKeyDown={sendMessage}>
 			<div className="Message__input_preview">
@@ -141,7 +158,9 @@ function MessageInput() {
 						type="text"
 						className="Message__input_text"
 						value={typing}
-						placeholder="say something cunt"
+						placeholder={
+							placeholderMobile ? "message" : "cmd(ctrl) + enter to send"
+						}
 						onChange={handleInputChange}
 					></textarea>
 				)}

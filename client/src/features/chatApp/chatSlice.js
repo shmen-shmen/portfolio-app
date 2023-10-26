@@ -7,6 +7,7 @@ const initialState = {
 	user: generateUser(),
 	messages: getMessages(10),
 	typing: "",
+	editing: { number: null, contents: null },
 	contacts,
 	activeContactId: null,
 	videoMode: false,
@@ -40,33 +41,65 @@ const chatSlice = createSlice({
 		},
 		submitChatMessage: (state, action) => {
 			const { type, contents, id } = action.payload;
+			// if i was editing and my message is the same as it was, then just abort
+			if (state.editing.contents && state.editing.contents == contents) {
+				state.typing = initialState.typing;
+				state.editing = initialState.editing;
+				return;
+			}
 			const activeDialog = state.messages[id];
-			const newMsgNumber = Object.keys(activeDialog).length + 1;
+			// if editing message it's key is the same, else it is calculated
+			const newMsgNumber =
+				state.editing.number || Object.keys(activeDialog).length + 1;
+
 			const newMsg = {
 				number: newMsgNumber,
 				type,
 				contents,
 				is_user_msg: true,
 			};
+			if (state.editing.contents) {
+				newMsg.edited = true;
+			}
+			// put new message into dialog
 			state.messages[id][newMsgNumber] = newMsg;
+			// put everything back
 			state.typing = initialState.typing;
 			state.mediaDraft = initialState.mediaDraft;
+			if (state.editing.contents) {
+				state.editing = initialState.editing;
+			}
+		},
+		editChatMessage: (state, action) => {
+			state.typing = action.payload.contents;
+			state.editing = action.payload;
+		},
+		removeChatMessage: (state, action) => {
+			const number = action.payload;
+			const id = state.activeContactId;
+			const messagesopy = state.messages[id];
+
+			delete messagesopy[number];
+
+			state.messages[id] = messagesopy;
 		},
 		setPreviewValue: (state, action) => {
 			const id = action.payload;
 
 			const messagesArr = _.values(state.messages[id]);
-			const lastMsg = messagesArr[messagesArr.length - 1];
-
-			const value = () => {
-				if (lastMsg.type == "text") {
-					return lastMsg.contents;
-				} else if (lastMsg.type == "video") {
-					return "Video Message";
-				} else return "Audio Message";
-			};
-
-			state.contacts[id].previewValue = value();
+			if (messagesArr.length === 0) {
+				state.contacts[id].previewValue = "...";
+			} else {
+				const lastMsg = messagesArr[messagesArr.length - 1];
+				const value = () => {
+					if (lastMsg.type == "text") {
+						return lastMsg.contents;
+					} else if (lastMsg.type == "video") {
+						return "Video Message";
+					} else return "Audio Message";
+				};
+				state.contacts[id].previewValue = value();
+			}
 		},
 		setActiveContactId: (state, action) => {
 			state.activeContactId = action.payload;
@@ -111,6 +144,8 @@ export const {
 	setActiveContactId,
 	typingChatMessage,
 	submitChatMessage,
+	editChatMessage,
+	removeChatMessage,
 	switchVideoMode,
 	startRecordingVoice,
 	abortRecordigVoice,

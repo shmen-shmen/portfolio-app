@@ -46,6 +46,7 @@ function generateMsg(number) {
 		type: "text",
 		contents: txtgen.sentence(),
 		is_user_msg: faker.datatype.boolean(),
+		edited: false,
 	};
 }
 /**
