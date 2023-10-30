@@ -8,6 +8,7 @@ const initialState = {
 	messages: getMessages(10),
 	typing: "",
 	editing: { number: null, contents: null },
+	showMessageSubmenu: false,
 	contacts,
 	activeContactId: null,
 	videoMode: false,
@@ -70,9 +71,16 @@ const chatSlice = createSlice({
 				state.editing = initialState.editing;
 			}
 		},
+		toggleMessageSubmenu: (state, action) => {
+			state.showMessageSubmenu = action.payload;
+		},
 		editChatMessage: (state, action) => {
 			state.typing = action.payload.contents;
 			state.editing = action.payload;
+		},
+		abortEditChatMessage: (state) => {
+			state.editing = initialState.editing;
+			state.typing = initialState.typing;
 		},
 		removeChatMessage: (state, action) => {
 			const number = action.payload;
@@ -144,7 +152,9 @@ export const {
 	setActiveContactId,
 	typingChatMessage,
 	submitChatMessage,
+	toggleMessageSubmenu,
 	editChatMessage,
+	abortEditChatMessage,
 	removeChatMessage,
 	switchVideoMode,
 	startRecordingVoice,

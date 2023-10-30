@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
 	typingChatMessage,
 	submitChatMessage,
+	abortEditChatMessage,
 	getDataStream,
 	switchVideoMode,
 } from "../chatSlice";
@@ -12,8 +13,10 @@ import { stopRecording } from "../mediaRecorder";
 function MessageInput() {
 	const dispatch = useDispatch();
 	const messageInputRef = useRef(null);
+
 	const { typing, activeContactId, videoMode, mediaDraft, recordingVoice } =
 		useSelector((state) => state.chat);
+	const editing = useSelector((state) => Boolean(state.chat.editing.number));
 
 	const resizeMessageInput = (reset) => {
 		messageInputRef.current.setAttribute(
@@ -114,21 +117,6 @@ function MessageInput() {
 			);
 	};
 
-	// useEffect(() => {
-	// 	window.addEventListener("keydown", checkCtrlEnter);
-	// 	return () => {
-	// 		window.removeEventListener("keydown", checkCtrlEnter);
-	// 	};
-	// }, []);
-
-	// const checkCtrlEnter = (e) => {
-	// 	if ((e.key === "Enter" || e.keyCode === 13) && (e.metaKey || e.ctrlKey)) {
-	// 		console.log("typing from checkctrlenter", typing);
-	// 		console.log("ctrl+enter");
-	// 		sendMessage();
-	// 	} else return;
-	// };
-
 	const [placeholderMobile, setPlaceholderMobile] = useState(
 		window.innerWidth <= 600
 	);
@@ -153,16 +141,28 @@ function MessageInput() {
 						draft={true}
 					></MediaWrapper>
 				) : (
-					<textarea
-						ref={messageInputRef}
-						type="text"
-						className="Message__input_text"
-						value={typing}
-						placeholder={
-							placeholderMobile ? "message" : "cmd(ctrl) + enter to send"
-						}
-						onChange={handleInputChange}
-					></textarea>
+					<div className="Message__input_text-wrap">
+						{editing && (
+							<p
+								className="Message__input_edit_flag"
+								onClick={() => {
+									dispatch(abortEditChatMessage());
+								}}
+							>
+								editing (click to cancel)
+							</p>
+						)}
+						<textarea
+							className="Message__input_text"
+							ref={messageInputRef}
+							type="text"
+							value={typing}
+							placeholder={
+								placeholderMobile ? "message" : "cmd(ctrl) + enter to send"
+							}
+							onChange={handleInputChange}
+						></textarea>
+					</div>
 				)}
 			</div>
 			{messageInputBtn()}
