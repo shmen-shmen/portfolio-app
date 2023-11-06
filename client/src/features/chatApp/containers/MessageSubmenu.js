@@ -11,8 +11,7 @@ export const MessageSubmenu = ({ props }) => {
 	const centering = () => {
 		let [x, y] = position;
 		const rect = document.querySelector(".Chats").getBoundingClientRect();
-		const horizontal = (rect.right - rect.left) / 2;
-		console.log(horizontal);
+		const horizontal = rect.left + (rect.right - rect.left) / 2;
 		const vertical = window.innerHeight / 2;
 
 		let translateX = 0;

@@ -40,7 +40,7 @@ function Chats({ activeContactId }) {
 			if (props.type !== "text") props.contents = "";
 			setSubmenuProps({
 				...props,
-				// there's a bug when resize sometimes positio is undefined
+				// there's a bug when resize sometimes position is undefined
 				position: [e.clientX, e.clientY],
 			});
 		}
