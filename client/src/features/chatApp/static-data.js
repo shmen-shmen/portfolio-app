@@ -17,13 +17,13 @@ export const getMessages = (messagesPerUser) => {
 };
 
 // just an example of how the state object is structured
-export const state = {
-	user: generateUser(),
-	messages: getMessages(10),
-	typing: "",
-	contacts,
-	activeUserId: null,
-};
+// export const state = {
+// 	user: generateUser(),
+// 	messages: getMessages(3),
+// 	typing: "",
+// 	contacts,
+// 	activeUserId: null,
+// };
 
 /**
  * @returns {Object} - a new user object

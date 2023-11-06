@@ -36,11 +36,11 @@ export function visualizeAudio(stream) {
 
 		analyser.getByteTimeDomainData(dataArray);
 
-		// canvasCtx.fillStyle = "rgba(200, 200, 200, 1)";
+		canvasCtx.fillStyle = "rgb(255, 255, 255)";
 		canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
-		canvasCtx.lineWidth = 2;
-		canvasCtx.strokeStyle = "rgb(255, 255, 255)";
+		canvasCtx.lineWidth = 10;
+		canvasCtx.strokeStyle = "rgb(255, 0, 89)";
 
 		canvasCtx.beginPath();
 

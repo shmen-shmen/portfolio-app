@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setActiveContactId, setPreviewValue } from "../chatSlice";
 
-function Contact({ contact }) {
+function Contact({ contact, activeContactId }) {
 	const { name, email, profile_pic, previewValue, user_id } = contact;
 
 	const dispatch = useDispatch();
@@ -16,18 +16,23 @@ function Contact({ contact }) {
 	};
 
 	function truncateText(text) {
-		let shortText = text.substring(0, 25);
+		let shortText = text.substring(0, 35);
 		if (shortText.slice(-1) == " ") {
 			shortText = shortText.slice(0, -1);
 		}
-		if (shortText.length >= 24) {
+		if (shortText.length >= 34) {
 			shortText += "...";
 		}
 		return shortText;
 	}
 
+	const active = user_id === activeContactId;
+
 	return (
-		<div className="Contact" onClick={handleContactClick}>
+		<div
+			className={`Contact ${active ? "active-contact" : ""}`}
+			onClick={handleContactClick}
+		>
 			<img src={profile_pic} alt={name} className="Contact__pic" />
 			<div className="Contact__details">
 				<p className="Contact__details-name">{name}</p>

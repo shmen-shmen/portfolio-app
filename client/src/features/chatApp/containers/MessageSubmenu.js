@@ -5,29 +5,29 @@ import {
 	toggleMessageSubmenu,
 } from "../chatSlice";
 
-export const MessageSubmenu = ({ show, props }) => {
+export const MessageSubmenu = ({ props }) => {
 	const { position, type, is_user_msg, contents, number } = props;
 
 	const centering = () => {
 		let [x, y] = position;
-		const chatsHalfWidth = document.querySelector(".Chats").clientWidth / 2;
-		const windowWidth = window.innerWidth;
-		const horizontal = windowWidth - chatsHalfWidth;
+		const rect = document.querySelector(".Chats").getBoundingClientRect();
+		const horizontal = (rect.right - rect.left) / 2;
+		console.log(horizontal);
 		const vertical = window.innerHeight / 2;
 
 		let translateX = 0;
 		if (x >= horizontal) {
 			translateX = "-100%";
-			x -= 10;
+			x -= 5;
 		} else {
-			x += 10;
+			x += 5;
 		}
 		let translateY = 0;
 		if (y >= vertical) {
 			translateY = "-100%";
-			y -= 10;
+			y -= 5;
 		} else {
-			y += 10;
+			y += 5;
 		}
 
 		return {

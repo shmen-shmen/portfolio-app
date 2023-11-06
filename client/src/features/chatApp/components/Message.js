@@ -1,7 +1,7 @@
 import React from "react";
 import MediaWrapper from "../containers/MediaWrapper";
 
-function Message({ message, handleMessagelick }) {
+function Message({ topMessage, message, handleMessagelick }) {
 	const { is_user_msg, contents, type, number, edited } = message;
 
 	return (
@@ -9,7 +9,8 @@ function Message({ message, handleMessagelick }) {
 			className={`Chat-wrapper ${
 				is_user_msg ? "is_user_msg" : ""
 			} type-${type}`}
-			onClick={(e) =>
+			style={{ marginTop: `${topMessage ? "auto" : 0}` }}
+			onContextMenu={(e) =>
 				handleMessagelick(e, {
 					type: type,
 					is_user_msg: is_user_msg,

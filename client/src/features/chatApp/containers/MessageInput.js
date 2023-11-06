@@ -6,9 +6,11 @@ import {
 	abortEditChatMessage,
 	getDataStream,
 	switchVideoMode,
+	setInputHeight,
 } from "../chatSlice";
 import MediaWrapper from "./MediaWrapper";
 import { stopRecording } from "../mediaRecorder";
+import "./MessageInput.scss";
 
 function MessageInput() {
 	const dispatch = useDispatch();
@@ -16,6 +18,7 @@ function MessageInput() {
 
 	const { typing, activeContactId, videoMode, mediaDraft, recordingVoice } =
 		useSelector((state) => state.chat);
+
 	const editing = useSelector((state) => Boolean(state.chat.editing.number));
 
 	const resizeMessageInput = (reset) => {
@@ -75,7 +78,8 @@ function MessageInput() {
 	let touchStartTime = 0;
 	const clickHoldCutoff = 200;
 
-	const handleRecPress = () => {
+	const handleRecPress = (e) => {
+		e.preventDefault();
 		touchStartTime = new Date();
 		recPressTimeoutId = setTimeout(() => {
 			if (!recordingVoice) {
@@ -85,14 +89,15 @@ function MessageInput() {
 	};
 
 	const handleRecRelease = () => {
-		if (new Date() - touchStartTime < clickHoldCutoff) {
-			dispatch(switchVideoMode());
-		}
-		if (recPressTimeoutId) {
-			clearTimeout(recPressTimeoutId);
-		}
 		if (recordingVoice) {
 			stopRecording();
+		} else {
+			if (new Date() - touchStartTime < clickHoldCutoff) {
+				dispatch(switchVideoMode());
+			}
+			if (recPressTimeoutId) {
+				clearTimeout(recPressTimeoutId);
+			}
 		}
 	};
 
@@ -108,7 +113,11 @@ function MessageInput() {
 				<button
 					className={`Message__send_rec_btn ${recordingVoice ? "active" : ""}`}
 					onMouseDown={handleRecPress}
+					onTouchStart={handleRecPress}
 					onMouseUp={handleRecRelease}
+					onMouseLeave={handleRecRelease}
+					onTouchEnd={handleRecRelease}
+					onTouchCancel={handleRecRelease}
 				>
 					<span className={"Message__send_rec_btn_emoji"}>
 						{videoMode ? "📷" : "🎤"}
@@ -129,8 +138,28 @@ function MessageInput() {
 		return () => window.removeEventListener("resize", placeholderCallback);
 	}, []);
 
+	const inputWrapperRef = useRef(null);
+	useEffect(() => {
+		const element = inputWrapperRef?.current;
+		if (!element) return;
+		const observer = new ResizeObserver((entries) => {
+			for (const entry of entries) {
+				dispatch(setInputHeight(entry.contentBoxSize[0].blockSize));
+				// console.log(entry.contentBoxSize[0].blockSize);
+			}
+		});
+		observer.observe(element);
+		return () => {
+			observer.disconnect();
+		};
+	}, []);
+
 	return (
-		<article className="Message" onKeyDown={sendMessage}>
+		<article
+			className="Message__input"
+			onKeyDown={sendMessage}
+			ref={inputWrapperRef}
+		>
 			<div className="Message__input_preview">
 				{recordingVoice ? (
 					<canvas className="voiceVisualizer"></canvas>

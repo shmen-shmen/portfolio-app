@@ -1,0 +1,71 @@
+@import "../../../index.scss";
+
+.Sidebar {
+	overflow: scroll;
+	height: 100%;
+	border-right: 1px solid rgb(255, 0, 89);
+	z-index: 2;
+	max-width: 400px;
+
+	@include for-tablet-portrait-up {
+		max-width: 300px;
+	}
+
+	.Contact {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		color: black;
+		background-color: rgb(255, 255, 255);
+		padding-left: 0.5rem;
+		border-bottom: 1px solid rgb(255, 0, 89);
+		overflow: hidden;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		&:active {
+			background: linear-gradient(to bottom, white 10%, rgb(255, 0, 89));
+		}
+
+		.Contact__pic {
+			display: block;
+			width: 70px;
+			aspect-ratio: 1 / 1;
+		}
+
+		.Contact__details {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			width: 100%;
+			white-space: wrap;
+			> * {
+				user-select: none;
+			}
+		}
+
+		.Contact__details-name {
+			margin-bottom: 0.25rem;
+			font-size: 1rem;
+			font-weight: 900;
+			white-space: nowrap;
+			overflow: hidden;
+
+			padding: 0 0.5rem 0 0.5rem;
+
+			&.active-contact {
+				.Contact__details-preview {
+					color: white;
+				}
+			}
+		}
+
+		.Contact__details-preview {
+			width: 100%;
+			height: 2.3rem;
+			margin: 0 0.5rem 0 0.5rem;
+		}
+	}
+}

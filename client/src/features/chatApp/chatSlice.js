@@ -6,6 +6,7 @@ import _ from "lodash";
 const initialState = {
 	user: generateUser(),
 	messages: getMessages(10),
+	inputHeight: null,
 	typing: "",
 	editing: { number: null, contents: null },
 	showMessageSubmenu: false,
@@ -37,8 +38,35 @@ const chatSlice = createSlice({
 	name: "chat",
 	initialState,
 	reducers: {
+		setActiveContactId: (state, action) => {
+			state.activeContactId = action.payload;
+		},
+		dropActiveDialog: (state) => {
+			state.activeContactId = initialState.activeContactId;
+		},
+		setPreviewValue: (state, action) => {
+			const id = action.payload;
+
+			const messagesArr = _.values(state.messages[id]);
+			if (messagesArr.length === 0) {
+				state.contacts[id].previewValue = "...";
+			} else {
+				const lastMsg = messagesArr[messagesArr.length - 1];
+				const value = () => {
+					if (lastMsg.type == "text") {
+						return lastMsg.contents;
+					} else if (lastMsg.type == "video") {
+						return "Video Message";
+					} else return "Audio Message";
+				};
+				state.contacts[id].previewValue = value();
+			}
+		},
 		typingChatMessage: (state, action) => {
 			state.typing = action.payload;
+		},
+		setInputHeight: (state, action) => {
+			state.inputHeight = action.payload;
 		},
 		submitChatMessage: (state, action) => {
 			const { type, contents, id } = action.payload;
@@ -91,27 +119,7 @@ const chatSlice = createSlice({
 
 			state.messages[id] = messagesopy;
 		},
-		setPreviewValue: (state, action) => {
-			const id = action.payload;
 
-			const messagesArr = _.values(state.messages[id]);
-			if (messagesArr.length === 0) {
-				state.contacts[id].previewValue = "...";
-			} else {
-				const lastMsg = messagesArr[messagesArr.length - 1];
-				const value = () => {
-					if (lastMsg.type == "text") {
-						return lastMsg.contents;
-					} else if (lastMsg.type == "video") {
-						return "Video Message";
-					} else return "Audio Message";
-				};
-				state.contacts[id].previewValue = value();
-			}
-		},
-		setActiveContactId: (state, action) => {
-			state.activeContactId = action.payload;
-		},
 		switchVideoMode: (state) => {
 			state.videoMode = !state.videoMode;
 		},
@@ -148,9 +156,11 @@ const chatSlice = createSlice({
 });
 
 export const {
+	dropActiveDialog,
 	setPreviewValue,
 	setActiveContactId,
 	typingChatMessage,
+	setInputHeight,
 	submitChatMessage,
 	toggleMessageSubmenu,
 	editChatMessage,

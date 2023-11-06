@@ -11,7 +11,7 @@
 }
 body {
 	image-rendering: pixelated;
-
+	min-height: 100vh;
 	background: linear-gradient(to top, transparent, transparent),
 		url(../public/images/background-image-hifi-less-green-smaller.jpg);
 	background-repeat: no-repeat;

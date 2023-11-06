@@ -3,6 +3,7 @@ import { useState } from "react";
 import { discardMediaDraft } from "../chatSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setPlaybackRate } from "../chatSlice";
+import "./MediaWrapper.scss";
 
 const MediaWrapper = ({ type, contents, draft, number }) => {
 	const dispatch = useDispatch();
@@ -63,7 +64,6 @@ const MediaWrapper = ({ type, contents, draft, number }) => {
 				// }
 				break;
 			case "ended":
-				console.log("onended");
 				setTimeline(0);
 				setIsPlaying(false);
 				break;
@@ -78,7 +78,7 @@ const MediaWrapper = ({ type, contents, draft, number }) => {
 	};
 
 	return (
-		<div className={`MediaWrapper type-${type}`}>
+		<div className={`MediaWrapper type-${type} isPlaying-${isPlaying}`}>
 			{type == "audio" ? (
 				<audio
 					src={contents}
@@ -96,7 +96,7 @@ const MediaWrapper = ({ type, contents, draft, number }) => {
 					onTimeUpdate={changeTimelinePosition}
 				></video>
 			)}
-			<div className={"MediaWrapper_controls_wrapper"}>
+			<div className={`MediaWrapper_controls_wrapper MediaDraft-${draft}`}>
 				<button
 					onClick={handlePlayPausePress}
 					className="media-message-control start-stop-btn"
@@ -105,17 +105,21 @@ const MediaWrapper = ({ type, contents, draft, number }) => {
 				</button>
 				<input
 					type="range"
+					min="0"
 					max="100"
 					value={timeline}
 					onChange={changeTimelinePosition}
 				></input>
 				{draft ? (
-					<button className="media-message-control" onClick={handleScrapPress}>
+					<button
+						className="media-message-control scrap-draft-btn"
+						onClick={handleScrapPress}
+					>
 						scrap
 					</button>
 				) : (
 					<button
-						className="media-message-control"
+						className="media-message-control playback-speed-btn"
 						onClick={handlePlaybackRatePress}
 					>
 						{mediaPlaybackRate + "x"}
