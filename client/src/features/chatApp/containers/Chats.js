@@ -7,25 +7,24 @@ import { MessageSubmenu } from "./MessageSubmenu";
 import "./Chats.scss";
 
 function Chats({ activeContactId }) {
-	const messages = useSelector((state) => state.chat.messages[activeContactId]);
-	const { showMessageSubmenu } = useSelector((state) => state.chat);
-	const { inputHeight } = useSelector((state) => state.chat);
-	const editing = useSelector((state) => Boolean(state.chat.editing.number));
-
-	const chatsRef = useRef(null);
 	const dispatch = useDispatch();
+	const messages = useSelector((state) => state.chat.messages[activeContactId]);
+	useEffect(() => {
+		dispatch(setPreviewValue(activeContactId));
+	}, [messages]);
 
+	const { inputHeight } = useSelector((state) => state.chat);
+	const chatsRef = useRef(null);
 	useEffect(() => {
 		if (chatsRef.current) {
 			chatsRef.current.scrollTop = chatsRef.current.scrollHeight;
 		}
 	}, [inputHeight]);
 
-	useEffect(() => {
-		dispatch(setPreviewValue(activeContactId));
-	}, [messages]);
-
-	const [submenuProps, setSubmenuProps] = useState(null);
+	const showMessageSubmenu = useSelector((state) =>
+		Boolean(state.chat.showMessageSubmenu)
+	);
+	const editing = useSelector((state) => Boolean(state.chat.editing.number));
 
 	const handleMessagelick = (e, props) => {
 		e.preventDefault();
@@ -34,18 +33,17 @@ function Chats({ activeContactId }) {
 		}
 		if (showMessageSubmenu) {
 			dispatch(toggleMessageSubmenu(false));
-			setSubmenuProps(null);
 		} else {
-			dispatch(toggleMessageSubmenu(true));
 			if (props.type !== "text") props.contents = "";
-			setSubmenuProps({
-				...props,
-				// there's a bug when resize sometimes position is undefined
-				position: [e.clientX, e.clientY],
-			});
+			dispatch(
+				toggleMessageSubmenu({
+					...props,
+					// there's a bug when resize sometimes position is undefined
+					position: [e.clientX || 0, e.clientY || 0],
+				})
+			);
 		}
 	};
-
 	useEffect(() => {
 		const callback = () => {
 			if (showMessageSubmenu) {
@@ -53,10 +51,8 @@ function Chats({ activeContactId }) {
 			}
 		};
 		window.addEventListener("click", callback);
-		window.addEventListener("resize", callback);
 		return () => {
 			window.removeEventListener("click", callback);
-			window.removeEventListener("resize", callback);
 		};
 	}, [showMessageSubmenu]);
 
@@ -76,10 +72,7 @@ function Chats({ activeContactId }) {
 
 	return (
 		<div className="Chats" ref={chatsRef}>
-			{showMessageSubmenu && (
-				<MessageSubmenu show={showMessageSubmenu} props={submenuProps} />
-			)}
-
+			{showMessageSubmenu && <MessageSubmenu />}
 			{messagesIterator()}
 		</div>
 	);

@@ -1,12 +1,14 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	editChatMessage,
 	removeChatMessage,
 	toggleMessageSubmenu,
 } from "../chatSlice";
 
-export const MessageSubmenu = ({ props }) => {
-	const { position, type, is_user_msg, contents, number } = props;
+export const MessageSubmenu = () => {
+	const dispatch = useDispatch();
+	const { showMessageSubmenu } = useSelector((state) => state.chat);
+	const { position, type, is_user_msg, contents, number } = showMessageSubmenu;
 
 	const centering = () => {
 		let [x, y] = position;
@@ -36,7 +38,6 @@ export const MessageSubmenu = ({ props }) => {
 		};
 	};
 
-	const dispatch = useDispatch();
 	const handleEditClick = (contents, number) => {
 		dispatch(editChatMessage({ contents, number }));
 		dispatch(toggleMessageSubmenu(false));
