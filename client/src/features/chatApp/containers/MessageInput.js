@@ -52,8 +52,11 @@ function MessageInput() {
 	};
 
 	const sendMessage = (e) => {
-		const notEmpty = typing || mediaDraft;
+		if (messageInputRef.current) {
+			messageInputRef.current.focus();
+		}
 
+		const notEmpty = typing || mediaDraft;
 		const sendBtnClick = e.type === "click";
 		const ctrlEnter =
 			(e.key === "Enter" || e.keyCode === 13) && (e.metaKey || e.ctrlKey);

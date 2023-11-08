@@ -3,6 +3,7 @@ import _ from "lodash";
 import "./ChatSidebar.scss";
 import { useSelector } from "react-redux";
 import Contact from "../components/Contact";
+import { NavLink } from "react-router-dom";
 
 function ChatSidebar() {
 	const { contacts, activeContactId } = useSelector((state) => state.chat);
@@ -20,7 +21,20 @@ function ChatSidebar() {
 		});
 	};
 
-	return <aside className="Sidebar">{contactsIterator()}</aside>;
+	return (
+		<aside className="Sidebar">
+			<nav>
+				<NavLink
+					to={"/"}
+					id="chat-exit-btn"
+					className="weather-here-nav-btn navlink"
+				>
+					{"<<<<<LEAVE"}
+				</NavLink>
+			</nav>
+			{contactsIterator()}
+		</aside>
+	);
 }
 
 export default ChatSidebar;
