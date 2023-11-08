@@ -8,10 +8,28 @@ import "./App.css";
 import TheWeatherHere from "./features/weatherHere/theWeatherHere";
 import ChatApp from "./features/chatApp/components/Chat";
 import { Routes, Route } from "react-router-dom";
+import { useEffect, useRef } from "react";
 
 function App() {
+	const appReff = useRef(null);
+
+	useEffect(() => {
+		function calculateVh() {
+			var vh = window.innerHeight * 0.01;
+			document.documentElement.style.setProperty("--vh", `${vh}px`);
+		}
+		calculateVh();
+		window.addEventListener("resize", calculateVh);
+		window.addEventListener("orientationchange", calculateVh);
+
+		return () => {
+			window.removeEventListener("resize", calculateVh);
+			window.removeEventListener("orientationchange", calculateVh);
+		};
+	}, []);
+
 	return (
-		<main id="App">
+		<main id="App" ref={appReff}>
 			<Routes>
 				<Route exact path="/" element={<AppSelector />}></Route>
 

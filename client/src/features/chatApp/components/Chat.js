@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 function ChatApp() {
 	const chatOpen = useSelector((state) => Boolean(state.chat.activeContactId));
+
 	const [smallScreen, setSmallScreen] = useState(window.innerWidth <= 600);
 	useEffect(() => {
 		const callback = () => {
