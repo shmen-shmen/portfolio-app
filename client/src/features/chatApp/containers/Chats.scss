@@ -1,11 +1,10 @@
 @import "../../../index.scss";
 
 .Chats {
-	flex: 1 1 0;
+	flex: 1;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	margin: 0;
 	margin-right: auto;
 	border-right: 1px solid rgb(255, 0, 89);
 	overflow-y: scroll;
@@ -43,7 +42,6 @@
 
 		.Chat {
 			position: relative;
-			color: white;
 			color: black;
 			padding: 0.5rem;
 			width: fit-content;
@@ -55,16 +53,14 @@
 			padding-right: 2rem;
 
 			&.is_user_msg {
-				margin-right: 0rem;
+				margin-right: 0;
 				padding-right: 0.5rem;
 				padding-left: 2rem;
 
 				background: linear-gradient(to right, transparent 1rem, white 1.5rem);
 			}
 
-			&.type-audio {
-				width: 300px;
-			}
+			&.type-audio,
 			&.type-video {
 				width: 300px;
 			}
@@ -75,7 +71,6 @@
 					"Lucida Grande", "Lucida Sans", Arial, sans-serif;
 				overflow-wrap: normal;
 				hyphens: auto;
-
 				display: inline-block;
 			}
 
@@ -85,7 +80,6 @@
 				width: 100%;
 				text-align: left;
 			}
-
 			&.is_user_msg {
 				.message-flag {
 					text-align: right;
@@ -99,15 +93,13 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1px;
-
 		background-color: rgb(255, 0, 89);
 		border: 1px solid rgb(255, 0, 89);
-
 		z-index: 1;
 
 		.edit-remove-msg-btn {
 			font-size: 1.25rem;
-			padding: 0.5rem 1rem 0.5rem 1rem;
+			padding: 0.5rem 1rem;
 			width: 100%;
 			background-color: white;
 			border: none;
