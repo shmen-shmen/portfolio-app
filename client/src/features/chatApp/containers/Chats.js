@@ -19,7 +19,7 @@ function Chats({ activeContactId }) {
 		if (chatsRef.current) {
 			chatsRef.current.scrollTop = chatsRef.current.scrollHeight;
 		}
-	}, [inputHeight]);
+	}, [inputHeight, messages]);
 
 	const showMessageSubmenu = useSelector((state) =>
 		Boolean(state.chat.showMessageSubmenu)

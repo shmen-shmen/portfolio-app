@@ -8,13 +8,27 @@
 	width: 100%;
 	margin: 0;
 	margin-right: auto;
-
 	border-right: 1px solid rgb(255, 0, 89);
-
 	overflow-y: scroll;
 
 	@include for-tablet-portrait-up {
 		max-width: 400px;
+	}
+
+	#video-preview-wrapper {
+		position: absolute;
+		width: fit-content;
+		align-self: flex-start;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: rgb(255, 0, 89);
+		display: flex;
+		z-index: 2;
+		#video-preview {
+			width: 300px;
+			transform: scaleX(-1);
+		}
 	}
 
 	.Chat-wrapper {
@@ -140,19 +154,6 @@
 			&:active {
 				color: red;
 			}
-		}
-	}
-
-	#video-preview-wrapper {
-		#video-preview {
-			position: absolute;
-			width: 300px;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%) scaleX(-1);
-			z-index: 1;
-			background: linear-gradient(white, transparent);
-			border-radius: 10px;
 		}
 	}
 }

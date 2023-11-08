@@ -78,7 +78,9 @@ const MediaWrapper = ({ type, contents, draft, number }) => {
 	};
 
 	return (
-		<div className={`MediaWrapper type-${type} isPlaying-${isPlaying}`}>
+		<div
+			className={`MediaWrapper type-${type} isPlaying-${isPlaying} MediaDraft-${draft}`}
+		>
 			{type == "audio" ? (
 				<audio
 					src={contents}
