@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MediaWrapper from "../containers/MediaWrapper";
 
 function Message({ topMessage, message, handleMessagelick }) {
-	const { is_user_msg, contents, type, number, edited } = message;
+	const { is_user_msg, contents, type, number, edited, time } = message;
+
+	const timeString = () => {
+		const utcDate = new Date(time);
+
+		const hours = utcDate.getHours();
+		const minutes = utcDate.getMinutes();
+
+		const formattedHours = hours < 10 ? "0" + hours : hours;
+		const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+
+		return `${formattedHours}:${formattedMinutes}`;
+	};
 
 	return (
 		<div
@@ -23,7 +35,6 @@ function Message({ topMessage, message, handleMessagelick }) {
 				{type == "text" ? (
 					<>
 						<span>{contents}</span>
-						{edited && <span className="message-edited-flag">(edited)</span>}
 					</>
 				) : (
 					<MediaWrapper
@@ -33,20 +44,10 @@ function Message({ topMessage, message, handleMessagelick }) {
 						type={type}
 					></MediaWrapper>
 				)}
+				<span className="message-flag">{`${
+					edited ? "(edited)" : ""
+				} ${timeString()}`}</span>
 			</div>
-			{/* <button
-				className="Chat__submenu-btn"
-				onClick={(e) =>
-					handleMessagelick(e, {
-						type: type,
-						is_user_msg: is_user_msg,
-						contents: contents,
-						number: number,
-					})
-				}
-			>
-				...
-			</button> */}
 		</div>
 	);
 }

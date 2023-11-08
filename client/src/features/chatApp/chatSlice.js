@@ -69,7 +69,7 @@ const chatSlice = createSlice({
 			state.inputHeight = action.payload;
 		},
 		submitChatMessage: (state, action) => {
-			const { type, contents, id } = action.payload;
+			const { type, contents, id, time } = action.payload;
 			// if i was editing and my message is the same as it was, then just abort
 			if (state.editing.contents && state.editing.contents == contents) {
 				state.typing = initialState.typing;
@@ -79,12 +79,13 @@ const chatSlice = createSlice({
 			const activeDialog = state.messages[id];
 			// if editing message it's key is the same, else it is calculated
 			const newMsgNumber =
-				state.editing.number || Object.keys(activeDialog).length + 1;
+				state.editing.number || Object.keys(activeDialog).length;
 
 			const newMsg = {
 				number: newMsgNumber,
 				type,
 				contents,
+				time,
 				is_user_msg: true,
 			};
 			if (state.editing.contents) {
@@ -113,11 +114,11 @@ const chatSlice = createSlice({
 		removeChatMessage: (state, action) => {
 			const number = action.payload;
 			const id = state.activeContactId;
-			const messagesopy = state.messages[id];
+			const messagescopy = state.messages[id];
 
-			delete messagesopy[number];
+			delete messagescopy[number];
 
-			state.messages[id] = messagesopy;
+			state.messages[id] = messagescopy;
 		},
 
 		switchVideoMode: (state) => {

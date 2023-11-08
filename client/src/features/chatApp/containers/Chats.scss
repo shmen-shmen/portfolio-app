@@ -3,7 +3,6 @@
 .Chats {
 	flex: 1 1 0;
 	display: flex;
-	// justify-content: flex-end;
 	flex-direction: column;
 	width: 100%;
 	margin: 0;
@@ -42,19 +41,6 @@
 			flex-direction: row-reverse;
 		}
 
-		// .Chat__submenu-btn {
-		// 	display: none;
-		// 	@include for-tablet-portrait-up {
-		// 		display: block;
-		// 		height: 1.5rem;
-		// 		border-radius: 5px;
-		// 		border: none;
-		// 		padding: 0 2px 0 2px;
-		// 		background-color: rgba(255, 255, 255, 0.1);
-		// 		color: white;
-		// 	}
-		// }
-
 		.Chat {
 			position: relative;
 			color: white;
@@ -62,58 +48,26 @@
 			padding: 0.5rem;
 			width: fit-content;
 			font-weight: 900;
+			text-align: justify;
 
-			// background: linear-gradient(
-			// 	to right,
-			// 	rgba(0, 0, 255, 0.3),
-			// 	white 1rem
-			// );
 			background: linear-gradient(to left, transparent 1rem, white 1.5rem);
-			// background-color: white;
 
-			// margin-right: 2rem;
 			padding-right: 2rem;
 
 			&.is_user_msg {
 				margin-right: 0rem;
-				// margin-left: 2rem;
 				padding-right: 0.5rem;
 				padding-left: 2rem;
-				// background: linear-gradient(
-				// 	to left,
-				// 	rgba(255, 0, 89, 0.363),
-				// 	white 1rem
-				// );
+
 				background: linear-gradient(to right, transparent 1rem, white 1.5rem);
-				// background-color: white;
-				// border-bottom-right-radius: 0;
-				// border-bottom-left-radius: 10px;
 			}
 
 			&.type-audio {
-				// padding: 0;
 				width: 300px;
-				// width: fit-content;
 			}
 			&.type-video {
-				padding: 0;
 				width: 300px;
 			}
-
-			// @include for-tablet-portrait-up {
-			// 	&.type-audio {
-			// 		width: 60%;
-			// 		max-width: 300px;
-			// 	}
-			// 	&.type-video {
-			// 		width: fit-content;
-			// 		max-width: 250px;
-			// 		// &.isPlaying-true {
-			// 		// 	width: 90%;
-			// 		// 	max-width: 600px;
-			// 		// }
-			// 	}
-			// }
 
 			span {
 				font-size: 1rem;
@@ -121,12 +75,21 @@
 					"Lucida Grande", "Lucida Sans", Arial, sans-serif;
 				overflow-wrap: normal;
 				hyphens: auto;
+
+				display: inline-block;
 			}
 
-			.message-edited-flag {
-				display: block;
-				text-align: right;
+			.message-flag {
 				font-size: 0.8rem;
+				color: rgba(0, 0, 0, 0.5);
+				width: 100%;
+				text-align: left;
+			}
+
+			&.is_user_msg {
+				.message-flag {
+					text-align: right;
+				}
 			}
 		}
 	}

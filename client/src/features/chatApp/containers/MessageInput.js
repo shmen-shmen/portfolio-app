@@ -68,6 +68,7 @@ function MessageInput() {
 					type: mediaDraft ? mediaDraft.type : "text",
 					contents: mediaDraft ? mediaDraft.contents : typing,
 					id: activeContactId,
+					time: Date.now(),
 				})
 			);
 		}
@@ -145,7 +146,6 @@ function MessageInput() {
 		const observer = new ResizeObserver((entries) => {
 			for (const entry of entries) {
 				dispatch(setInputHeight(entry.contentBoxSize[0].blockSize));
-				// console.log(entry.contentBoxSize[0].blockSize);
 			}
 		});
 		observer.observe(element);
