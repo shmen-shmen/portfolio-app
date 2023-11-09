@@ -12,19 +12,19 @@
 body {
 	image-rendering: pixelated;
 	height: calc(var(--vh, 1vh) * 100);
-	min-height: -moz-available;
-	min-height: -webkit-fill-available;
-	min-height: fill-available;
+	// min-height: -moz-available;
+	// min-height: -webkit-fill-available;
+	// min-height: fill-available;
 	background: linear-gradient(to top, transparent, transparent),
 		url(../public/images/background-image-hifi-less-green-smaller.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
 
-html {
-	height: fill-available;
-	height: -webkit-fill-available;
-}
+// html {
+// 	height: fill-available;
+// 	height: -webkit-fill-available;
+// }
 
 @font-face {
 	// from https://int10h.org/oldschool-pc-fonts/

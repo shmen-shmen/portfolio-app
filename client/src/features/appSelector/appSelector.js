@@ -9,6 +9,7 @@ const AppSelector = () => {
 				<a
 					href="https://shmen-shmen.github.io/kabashi-sonic-10000/"
 					target="_blank"
+					rel="noreferrer"
 					id={"sythesizer-id"}
 					key={"sythesizer-key"}
 					className="nav-button nav"

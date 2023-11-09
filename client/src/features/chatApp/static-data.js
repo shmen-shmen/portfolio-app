@@ -1,4 +1,4 @@
-import { faker } from "https://cdn.skypack.dev/@faker-js/faker";
+import { faker } from "@faker-js/faker";
 const shortid = require("shortid"); // shortid.generate() returns a unique "short" id
 const txtgen = require("txtgen"); // txtgen.sentence() returns random "readable" sentences
 // const faker = require("@faker-js/faker"); // faker is used for generating random fake data.

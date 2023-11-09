@@ -1,12 +1,12 @@
-import AppSelector from "./features/appSelector/appSelector";
+import AppSelector from "./features/appSelector/appSelector.js";
 import RandomQuoteMachine from "./features/randomQuoteMachine/randomQuoteMachine.js";
 import MarkdownPreviewer from "./features/markdownPreviewer/markdownPreviewer.js";
 import DrumMachine from "./features/drumMachine/drumMachine.js";
 import Calculator from "./features/calculator/calculator.js";
 import TwentyFiveClock from "./features/twentyFiveClock/twentyFiveClock.js";
 import "./App.css";
-import TheWeatherHere from "./features/weatherHere/theWeatherHere";
-import ChatApp from "./features/chatApp/components/Chat";
+import TheWeatherHere from "./features/weatherHere/theWeatherHere.js";
+import ChatApp from "./features/chatApp/components/Chat.js";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useRef } from "react";
 

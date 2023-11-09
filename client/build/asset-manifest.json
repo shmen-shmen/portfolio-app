@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6d3efb71.css",
+    "main.js": "/static/js/main.511fa727.js",
+    "static/js/496.4ed90e57.chunk.js": "/static/js/496.4ed90e57.chunk.js",
+    "static/media/NotoColorEmoji-Regular.ttf": "/static/media/NotoColorEmoji-Regular.4f4d77767beef1733f26.ttf",
+    "static/media/NotoEmoji-Regular.ttf": "/static/media/NotoEmoji-Regular.80256edd659d49474211.ttf",
+    "static/media/background-image-hifi-less-green-smaller.jpg": "/static/media/background-image-hifi-less-green-smaller.ed6afc53073b13c79271.jpg",
+    "static/media/WebPlus_IBM_VGA_8x14.woff": "/static/media/WebPlus_IBM_VGA_8x14.2b4c743a07770349100e.woff",
+    "static/media/ComicMono-Bold.ttf": "/static/media/ComicMono-Bold.89221652a0a5435c0d76.ttf",
+    "static/media/ComicMono.ttf": "/static/media/ComicMono.53a3d0c4d41c7751a3fb.ttf",
+    "static/media/Web437_IBM_DOS_ISO9-2x.woff": "/static/media/Web437_IBM_DOS_ISO9-2x.f39da238b8316f19d539.woff",
+    "static/media/Web437_IBM_DOS_ISO9.woff": "/static/media/Web437_IBM_DOS_ISO9.02ce57d033d06c83ddbe.woff",
+    "static/media/DSEG7ClassicMini-BoldItalic.woff": "/static/media/DSEG7ClassicMini-BoldItalic.555febbbbc653d86d776.woff",
+    "index.html": "/index.html",
+    "static/media/dot-white.svg": "/static/media/dot-white.01aae30e45f67289c00f.svg",
+    "static/media/dot-red.svg": "/static/media/dot-red.7a46299dbd458e8a80ab.svg",
+    "main.6d3efb71.css.map": "/static/css/main.6d3efb71.css.map",
+    "main.511fa727.js.map": "/static/js/main.511fa727.js.map",
+    "496.4ed90e57.chunk.js.map": "/static/js/496.4ed90e57.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6d3efb71.css",
+    "static/js/main.511fa727.js"
+  ]
+}
