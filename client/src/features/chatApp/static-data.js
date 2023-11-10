@@ -9,9 +9,10 @@ export const contacts = _.mapKeys(users, "user_id");
 export const getMessages = (messagesPerUser) => {
 	let messages = {};
 	_.forEach(users, (user) => {
-		messages[user.user_id] = {
-			..._.mapKeys(generateMsgs(messagesPerUser), "number"),
-		};
+		// messages[user.user_id] = {
+		// 	..._.mapKeys(generateMsgs(messagesPerUser), "number"),
+		// };
+		messages[user.user_id] = [...generateMsgs(messagesPerUser)];
 	});
 	return messages;
 };
@@ -42,7 +43,6 @@ export function generateUser() {
  */
 function generateMsg(number) {
 	return {
-		number,
 		type: "text",
 		contents: txtgen.sentence(),
 		is_user_msg: faker.datatype.boolean(),

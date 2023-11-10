@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux";
 import { setActiveContactId, setPreviewValue } from "../chatSlice";
 
 function Contact({ contact, activeContactId }) {
-	const { name, email, profile_pic, previewValue, user_id } = contact;
+	const { name, profile_pic, previewValue, user_id } = contact;
 
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		dispatch(setPreviewValue(user_id));
-	}, []);
+	});
 
 	const handleContactClick = () => {
 		dispatch(setActiveContactId(user_id));
@@ -17,7 +17,7 @@ function Contact({ contact, activeContactId }) {
 
 	function truncateText(text) {
 		let shortText = text.substring(0, 35);
-		if (shortText.slice(-1) == " ") {
+		if (shortText.slice(-1) === " ") {
 			shortText = shortText.slice(0, -1);
 		}
 		if (shortText.length >= 34) {

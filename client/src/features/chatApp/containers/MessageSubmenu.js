@@ -23,10 +23,9 @@ export const MessageSubmenu = () => {
 		} else {
 			x += 5;
 		}
-		if (rect.left != 0) {
+		if (rect.left !== 0) {
 			x = x - rect.left;
 		}
-		console.log("new x: ", x);
 		let translateY = 0;
 		if (y >= vertical) {
 			translateY = "-100%";
@@ -53,7 +52,7 @@ export const MessageSubmenu = () => {
 
 	return (
 		<div className="message-submenu" style={centering()}>
-			{type == "text" && is_user_msg && (
+			{type === "text" && is_user_msg && (
 				<button
 					className="edit-remove-msg-btn"
 					onClick={() => {

@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { contacts, getMessages, generateUser } from "./static-data.js";
 import { startRecording } from "./mediaRecorder.js";
-import _ from "lodash";
 
 const initialState = {
 	user: generateUser(),
@@ -39,6 +38,9 @@ const chatSlice = createSlice({
 	initialState,
 	reducers: {
 		setActiveContactId: (state, action) => {
+			if (state.activeContactId === action.payload) {
+				return state;
+			}
 			state.activeContactId = action.payload;
 		},
 		dropActiveDialog: (state) => {
@@ -46,16 +48,16 @@ const chatSlice = createSlice({
 		},
 		setPreviewValue: (state, action) => {
 			const id = action.payload;
-
-			const messagesArr = _.values(state.messages[id]);
+			// const messagesArr = _.values(state.messages[id]);
+			const messagesArr = state.messages[id];
 			if (messagesArr.length === 0) {
 				state.contacts[id].previewValue = "...";
 			} else {
 				const lastMsg = messagesArr[messagesArr.length - 1];
 				const value = () => {
-					if (lastMsg.type == "text") {
+					if (lastMsg.type === "text") {
 						return lastMsg.contents;
-					} else if (lastMsg.type == "video") {
+					} else if (lastMsg.type === "video") {
 						return "Video Message";
 					} else return "Audio Message";
 				};
@@ -70,36 +72,36 @@ const chatSlice = createSlice({
 		},
 		submitChatMessage: (state, action) => {
 			const { type, contents, id, time } = action.payload;
-			// if i was editing and my message is the same as it was, then just abort
-			if (state.editing.contents && state.editing.contents == contents) {
+			// if editing message and the content is the same, abort
+			if (state.editing.contents && state.editing.contents === contents) {
 				state.typing = initialState.typing;
 				state.editing = initialState.editing;
-				return;
+				return state;
 			}
-			const activeDialog = state.messages[id];
-			// if editing message it's key is the same, else it is calculated
-			const newMsgNumber =
-				state.editing.number || Object.keys(activeDialog).length;
 
 			const newMsg = {
-				number: newMsgNumber,
 				type,
 				contents,
 				time,
 				is_user_msg: true,
 			};
+
 			if (state.editing.contents) {
 				newMsg.edited = true;
+				const activeDialog = state.messages[id];
+				const updatedDialog = [...activeDialog];
+				const index = state.editing.number;
+				updatedDialog[index] = newMsg;
+				state.messages[id] = updatedDialog;
+				state.editing = initialState.editing;
+			} else {
+				state.messages[id].push(newMsg);
 			}
-			// put new message into dialog
-			state.messages[id][newMsgNumber] = newMsg;
-			// put everything back
+
 			state.typing = initialState.typing;
 			state.mediaDraft = initialState.mediaDraft;
-			if (state.editing.contents) {
-				state.editing = initialState.editing;
-			}
 		},
+
 		toggleMessageSubmenu: (state, action) => {
 			state.showMessageSubmenu = action.payload;
 		},
@@ -112,12 +114,12 @@ const chatSlice = createSlice({
 			state.typing = initialState.typing;
 		},
 		removeChatMessage: (state, action) => {
-			const number = action.payload;
 			const id = state.activeContactId;
-			const messagescopy = state.messages[id];
-
-			delete messagescopy[number];
-
+			const number = action.payload;
+			let messagescopy = state.messages[id];
+			messagescopy = messagescopy
+				.slice(0, number)
+				.concat(messagescopy.slice(number + 1));
 			state.messages[id] = messagescopy;
 		},
 

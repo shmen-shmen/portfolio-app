@@ -1,7 +1,7 @@
 import React from "react";
 
 const Empty = ({ user }) => {
-	const { name, profile_pic, status } = user;
+	const { name, profile_pic } = user;
 	const first_name = name.split(" ")[0];
 
 	return (

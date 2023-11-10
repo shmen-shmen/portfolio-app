@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import MediaWrapper from "../containers/MediaWrapper";
 
 function Message({ topMessage, message, handleMessagelick }) {
@@ -32,7 +32,7 @@ function Message({ topMessage, message, handleMessagelick }) {
 			}
 		>
 			<div className={`Chat ${is_user_msg ? "is_user_msg" : ""} type-${type}`}>
-				{type == "text" ? (
+				{type === "text" ? (
 					<>
 						<span>{contents}</span>
 					</>
