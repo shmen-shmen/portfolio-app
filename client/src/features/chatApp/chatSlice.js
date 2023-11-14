@@ -14,21 +14,18 @@ const initialState = {
 	videoMode: false,
 	recordingVoice: false,
 	mediaDraft: null,
+	mediaDeviceErr: false,
 	mediaPlaybackRate: 1,
 };
 
 export const getDataStream = createAsyncThunk(
 	"chat/getDataStream",
 	async (videoMode, { rejectWithValue }) => {
-		const response = await startRecording(videoMode);
-		if (response) {
+		try {
+			const response = await startRecording(videoMode);
 			return response;
-		} else {
-			return rejectWithValue(
-				`there was an error accessing your ${
-					videoMode ? "camera" : "microphone"
-				} 😞 please try again later`
-			);
+		} catch (error) {
+			return rejectWithValue(error.message);
 		}
 	}
 );
@@ -129,6 +126,9 @@ const chatSlice = createSlice({
 		discardMediaDraft: (state) => {
 			state.mediaDraft = initialState.mediaDraft;
 		},
+		resetMediaDeviceErr: (state) => {
+			state.mediaDeviceErr = initialState.mediaDeviceErr;
+		},
 		setPlaybackRate: (state) => {
 			if (state.mediaPlaybackRate === 1) {
 				state.mediaPlaybackRate = 1.5;
@@ -145,13 +145,16 @@ const chatSlice = createSlice({
 		builder
 			.addCase(getDataStream.pending, (state) => {
 				state.recordingVoice = true;
+				state.mediaDeviceErr = initialState.mediaDeviceErr;
 			})
 			.addCase(getDataStream.fulfilled, (state, action) => {
 				state.recordingVoice = false;
 				state.mediaDraft = action.payload;
 			})
 			.addCase(getDataStream.rejected, (state, action) => {
-				console.error(action.payload);
+				const err = action.payload;
+				console.error("media recorder: ", err);
+				state.mediaDeviceErr = true;
 				state.recordingVoice = false;
 				state.mediaDraft = initialState.mediaDraft;
 			});
@@ -173,6 +176,7 @@ export const {
 	startRecordingVoice,
 	abortRecordigVoice,
 	discardMediaDraft,
+	resetMediaDeviceErr,
 	setPlaybackRate,
 } = chatSlice.actions;
 

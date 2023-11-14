@@ -18,6 +18,7 @@ export const startRecording = (videoMode) => {
 			navigator.mediaDevices
 				.getUserMedia(constraints)
 				.then((stream) => {
+					console.log("START RECORDING");
 					mediaRecorder = new MediaRecorder(stream);
 					// gives camera some time to load
 					setTimeout(
@@ -34,14 +35,15 @@ export const startRecording = (videoMode) => {
 					};
 
 					mediaRecorder.onstop = () => {
-						console.log("data available after MediaRecorder.stop() called.");
+						console.log("STOP RECORDING");
 
 						// stop showing preview
 						videoPreviewDispose();
 
 						// check if anything was recorded
-						const dataIsEmpty = chunks[0]["size"] == 0;
+						const dataIsEmpty = chunks[0]["size"] === 0;
 						if (dataIsEmpty) {
+							reject("nothing was recorded");
 							return;
 						}
 
@@ -69,9 +71,9 @@ export const startRecording = (videoMode) => {
 					};
 				})
 				.catch((err) => {
-					reject(new Error(`The following error occurred: ${err}`));
+					reject(new Error(err));
 				});
-		} else reject(new Error("getUserMedia not supported."));
+		} else reject("getUserMedia not supported.");
 	});
 };
 
@@ -85,6 +87,7 @@ const previewSetup = (stream, videoMode) => {
 };
 
 export const stopRecording = () => {
-	console.log("STOP RECORDING");
-	mediaRecorder.stop();
+	if (mediaRecorder) {
+		mediaRecorder.stop();
+	}
 };
