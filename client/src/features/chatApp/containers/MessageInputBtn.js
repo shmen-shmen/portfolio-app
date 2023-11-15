@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getDataStream, switchVideoMode } from "../chatSlice";
 import { stopRecording } from "../mediaRecorder";
@@ -17,6 +17,7 @@ function MessageInputBtn({ sendMessage }) {
 	const handleRecPress = (e) => {
 		e.preventDefault();
 		touchStartTime = new Date();
+		// console.log(touchStartTime);
 		recPressTimeoutId = setTimeout(() => {
 			if (!recordingVoice) {
 				dispatch(getDataStream(videoMode));
@@ -24,7 +25,8 @@ function MessageInputBtn({ sendMessage }) {
 		}, clickHoldCutoff);
 	};
 
-	const handleRecRelease = () => {
+	const handleRecRelease = (e) => {
+		e.preventDefault();
 		if (recordingVoice) {
 			stopRecording();
 		} else {
@@ -36,6 +38,7 @@ function MessageInputBtn({ sendMessage }) {
 			}
 		}
 	};
+
 	return (
 		<>
 			{typing || mediaDraft ? (
