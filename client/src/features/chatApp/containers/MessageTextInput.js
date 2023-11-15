@@ -46,7 +46,7 @@ function MessageTextInput({ messageInputRef }) {
 
 	const placeholder = () => {
 		if (mediaDeviceErr) {
-			return "check camera/mic permissson";
+			return "check camera/mic permisssons";
 		} else if (placeholderMobile) {
 			return "message";
 		} else return "cmd(ctrl) + enter to send";

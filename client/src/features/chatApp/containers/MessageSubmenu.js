@@ -49,6 +49,13 @@ export const MessageSubmenu = () => {
 		dispatch(removeChatMessage(number));
 		dispatch(toggleMessageSubmenu(false));
 	};
+	const handleCopyClick = async (contents) => {
+		try {
+			await navigator.clipboard.writeText(contents);
+		} catch (err) {
+			console.error("Failed to copy: ", err);
+		}
+	};
 
 	return (
 		<div className="message-submenu" style={centering()}>
@@ -60,6 +67,16 @@ export const MessageSubmenu = () => {
 					}}
 				>
 					edit
+				</button>
+			)}
+			{type === "text" && (
+				<button
+					className="edit-remove-msg-btn"
+					onClick={() => {
+						handleCopyClick(contents);
+					}}
+				>
+					copy
 				</button>
 			)}
 			<button
