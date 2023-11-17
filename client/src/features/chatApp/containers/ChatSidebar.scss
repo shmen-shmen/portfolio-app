@@ -47,7 +47,7 @@
 			cursor: pointer;
 		}
 
-		&:active {
+		&.active-contact {
 			background: linear-gradient(to bottom, white 10%, rgb(255, 0, 89));
 		}
 
