@@ -8,11 +8,9 @@ import "./App.css";
 import TheWeatherHere from "./features/weatherHere/theWeatherHere.js";
 import ChatApp from "./features/chatApp/components/Chat.js";
 import { Routes, Route } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 function App() {
-	const appReff = useRef(null);
-
 	useEffect(() => {
 		function calculateVh() {
 			var vh = window.innerHeight * 0.01;
@@ -29,7 +27,7 @@ function App() {
 	}, []);
 
 	return (
-		<main id="App" ref={appReff}>
+		<main id="App">
 			<Routes>
 				<Route exact path="/" element={<AppSelector />}></Route>
 
