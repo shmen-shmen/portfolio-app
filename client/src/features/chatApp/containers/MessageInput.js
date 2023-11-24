@@ -62,9 +62,9 @@ function MessageInput() {
 			}
 		}
 	};
-	useEffect(() => {
-		resizeMessageInput();
-	}, [typing]);
+	// useEffect(() => {
+	// 	resizeMessageInput();
+	// }, [typing]);
 
 	// this code block resizes input wrapper when video message preview
 	const inputWrapperRef = useRef(null);

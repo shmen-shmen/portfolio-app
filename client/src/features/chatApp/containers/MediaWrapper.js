@@ -5,124 +5,141 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPlaybackRate } from "../chatSlice";
 import "./MediaWrapper.scss";
 
-const MediaWrapper = ({ type, contents, draft, number }) => {
+const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 	const dispatch = useDispatch();
-
-	const [isPlaying, setIsPlaying] = useState(false);
-	const [timeline, setTimeline] = useState(0);
 	const { mediaPlaybackRate } = useSelector((state) => state.chat);
+	const mediaRef = useRef(null);
+	const media = mediaRef.current;
 
-	const audioRef = useRef(null);
-	const identifier = `voice-${draft ? "draft" : "message-" + number}`;
-
-	const handlePlayPausePress = (e) => {
-		e.preventDefault();
-		const audio = audioRef.current;
-		if (audio.paused) {
-			setIsPlaying(true);
-			audio.play();
-		} else {
-			setIsPlaying(false);
-			audio.pause();
-		}
+	//play pause
+	const [paused, setPaused] = useState(true);
+	const togglePlay = () => {
+		media.paused ? media.play() : media.pause();
+		setPaused(media.paused);
 	};
 
-	const handlePlaybackRatePress = () => {
-		dispatch(setPlaybackRate());
+	//timeline scrubbing
+	const timelineContainerRef = useRef(null);
+	const [isScrubbing, setIsScrubbing] = useState(false);
+	const [wasPaused, setWasPaused] = useState(false);
+
+	const toggleScrubbing = (e) => {
+		const rect = timelineContainerRef.current.getBoundingClientRect();
+
+		const percent =
+			Math.min(Math.max(0, e.pageX - rect.x), rect.width) / rect.width;
+
+		setIsScrubbing((e.buttons & 1) === 1);
+
+		if (isScrubbing) {
+			media.pause();
+			setWasPaused(media.paused);
+		} else {
+			media.currentTime = media.duration * percent;
+			if (!wasPaused) media.play();
+		}
+
+		handleScrub(e);
 	};
 
 	useEffect(() => {
-		audioRef.current.playbackRate = mediaPlaybackRate;
-	}, [mediaPlaybackRate]);
+		const callbackOne = (e) => {
+			if (isScrubbing) toggleScrubbing(e);
+		};
+		const callbackTwo = (e) => {
+			if (isScrubbing) handleScrub(e);
+		};
+		document.addEventListener("mouseup", callbackOne);
+		document.addEventListener("mousemove", callbackTwo);
+		return () => {
+			document.removeEventListener("mouseup", callbackOne);
+			document.removeEventListener("mousemove", callbackTwo);
+		};
+	});
 
-	const changeTimelinePosition = (e) => {
-		let audio;
-		// console.log("timeupdate");
-		switch (e.type) {
-			case "change":
-				// console.log("onchange");
-				audio = audioRef.current;
-				const audioHasLoaded = isFinite(audio.duration);
-				if (audioHasLoaded) {
-					const time = (audio.duration * e.target.value) / 100;
-					audio.currentTime = time;
-					// audio.pause();
-					// setIsPlaying(false);
-					setTimeline(e.target.value);
-				}
-				// else waitForAudioToLOad();
-				break;
-			case "timeupdate":
-				// console.log("timeupdate");
-				audio = e.target;
-				if (audio.currentTime && audio.duration) {
-					const percentagePosition = (100 * audio.currentTime) / audio.duration;
-					setTimeline(percentagePosition);
-				}
-				// else {
-				// 	return;
-				// }
-				break;
-			case "ended":
-				setTimeline(0);
-				setIsPlaying(false);
-				break;
-			default:
-				break;
+	const handleScrub = (e) => {
+		if (isScrubbing) {
+			e.preventDefault();
+			const rect = timelineContainerRef.current.getBoundingClientRect();
+			const percent =
+				Math.min(Math.max(0, e.pageX - rect.x), rect.width) / rect.width;
+			media.currentTime = media.duration * percent;
 		}
 	};
 
-	const handleScrapPress = (e) => {
-		e.preventDefault();
+	const handleTimeUpdate = () => {
+		const percent = mediaRef.current.currentTime / mediaRef.current.duration;
+		timelineContainerRef.current.style.setProperty(
+			"--progress-position",
+			percent
+		);
+	};
+
+	//playback speed
+	useEffect(() => {
+		mediaRef.current.playbackRate = mediaPlaybackRate;
+	}, [mediaPlaybackRate]);
+	const changePlaybackSpeed = () => {
+		let newPlaybackRate = mediaPlaybackRate + 0.5;
+		if (newPlaybackRate > 2) {
+			newPlaybackRate = 0.5;
+		}
+		mediaRef.current.playbackRate = newPlaybackRate;
+		dispatch(setPlaybackRate(mediaRef.current.playbackRate));
+	};
+
+	//discard draft
+	const scrapDraft = () => {
 		dispatch(discardMediaDraft());
 	};
 
 	return (
 		<div
-			className={`MediaWrapper type-${type} isPlaying-${isPlaying} MediaDraft-${draft}`}
+			className={`MediaWrapper type-${type} ${paused ? "paused" : ""} ${
+				draft ? "media-draft" : ""
+			} ${isScrubbing ? "scrubbing" : ""}`}
 		>
-			{type == "audio" ? (
+			{type === "audio" ? (
 				<audio
 					src={contents}
-					id={identifier}
-					ref={audioRef}
-					onEnded={changeTimelinePosition}
-					onTimeUpdate={changeTimelinePosition}
+					ref={mediaRef}
+					onTimeUpdate={handleTimeUpdate}
 				></audio>
 			) : (
 				<video
 					src={contents}
-					id={identifier}
-					ref={audioRef}
-					onEnded={changeTimelinePosition}
-					onTimeUpdate={changeTimelinePosition}
+					ref={mediaRef}
+					onTimeUpdate={handleTimeUpdate}
 				></video>
 			)}
-			<div className={`MediaWrapper_controls_wrapper MediaDraft-${draft}`}>
+			<div className={`MediaWrapper-controls`}>
 				<button
-					onClick={handlePlayPausePress}
+					onClick={togglePlay}
 					className="media-message-control start-stop-btn"
 				>
-					{isPlaying ? "■" : "►"}
+					{paused ? "▶︎" : "◼︎"}
 				</button>
-				<input
-					type="range"
-					min="0"
-					max="100"
-					value={timeline}
-					onChange={changeTimelinePosition}
-				></input>
+				<div
+					className="timeline-container"
+					ref={timelineContainerRef}
+					onMouseDown={toggleScrubbing}
+					onMouseMove={handleScrub}
+				>
+					<div className="timeline">
+						<div className="thumb-indicator"></div>
+					</div>
+				</div>
 				{draft ? (
 					<button
 						className="media-message-control scrap-draft-btn"
-						onClick={handleScrapPress}
+						onClick={scrapDraft}
 					>
-						scrap
+						☒
 					</button>
 				) : (
 					<button
 						className="media-message-control playback-speed-btn"
-						onClick={handlePlaybackRatePress}
+						onClick={changePlaybackSpeed}
 					>
 						{mediaPlaybackRate + "x"}
 					</button>

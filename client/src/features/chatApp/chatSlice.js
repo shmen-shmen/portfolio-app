@@ -13,7 +13,7 @@ const initialState = {
 	activeContactId: null,
 	videoMode: false,
 	recordingVoice: false,
-	mediaDraft: null,
+	mediaDraft: { type: "audio", contents: "./ubici.mp3" },
 	mediaDeviceErr: false,
 	mediaPlaybackRate: 1,
 };
@@ -129,16 +129,8 @@ const chatSlice = createSlice({
 		resetMediaDeviceErr: (state) => {
 			state.mediaDeviceErr = initialState.mediaDeviceErr;
 		},
-		setPlaybackRate: (state) => {
-			if (state.mediaPlaybackRate === 1) {
-				state.mediaPlaybackRate = 1.5;
-			} else if (state.mediaPlaybackRate === 1.5) {
-				state.mediaPlaybackRate = 2;
-			} else if (state.mediaPlaybackRate === 2) {
-				state.mediaPlaybackRate = 0.5;
-			} else {
-				state.mediaPlaybackRate = 1;
-			}
+		setPlaybackRate: (state, action) => {
+			state.mediaPlaybackRate = action.payload;
 		},
 	},
 	extraReducers: (builder) => {

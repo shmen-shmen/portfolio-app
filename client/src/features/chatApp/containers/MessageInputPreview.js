@@ -10,6 +10,7 @@ function MessageInputPreview({ mediaDraft, recordingVoice, messageInputRef }) {
 				<canvas className="voiceVisualizer"></canvas>
 			) : mediaDraft ? (
 				<MediaWrapper
+					messageInputRef={messageInputRef}
 					contents={mediaDraft.contents}
 					type={mediaDraft.type}
 					draft={true}
