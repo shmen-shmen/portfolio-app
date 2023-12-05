@@ -9,11 +9,11 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 	const dispatch = useDispatch();
 	const { mediaPlaybackRate } = useSelector((state) => state.chat);
 	const mediaRef = useRef(null);
-	const media = mediaRef.current;
 
 	//play pause
 	const [paused, setPaused] = useState(true);
 	const togglePlay = () => {
+		const media = mediaRef.current;
 		media.paused ? media.play() : media.pause();
 		setPaused(media.paused);
 	};
@@ -24,30 +24,34 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 	const [wasPaused, setWasPaused] = useState(false);
 
 	const toggleScrubbing = (e) => {
+		const media = mediaRef.current;
 		const rect = timelineContainerRef.current.getBoundingClientRect();
-
 		const percent =
 			Math.min(Math.max(0, e.pageX - rect.x), rect.width) / rect.width;
 
-		setIsScrubbing((e.buttons & 1) === 1);
-
-		if (isScrubbing) {
-			media.pause();
+		const newIsScrubbing = (e.buttons & 1) === 1;
+		if (newIsScrubbing) {
 			setWasPaused(media.paused);
+			media.pause();
 		} else {
+			if (media.duration === Infinity) {
+				return;
+			}
 			media.currentTime = media.duration * percent;
 			if (!wasPaused) media.play();
 		}
-
-		handleScrub(e);
+		setIsScrubbing(newIsScrubbing);
+		handleTimelineUpdate(e, newIsScrubbing);
 	};
 
 	useEffect(() => {
 		const callbackOne = (e) => {
-			if (isScrubbing) toggleScrubbing(e);
+			if (isScrubbing) {
+				toggleScrubbing(e);
+			}
 		};
 		const callbackTwo = (e) => {
-			if (isScrubbing) handleScrub(e);
+			if (isScrubbing) handleTimelineUpdate(e);
 		};
 		document.addEventListener("mouseup", callbackOne);
 		document.addEventListener("mousemove", callbackTwo);
@@ -57,17 +61,23 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 		};
 	});
 
-	const handleScrub = (e) => {
-		if (isScrubbing) {
-			e.preventDefault();
-			const rect = timelineContainerRef.current.getBoundingClientRect();
+	const handleTimelineUpdate = (e, signal = false) => {
+		const media = mediaRef.current;
+		const mouseX = e.x || e.clientX;
+		if (isScrubbing || signal) {
+			const timelineContainer = timelineContainerRef.current;
+			const rect = timelineContainer.getBoundingClientRect();
 			const percent =
-				Math.min(Math.max(0, e.pageX - rect.x), rect.width) / rect.width;
+				Math.min(Math.max(0, mouseX - rect.x), rect.width) / rect.width;
+			if (media.duration === Infinity) {
+				return;
+			}
 			media.currentTime = media.duration * percent;
 		}
+		return;
 	};
 
-	const handleTimeUpdate = () => {
+	const timeUpdateCallback = () => {
 		const percent = mediaRef.current.currentTime / mediaRef.current.duration;
 		timelineContainerRef.current.style.setProperty(
 			"--progress-position",
@@ -79,6 +89,7 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 	useEffect(() => {
 		mediaRef.current.playbackRate = mediaPlaybackRate;
 	}, [mediaPlaybackRate]);
+
 	const changePlaybackSpeed = () => {
 		let newPlaybackRate = mediaPlaybackRate + 0.5;
 		if (newPlaybackRate > 2) {
@@ -103,13 +114,25 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 				<audio
 					src={contents}
 					ref={mediaRef}
-					onTimeUpdate={handleTimeUpdate}
+					onTimeUpdate={timeUpdateCallback}
+					onPlay={() => {
+						setPaused(mediaRef.current.paused);
+					}}
+					onPause={() => {
+						setPaused(mediaRef.current.paused);
+					}}
 				></audio>
 			) : (
 				<video
 					src={contents}
 					ref={mediaRef}
-					onTimeUpdate={handleTimeUpdate}
+					onTimeUpdate={timeUpdateCallback}
+					onPlay={() => {
+						setPaused(mediaRef.current.paused);
+					}}
+					onPause={() => {
+						setPaused(mediaRef.current.paused);
+					}}
 				></video>
 			)}
 			<div className={`MediaWrapper-controls`}>
@@ -123,7 +146,7 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 					className="timeline-container"
 					ref={timelineContainerRef}
 					onMouseDown={toggleScrubbing}
-					onMouseMove={handleScrub}
+					onMouseMove={handleTimelineUpdate}
 				>
 					<div className="timeline">
 						<div className="thumb-indicator"></div>
