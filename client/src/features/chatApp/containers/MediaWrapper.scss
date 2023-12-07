@@ -4,6 +4,10 @@
 	display: flex;
 	padding: 0.25rem;
 
+	&.type-video {
+		flex-direction: column;
+	}
+
 	&.type-audio {
 		width: 100%;
 		height: 25px;
@@ -14,10 +18,26 @@
 		}
 	}
 
+	&.media-draft {
+		&.type-video {
+			video {
+				width: 300px;
+			}
+			.MediaWrapper-controls {
+				height: calc(50px - 0.25rem);
+			}
+		}
+	}
+	&.type-video {
+		video {
+			width: 100%;
+		}
+	}
+
 	.MediaWrapper-controls {
 		width: 100%;
 		display: flex;
-		gap: 0.5rem;
+		// gap: 0.5rem;
 		align-items: center;
 		padding: 0.25rem;
 
@@ -28,6 +48,9 @@
 			font-size: 1.5rem;
 			line-height: 1.25rem;
 			user-select: none;
+		}
+		.start-stop-btn {
+			margin-right: 0.5rem;
 		}
 		.scrap-draft-btn {
 			font-size: 2rem;
@@ -57,19 +80,25 @@
 					top: 0;
 					bottom: 0;
 					left: 0;
-					right: calc(100% - var(--progress-position, 0) * 100%);
+					right: calc(
+						100% - var(--progress-position, 0) * (100% - 1.5rem) - 1.5rem
+					);
 					background-color: rgba(255, 0, 89);
 				}
 
 				.thumb-indicator {
 					position: absolute;
-					z-index: 2000;
+					z-index: 2;
 					height: 0.75rem;
 					aspect-ratio: 2 / 1;
 					top: 0;
-					right: calc(100% - var(--progress-position, 0) * 100% - 0.75rem);
+					right: calc(
+						100% - var(--progress-position, 0) * (100% - 1.5rem) - 1.5rem
+					);
 					background-color: white;
+					// background-color: transparent;
 					border: 1px solid rgba(255, 0, 89);
+					// border: 1px solid black;
 				}
 			}
 		}

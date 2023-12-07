@@ -13,8 +13,8 @@ const initialState = {
 	activeContactId: null,
 	videoMode: false,
 	recordingVoice: false,
-	mediaDraft: { type: "audio", contents: "./ubici.mp3" },
-	// mediaDraft: null,
+	mediaDraft: null,
+	// mediaDraft: { type: "audio", contents: "./ubici.mp3" },
 	mediaDeviceErr: false,
 	mediaPlaybackRate: 1,
 };
@@ -69,7 +69,7 @@ const chatSlice = createSlice({
 			state.inputHeight = action.payload;
 		},
 		submitChatMessage: (state, action) => {
-			const { type, contents, id, time } = action.payload;
+			const { type, contents, id, time, duration } = action.payload;
 			// if editing message and the content is the same, abort
 			if (state.editing.contents && state.editing.contents === contents) {
 				state.typing = initialState.typing;
@@ -80,6 +80,7 @@ const chatSlice = createSlice({
 			const newMsg = {
 				type,
 				contents,
+				duration,
 				time,
 				is_user_msg: true,
 			};

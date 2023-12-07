@@ -32,6 +32,7 @@ function MessageInput() {
 				submitChatMessage({
 					type: mediaDraft ? mediaDraft.type : "text",
 					contents: mediaDraft ? mediaDraft.contents : typing,
+					duration: mediaDraft ? mediaDraft.duration : null,
 					id: activeContactId,
 					time: Date.now(),
 				})

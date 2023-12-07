@@ -2,7 +2,8 @@ import React from "react";
 import MediaWrapper from "../containers/MediaWrapper";
 
 function Message({ topMessage, message, handleMessagelick }) {
-	const { is_user_msg, contents, type, number, edited, time } = message;
+	const { is_user_msg, contents, type, number, edited, time, duration } =
+		message;
 
 	const timeString = () => {
 		const utcDate = new Date(time);
@@ -42,6 +43,7 @@ function Message({ topMessage, message, handleMessagelick }) {
 						draft={false}
 						number={number}
 						type={type}
+						duration={duration}
 					></MediaWrapper>
 				)}
 				<span className="message-flag">{`${

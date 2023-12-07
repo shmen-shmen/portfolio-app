@@ -3,6 +3,8 @@ import { visualizeVideo, videoPreviewDispose } from "./videoPreviewVisualizer";
 
 let mediaRecorder;
 let mediaURL;
+let startTime;
+let duration;
 
 export const startRecording = (videoMode) => {
 	return new Promise((resolve, reject) => {
@@ -18,7 +20,6 @@ export const startRecording = (videoMode) => {
 			navigator.mediaDevices
 				.getUserMedia(constraints)
 				.then((stream) => {
-					console.log("START RECORDING");
 					mediaRecorder = new MediaRecorder(stream);
 					// gives camera some time to load
 					setTimeout(
@@ -29,6 +30,11 @@ export const startRecording = (videoMode) => {
 						videoMode ? 1000 : 0
 					);
 
+					mediaRecorder.onstart = () => {
+						console.log("START RECORDING");
+						startTime = Date.now();
+					};
+
 					// store media
 					mediaRecorder.ondataavailable = (e) => {
 						chunks.push(e.data);
@@ -36,7 +42,7 @@ export const startRecording = (videoMode) => {
 
 					mediaRecorder.onstop = () => {
 						console.log("STOP RECORDING");
-
+						duration = (Date.now() - startTime) / 1000;
 						// stop showing preview
 						videoPreviewDispose();
 
@@ -61,6 +67,7 @@ export const startRecording = (videoMode) => {
 						resolve({
 							type: videoMode ? "video" : "audio",
 							contents: mediaURL,
+							duration: duration,
 						});
 
 						// turn off camera/microphone

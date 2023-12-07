@@ -5,10 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPlaybackRate } from "../chatSlice";
 import "./MediaWrapper.scss";
 
-const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
+const MediaWrapper = ({
+	type,
+	contents,
+	draft,
+	duration,
+	number,
+	messageInputRef,
+}) => {
 	const dispatch = useDispatch();
 	const { mediaPlaybackRate } = useSelector((state) => state.chat);
 	const mediaRef = useRef(null);
+	console.log("duration: ", duration);
 
 	//play pause
 	const [paused, setPaused] = useState(true);
@@ -22,16 +30,20 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 	const timelineContainerRef = useRef(null);
 	const [isScrubbing, setIsScrubbing] = useState(false);
 	const [wasPaused, setWasPaused] = useState(false);
+	// const [duration, setDuration] = useState(null);
+	// useEffect(() => {
+	// 	console.log("duration is: ", duration);
+	// }, [duration]);
 
 	const toggleScrubbing = (e) => {
 		const media = mediaRef.current;
 		// a check to ot get error when media element is not fully loaded
-		if (media.duration === Infinity || isNaN(media.duration)) {
-			// console.log(
-			// 	"media.duration is either Infinity on NaN and func should return"
-			// );
-			return;
-		}
+		// if (media.duration === Infinity || isNaN(media.duration)) {
+		// console.log(
+		// 	"media.duration is either Infinity on NaN and func should return"
+		// );
+		// return;
+		// }
 		const rect = timelineContainerRef.current.getBoundingClientRect();
 		const percent =
 			Math.min(Math.max(0, e.pageX - rect.x), rect.width) / rect.width;
@@ -39,7 +51,8 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 		if (newIsScrubbing) {
 			setWasPaused(media.paused);
 			media.pause();
-			media.currentTime = media.duration * percent;
+			// media.currentTime = media.duration * percent;
+			media.currentTime = duration * percent;
 		} else {
 			if (!wasPaused) media.play();
 		}
@@ -79,16 +92,18 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 			const percent =
 				Math.min(Math.max(0, mouseX - rect.x), rect.width) / rect.width;
 			timelineContainer.style.setProperty("--progress-position", percent);
-			if (media.duration === Infinity) {
-				return;
-			}
-			media.currentTime = media.duration * percent;
+			// if (media.duration === Infinity) {
+			// 	return;
+			// }
+			// media.currentTime = media.duration * percent;
+			media.currentTime = duration * percent;
 		}
 		return;
 	};
 
 	const timeUpdateCallback = () => {
-		const percent = mediaRef.current.currentTime / mediaRef.current.duration;
+		// const percent = mediaRef.current.currentTime / mediaRef.current.duration;
+		const percent = mediaRef.current.currentTime / duration;
 		timelineContainerRef.current.style.setProperty(
 			"--progress-position",
 			percent
@@ -131,6 +146,9 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 					onPause={() => {
 						setPaused(mediaRef.current.paused);
 					}}
+					// onEnded={() => {
+					// 	mediaRef.current.currentTime = 0;
+					// }}
 				></audio>
 			) : (
 				<video
@@ -143,6 +161,9 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 					onPause={() => {
 						setPaused(mediaRef.current.paused);
 					}}
+					// onEnded={() => {
+					// 	mediaRef.current.currentTime = 0;
+					// }}
 				></video>
 			)}
 			<div className={`MediaWrapper-controls`}>

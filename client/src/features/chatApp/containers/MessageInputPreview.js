@@ -13,6 +13,7 @@ function MessageInputPreview({ mediaDraft, recordingVoice, messageInputRef }) {
 					messageInputRef={messageInputRef}
 					contents={mediaDraft.contents}
 					type={mediaDraft.type}
+					duration={mediaDraft.duration}
 					draft={true}
 				></MediaWrapper>
 			) : (
