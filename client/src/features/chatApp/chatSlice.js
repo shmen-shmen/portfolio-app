@@ -13,8 +13,8 @@ const initialState = {
 	activeContactId: null,
 	videoMode: false,
 	recordingVoice: false,
-	// mediaDraft: { type: "audio", contents: "./ubici.mp3" },
-	mediaDraft: null,
+	mediaDraft: { type: "audio", contents: "./ubici.mp3" },
+	// mediaDraft: null,
 	mediaDeviceErr: false,
 	mediaPlaybackRate: 1,
 };

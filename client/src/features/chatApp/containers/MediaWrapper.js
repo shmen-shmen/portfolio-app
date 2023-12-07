@@ -25,24 +25,32 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 
 	const toggleScrubbing = (e) => {
 		const media = mediaRef.current;
+		// a check to ot get error when media element is not fully loaded
+		if (media.duration === Infinity || isNaN(media.duration)) {
+			console.log(
+				"media.duration is either Infinity on NaN and func should return"
+			);
+			return;
+		}
+		// scrubbing toggle works. it just does
 		const rect = timelineContainerRef.current.getBoundingClientRect();
 		const percent =
 			Math.min(Math.max(0, e.pageX - rect.x), rect.width) / rect.width;
-
 		const newIsScrubbing = (e.buttons & 1) === 1;
 		if (newIsScrubbing) {
 			setWasPaused(media.paused);
 			media.pause();
-		} else {
-			if (media.duration === Infinity) {
-				return;
-			}
 			media.currentTime = media.duration * percent;
+		} else {
 			if (!wasPaused) media.play();
 		}
 		setIsScrubbing(newIsScrubbing);
-		handleTimelineUpdate(e, newIsScrubbing);
+		// handleTimelineUpdate(e, newIsScrubbing);
 	};
+
+	useEffect(() => {
+		console.log("isScrubbing: ", isScrubbing);
+	}, [isScrubbing]);
 
 	useEffect(() => {
 		const callbackOne = (e) => {
@@ -62,6 +70,7 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 	});
 
 	const handleTimelineUpdate = (e, signal = false) => {
+		if (signal) console.log("signal");
 		const media = mediaRef.current;
 		const mouseX = e.x || e.clientX;
 		if (isScrubbing || signal) {
@@ -69,6 +78,7 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 			const rect = timelineContainer.getBoundingClientRect();
 			const percent =
 				Math.min(Math.max(0, mouseX - rect.x), rect.width) / rect.width;
+			timelineContainer.style.setProperty("--progress-position", percent);
 			if (media.duration === Infinity) {
 				return;
 			}
@@ -146,7 +156,7 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 					className="timeline-container"
 					ref={timelineContainerRef}
 					onMouseDown={toggleScrubbing}
-					onMouseMove={handleTimelineUpdate}
+					// onMouseMove={handleTimelineUpdate}
 				>
 					<div className="timeline">
 						<div className="thumb-indicator"></div>
