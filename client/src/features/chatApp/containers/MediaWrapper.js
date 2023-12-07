@@ -27,12 +27,11 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 		const media = mediaRef.current;
 		// a check to ot get error when media element is not fully loaded
 		if (media.duration === Infinity || isNaN(media.duration)) {
-			console.log(
-				"media.duration is either Infinity on NaN and func should return"
-			);
+			// console.log(
+			// 	"media.duration is either Infinity on NaN and func should return"
+			// );
 			return;
 		}
-		// scrubbing toggle works. it just does
 		const rect = timelineContainerRef.current.getBoundingClientRect();
 		const percent =
 			Math.min(Math.max(0, e.pageX - rect.x), rect.width) / rect.width;
@@ -45,12 +44,13 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 			if (!wasPaused) media.play();
 		}
 		setIsScrubbing(newIsScrubbing);
+		// this is not necessary i believe
 		// handleTimelineUpdate(e, newIsScrubbing);
 	};
 
-	useEffect(() => {
-		console.log("isScrubbing: ", isScrubbing);
-	}, [isScrubbing]);
+	// useEffect(() => {
+	// 	console.log("isScrubbing: ", isScrubbing);
+	// }, [isScrubbing]);
 
 	useEffect(() => {
 		const callbackOne = (e) => {
@@ -70,7 +70,7 @@ const MediaWrapper = ({ type, contents, draft, number, messageInputRef }) => {
 	});
 
 	const handleTimelineUpdate = (e, signal = false) => {
-		if (signal) console.log("signal");
+		// if (signal) console.log("signal");
 		const media = mediaRef.current;
 		const mouseX = e.x || e.clientX;
 		if (isScrubbing || signal) {

@@ -40,7 +40,6 @@
 		.timeline-container {
 			flex: 1;
 			height: 1rem;
-			margin-left: 0.75rem;
 			cursor: pointer;
 			display: flex;
 			align-items: center;
@@ -50,14 +49,15 @@
 				position: relative;
 				height: 0.75rem;
 				background-color: rgba(255, 0, 89, 0.5);
+				margin-inline: 0.5rem;
 
 				&::after {
 					content: "";
 					position: absolute;
 					top: 0;
 					bottom: 0;
-					left: -0.75rem;
-					right: calc(100% - var(--progress-position, 0) * 100% - 0.75rem);
+					left: 0;
+					right: calc(100% - var(--progress-position, 0) * 100%);
 					background-color: rgba(255, 0, 89);
 				}
 
@@ -67,8 +67,7 @@
 					height: 0.75rem;
 					aspect-ratio: 2 / 1;
 					top: 0;
-					right: calc(100% - var(--progress-position, 0) * 100%);
-					transform: translateX(50%);
+					right: calc(100% - var(--progress-position, 0) * 100% - 0.75rem);
 					background-color: white;
 					border: 1px solid rgba(255, 0, 89);
 				}
