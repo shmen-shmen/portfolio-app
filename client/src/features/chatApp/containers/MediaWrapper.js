@@ -40,9 +40,21 @@ const MediaWrapper = ({
 		// return;
 		// }
 		const rect = timelineContainerRef.current.getBoundingClientRect();
+		const decideX = () => {
+			switch (e.type) {
+				case "touchmove":
+					return e.changedTouches[0]["pageX"];
+				case "touchstart":
+					return e.touches[0]["clientX"];
+				default:
+					return e.x || e.clientX;
+			}
+		};
+		const mouseX = decideX();
 		const percent =
-			Math.min(Math.max(0, e.pageX - rect.x), rect.width) / rect.width;
-		const newIsScrubbing = (e.buttons & 1) === 1;
+			Math.min(Math.max(0, mouseX - rect.x), rect.width) / rect.width;
+		const newIsScrubbing =
+			(e.buttons & 1) === 1 || ("touches" in e && e.touches.length > 0);
 		if (newIsScrubbing) {
 			setWasPaused(media.paused);
 			media.pause();
@@ -59,7 +71,8 @@ const MediaWrapper = ({
 	const handleTimelineUpdate = (e, signal = false) => {
 		// if (signal) console.log("signal");
 		const media = mediaRef.current;
-		const mouseX = e.x || e.clientX;
+		const mouseX =
+			e.type === "touchmove" ? e.changedTouches[0]["pageX"] : e.x || e.clientX;
 		if (isScrubbing || signal) {
 			const timelineContainer = timelineContainerRef.current;
 			const rect = timelineContainer.getBoundingClientRect();
@@ -76,12 +89,12 @@ const MediaWrapper = ({
 	};
 
 	useEffect(() => {
-		const scrubFromAnywhere = (e) => {
+		const stopScrub = (e) => {
 			if (isScrubbing) {
 				toggleScrubbing(e);
 			}
 		};
-		const stopScrub = (e) => {
+		const scrubFromAnywhere = (e) => {
 			if (isScrubbing) handleTimelineUpdate(e);
 		};
 		const media = mediaRef.current;
@@ -91,28 +104,26 @@ const MediaWrapper = ({
 		const mediaPauseCallback = () => {
 			setPaused(media.paused);
 		};
+		const timelineContainer = timelineContainerRef.current;
 		const mediaEndedCallback = () => {
 			//hide the fact that progress bar is not actually
 			//at the end of timeline, it's all fake
-			timelineContainerRef.current.style.setProperty("--progress-position", 1);
+			timelineContainer.style.setProperty("--progress-position", 1);
 		};
 		const timeUpdateCallback = () => {
 			// const percent = mediaRef.current.currentTime / mediaRef.current.duration;
-			const percent = mediaRef.current.currentTime / duration;
-			timelineContainerRef.current.style.setProperty(
-				"--progress-position",
-				percent
-			);
+			const percent = media.currentTime / duration;
+			timelineContainer.style.setProperty("--progress-position", percent);
 		};
-		document.addEventListener("mouseup", scrubFromAnywhere);
-		document.addEventListener("mousemove", stopScrub);
+		document.addEventListener("pointerup", stopScrub);
+		document.addEventListener("pointermove", scrubFromAnywhere);
 		media.addEventListener("timeupdate", timeUpdateCallback);
 		media.addEventListener("play", mediaPlayCallback);
 		media.addEventListener("pause", mediaPauseCallback);
 		media.addEventListener("ended", mediaEndedCallback);
 		return () => {
-			document.removeEventListener("mouseup", scrubFromAnywhere);
-			document.removeEventListener("mousemove", stopScrub);
+			document.removeEventListener("pointerup", stopScrub);
+			document.removeEventListener("pointermove", scrubFromAnywhere);
 			media.removeEventListener("timeupdate", timeUpdateCallback);
 			media.removeEventListener("play", mediaPlayCallback);
 			media.removeEventListener("pause", mediaPauseCallback);
@@ -160,7 +171,7 @@ const MediaWrapper = ({
 				<div
 					className="timeline-container"
 					ref={timelineContainerRef}
-					onMouseDown={toggleScrubbing}
+					onPointerDown={toggleScrubbing}
 				>
 					<div className="timeline">
 						<div className="thumb-indicator"></div>
