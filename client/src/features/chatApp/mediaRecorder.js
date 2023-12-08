@@ -27,7 +27,8 @@ export const startRecording = (videoMode) => {
 							mediaRecorder.start();
 							previewSetup(stream, videoMode);
 						},
-						videoMode ? 1000 : 0
+						// videoMode ? 1000 : 0
+						1000
 					);
 
 					mediaRecorder.onstart = () => {
