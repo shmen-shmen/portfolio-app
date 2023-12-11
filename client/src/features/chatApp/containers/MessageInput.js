@@ -52,7 +52,7 @@ function MessageInput() {
 			return;
 		} else {
 			if (messageInputRef.current.scrollHeight > window.innerHeight * 0.6) {
-				console.log(messageInputRef.current.scrollHeight);
+				// console.log(messageInputRef.current.scrollHeight);
 				messageInputRef.current.style.overflow = "scroll";
 				return;
 			} else {
@@ -63,9 +63,9 @@ function MessageInput() {
 			}
 		}
 	};
-	// useEffect(() => {
-	// 	resizeMessageInput();
-	// }, [typing]);
+	useEffect(() => {
+		resizeMessageInput();
+	}, [typing]);
 
 	// this code block resizes input wrapper when video message preview
 	const inputWrapperRef = useRef(null);

@@ -6,6 +6,11 @@
 	display: flex;
 	color: white;
 	min-width: 100vw;
+	touch-action: auto;
+
+	&.fingerScrubbing {
+		touch-action: none;
+	}
 
 	.ChatMain {
 		flex: 1 1 0;

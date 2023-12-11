@@ -29,16 +29,17 @@ const MediaWrapper = ({
 	const timelineContainerRef = useRef(null);
 	const [isScrubbing, setIsScrubbing] = useState(false);
 	const [wasPaused, setWasPaused] = useState(false);
+	const isScrubbingRef = useRef(isScrubbing);
+
+	useEffect(() => {
+		isScrubbingRef.current = isScrubbing;
+		document
+			.querySelector(".ChatApp")
+			.classList.toggle("fingerScrubbing", isScrubbing);
+	}, [isScrubbing]);
 
 	const toggleScrubbing = (e) => {
 		const media = mediaRef.current;
-		// a check to not get error when media element is not fully loaded
-		// if (media.duration === Infinity || isNaN(media.duration)) {
-		// console.log(
-		// 	"media.duration is either Infinity on NaN and func should return"
-		// );
-		// return;
-		// }
 		const rect = timelineContainerRef.current.getBoundingClientRect();
 		const decideX = () => {
 			switch (e.type) {
@@ -58,7 +59,6 @@ const MediaWrapper = ({
 		if (newIsScrubbing) {
 			setWasPaused(media.paused);
 			media.pause();
-			// media.currentTime = media.duration * percent;
 			media.currentTime = duration * percent;
 		} else {
 			if (!wasPaused) media.play();
@@ -69,33 +69,27 @@ const MediaWrapper = ({
 	};
 
 	const handleTimelineUpdate = (e, signal = false) => {
-		// if (signal) console.log("signal");
 		const media = mediaRef.current;
 		const mouseX =
 			e.type === "touchmove" ? e.changedTouches[0]["pageX"] : e.x || e.clientX;
-		if (isScrubbing || signal) {
+		if (isScrubbingRef.current || signal) {
 			const timelineContainer = timelineContainerRef.current;
 			const rect = timelineContainer.getBoundingClientRect();
 			const percent =
 				Math.min(Math.max(0, mouseX - rect.x), rect.width) / rect.width;
 			timelineContainer.style.setProperty("--progress-position", percent);
-			// if (media.duration === Infinity) {
-			// 	return;
-			// }
-			// media.currentTime = media.duration * percent;
 			media.currentTime = duration * percent;
 		}
-		return;
 	};
 
 	useEffect(() => {
 		const stopScrub = (e) => {
-			if (isScrubbing) {
+			if (isScrubbingRef.current) {
 				toggleScrubbing(e);
 			}
 		};
 		const scrubFromAnywhere = (e) => {
-			if (isScrubbing) handleTimelineUpdate(e);
+			if (isScrubbingRef.current) handleTimelineUpdate(e);
 		};
 		const media = mediaRef.current;
 		const mediaPlayCallback = () => {
@@ -111,10 +105,10 @@ const MediaWrapper = ({
 			timelineContainer.style.setProperty("--progress-position", 1);
 		};
 		const timeUpdateCallback = () => {
-			// const percent = mediaRef.current.currentTime / mediaRef.current.duration;
 			const percent = media.currentTime / duration;
 			timelineContainer.style.setProperty("--progress-position", percent);
 		};
+		timelineContainer.addEventListener("pointerdown", toggleScrubbing);
 		document.addEventListener("pointerup", stopScrub);
 		document.addEventListener("pointermove", scrubFromAnywhere);
 		media.addEventListener("timeupdate", timeUpdateCallback);
@@ -122,6 +116,7 @@ const MediaWrapper = ({
 		media.addEventListener("pause", mediaPauseCallback);
 		media.addEventListener("ended", mediaEndedCallback);
 		return () => {
+			timelineContainer.removeEventListener("pointerdown", toggleScrubbing);
 			document.removeEventListener("pointerup", stopScrub);
 			document.removeEventListener("pointermove", scrubFromAnywhere);
 			media.removeEventListener("timeupdate", timeUpdateCallback);
@@ -155,6 +150,7 @@ const MediaWrapper = ({
 			className={`MediaWrapper type-${type} ${paused ? "paused" : ""} ${
 				draft ? "media-draft" : ""
 			} ${isScrubbing ? "scrubbing" : ""}`}
+			ref={messageInputRef}
 		>
 			{type === "audio" ? (
 				<audio src={contents} ref={mediaRef}></audio>
@@ -168,11 +164,7 @@ const MediaWrapper = ({
 				>
 					{paused ? "▶︎" : "◼︎"}
 				</button>
-				<div
-					className="timeline-container"
-					ref={timelineContainerRef}
-					onPointerDown={toggleScrubbing}
-				>
+				<div className="timeline-container" ref={timelineContainerRef}>
 					<div className="timeline">
 						<div className="thumb-indicator"></div>
 					</div>
