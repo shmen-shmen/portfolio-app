@@ -68,6 +68,10 @@
 			display: flex;
 			align-items: center;
 
+			&.fingerScrubbing {
+				touch-action: none;
+			}
+
 			.timeline {
 				width: 100%;
 				position: relative;

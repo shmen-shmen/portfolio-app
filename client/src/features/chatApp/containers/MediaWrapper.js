@@ -33,10 +33,12 @@ const MediaWrapper = ({
 
 	useEffect(() => {
 		isScrubbingRef.current = isScrubbing;
-		// document
-		// 	.querySelector(".ChatApp")
-		// 	.classList.toggle("fingerScrubbing", isScrubbing);
-		document.body.classList.toggle("fingerScrubbing", isScrubbing);
+		// const timelineContainer = timelineContainerRef.current;
+		// if (isScrubbing) {
+		// 	timelineContainer.classList.add("fingerScrubbing");
+		// } else {
+		// 	timelineContainer.classList.remove("fingerScrubbing");
+		// }
 	}, [isScrubbing]);
 
 	const toggleScrubbing = (e) => {
@@ -70,7 +72,6 @@ const MediaWrapper = ({
 	};
 
 	const handleTimelineUpdate = (e, signal = false) => {
-		// e.preventDefault();
 		const media = mediaRef.current;
 		const mouseX =
 			e.type === "touchmove" ? e.changedTouches[0]["pageX"] : e.x || e.clientX;
@@ -85,11 +86,16 @@ const MediaWrapper = ({
 	};
 
 	useEffect(() => {
+		const timelineContainer = timelineContainerRef.current;
+		const startScrub = (e) => {
+			timelineContainer.classList.add("fingerScrubbing");
+			timelineContainer.setPointerCapture(e.pointerId);
+			toggleScrubbing(e);
+		};
 		const stopScrub = (e) => {
-			// console.log("stopScrub fired");
-			if (isScrubbingRef.current) {
-				toggleScrubbing(e);
-			}
+			timelineContainer.classList.remove("fingerScrubbing");
+			timelineContainer.releasePointerCapture(e.pointerId);
+			if (isScrubbingRef.current) toggleScrubbing(e);
 		};
 		const scrubFromAnywhere = (e) => {
 			if (isScrubbingRef.current) handleTimelineUpdate(e);
@@ -101,7 +107,7 @@ const MediaWrapper = ({
 		const mediaPauseCallback = () => {
 			setPaused(media.paused);
 		};
-		const timelineContainer = timelineContainerRef.current;
+
 		const mediaEndedCallback = () => {
 			//hide the fact that progress bar is not actually
 			//at the end of timeline, it's all fake
@@ -111,17 +117,17 @@ const MediaWrapper = ({
 			const percent = media.currentTime / duration;
 			timelineContainer.style.setProperty("--progress-position", percent);
 		};
-		timelineContainer.addEventListener("pointerdown", toggleScrubbing);
-		document.addEventListener("pointerup", stopScrub);
-		document.addEventListener("pointermove", scrubFromAnywhere);
+		timelineContainer.addEventListener("pointerdown", startScrub);
+		timelineContainer.addEventListener("pointerup", stopScrub);
+		timelineContainer.addEventListener("pointermove", scrubFromAnywhere);
 		media.addEventListener("timeupdate", timeUpdateCallback);
 		media.addEventListener("play", mediaPlayCallback);
 		media.addEventListener("pause", mediaPauseCallback);
 		media.addEventListener("ended", mediaEndedCallback);
 		return () => {
 			timelineContainer.removeEventListener("pointerdown", toggleScrubbing);
-			document.removeEventListener("pointerup", stopScrub);
-			document.removeEventListener("pointermove", scrubFromAnywhere);
+			timelineContainer.removeEventListener("pointerup", stopScrub);
+			timelineContainer.removeEventListener("pointermove", scrubFromAnywhere);
 			media.removeEventListener("timeupdate", timeUpdateCallback);
 			media.removeEventListener("play", mediaPlayCallback);
 			media.removeEventListener("pause", mediaPauseCallback);
