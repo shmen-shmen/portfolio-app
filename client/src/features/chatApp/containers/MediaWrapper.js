@@ -33,9 +33,10 @@ const MediaWrapper = ({
 
 	useEffect(() => {
 		isScrubbingRef.current = isScrubbing;
-		document
-			.querySelector(".ChatApp")
-			.classList.toggle("fingerScrubbing", isScrubbing);
+		// document
+		// 	.querySelector(".ChatApp")
+		// 	.classList.toggle("fingerScrubbing", isScrubbing);
+		document.body.classList.toggle("fingerScrubbing", isScrubbing);
 	}, [isScrubbing]);
 
 	const toggleScrubbing = (e) => {
@@ -69,6 +70,7 @@ const MediaWrapper = ({
 	};
 
 	const handleTimelineUpdate = (e, signal = false) => {
+		// e.preventDefault();
 		const media = mediaRef.current;
 		const mouseX =
 			e.type === "touchmove" ? e.changedTouches[0]["pageX"] : e.x || e.clientX;
@@ -84,6 +86,7 @@ const MediaWrapper = ({
 
 	useEffect(() => {
 		const stopScrub = (e) => {
+			// console.log("stopScrub fired");
 			if (isScrubbingRef.current) {
 				toggleScrubbing(e);
 			}

@@ -19,6 +19,10 @@ body {
 		url(../public/images/background-image-hifi-less-green-smaller.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
+
+	&.fingerScrubbing {
+		touch-action: none;
+	}
 }
 
 // html {
