@@ -8,6 +8,7 @@ import "./Chats.scss";
 function Chats({ activeContactId }) {
 	const dispatch = useDispatch();
 	const messages = useSelector((state) => state.chat.messages[activeContactId]);
+
 	useEffect(() => {
 		dispatch(setPreviewValue(activeContactId));
 	}, [activeContactId, dispatch, messages]);
@@ -16,7 +17,9 @@ function Chats({ activeContactId }) {
 	const chatsRef = useRef(null);
 	useEffect(() => {
 		if (chatsRef.current) {
-			chatsRef.current.scrollTop = chatsRef.current.scrollHeight;
+			setTimeout(() => {
+				chatsRef.current.scrollTop = chatsRef.current.scrollHeight;
+			}, 25);
 		}
 	}, [inputHeight, messages]);
 

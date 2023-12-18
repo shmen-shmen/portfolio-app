@@ -5,6 +5,7 @@ let mediaRecorder;
 let mediaURL;
 let startTime;
 let duration;
+const recordingLimit = 30000;
 
 export const startRecording = (videoMode) => {
 	return new Promise((resolve, reject) => {
@@ -22,14 +23,15 @@ export const startRecording = (videoMode) => {
 				.then((stream) => {
 					mediaRecorder = new MediaRecorder(stream);
 					// gives camera some time to load
-					setTimeout(
-						() => {
-							mediaRecorder.start();
-							previewSetup(stream, videoMode);
-						},
-						// videoMode ? 1000 : 0
-						1000
-					);
+					setTimeout(() => {
+						mediaRecorder.start();
+						previewSetup(stream, videoMode);
+						// stops recording after set time
+						setTimeout(() => {
+							mediaRecorder.stop();
+							console.log("media message timeout reached");
+						}, recordingLimit);
+					}, 1000);
 
 					mediaRecorder.onstart = () => {
 						console.log("START RECORDING");
