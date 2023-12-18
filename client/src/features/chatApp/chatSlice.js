@@ -1,20 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { contacts, getMessages, generateUser } from "./static-data.js";
+// import { contacts, getMessages, generateUser } from "./static-data.js";
+import { contacts, user, messages } from "./static-data2.js";
 import { startRecording } from "./mediaRecorder.js";
 
 const initialState = {
-	user: generateUser(),
-	messages: getMessages(10),
+	contacts,
+	// user: generateUser(),
+	user,
+	// messages: getMessages(10),
+	messages,
+	activeContactId: null,
 	inputHeight: null,
 	typing: "",
 	editing: { number: null, contents: null },
 	showMessageSubmenu: false,
-	contacts,
-	activeContactId: null,
 	videoMode: false,
 	recordingVoice: false,
 	mediaDraft: null,
-	// mediaDraft: { type: "audio", contents: "./ubici.mp3" },
 	mediaDeviceErr: false,
 	mediaPlaybackRate: 1,
 };
