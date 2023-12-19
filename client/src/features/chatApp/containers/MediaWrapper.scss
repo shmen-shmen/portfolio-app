@@ -67,10 +67,7 @@
 			cursor: pointer;
 			display: flex;
 			align-items: center;
-
-			&.fingerScrubbing {
-				touch-action: none;
-			}
+			touch-action: none;
 
 			.timeline {
 				width: 100%;

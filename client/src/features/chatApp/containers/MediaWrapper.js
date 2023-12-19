@@ -33,12 +33,6 @@ const MediaWrapper = ({
 
 	useEffect(() => {
 		isScrubbingRef.current = isScrubbing;
-		// const timelineContainer = timelineContainerRef.current;
-		// if (isScrubbing) {
-		// 	timelineContainer.classList.add("fingerScrubbing");
-		// } else {
-		// 	timelineContainer.classList.remove("fingerScrubbing");
-		// }
 	}, [isScrubbing]);
 
 	const toggleScrubbing = (e) => {
@@ -67,8 +61,6 @@ const MediaWrapper = ({
 			if (!wasPaused) media.play();
 		}
 		setIsScrubbing(newIsScrubbing);
-		// this is not necessary i believe
-		// handleTimelineUpdate(e, newIsScrubbing);
 	};
 
 	const handleTimelineUpdate = (e, signal = false) => {
@@ -88,12 +80,10 @@ const MediaWrapper = ({
 	useEffect(() => {
 		const timelineContainer = timelineContainerRef.current;
 		const startScrub = (e) => {
-			timelineContainer.classList.add("fingerScrubbing");
 			timelineContainer.setPointerCapture(e.pointerId);
 			toggleScrubbing(e);
 		};
 		const stopScrub = (e) => {
-			timelineContainer.classList.remove("fingerScrubbing");
 			timelineContainer.releasePointerCapture(e.pointerId);
 			if (isScrubbingRef.current) toggleScrubbing(e);
 		};
@@ -125,7 +115,7 @@ const MediaWrapper = ({
 		media.addEventListener("pause", mediaPauseCallback);
 		media.addEventListener("ended", mediaEndedCallback);
 		return () => {
-			timelineContainer.removeEventListener("pointerdown", toggleScrubbing);
+			timelineContainer.removeEventListener("pointerdown", startScrub);
 			timelineContainer.removeEventListener("pointerup", stopScrub);
 			timelineContainer.removeEventListener("pointermove", scrubFromAnywhere);
 			media.removeEventListener("timeupdate", timeUpdateCallback);
