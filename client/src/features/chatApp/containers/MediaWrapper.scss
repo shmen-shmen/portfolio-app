@@ -1,6 +1,6 @@
 @import "../../../index.scss";
 .MediaWrapper {
-	width: fit-content;
+	width: 100%;
 	display: flex;
 	padding: 0.25rem;
 	& > * {
@@ -52,6 +52,7 @@
 		}
 		.start-stop-btn {
 			margin-right: 0.5rem;
+			width: 10px;
 		}
 		.scrap-draft-btn {
 			font-size: 2rem;
@@ -90,7 +91,7 @@
 
 				.thumb-indicator {
 					position: absolute;
-					z-index: 2;
+					z-index: 1;
 					height: 0.75rem;
 					aspect-ratio: 2 / 1;
 					top: 0;

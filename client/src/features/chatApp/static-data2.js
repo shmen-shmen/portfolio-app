@@ -33,7 +33,7 @@ const contacts = {
 
 const user = {
 	name: "AM",
-	profile_pic: "./images/chat/AM-ic5.jpg",
+	profile_pic: "./images/chat/AM-RCA-CA3018.jpg",
 	user_id: "GG9CaViarM",
 };
 
@@ -42,7 +42,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, ants have begun to rent chickens over the…ifically for cheetahs associated with their bees.",
+				"However, ants have begun to rent chickens over for cheetahs associated with their bees.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609639,
@@ -50,7 +50,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, lions have begun to rent cows over the pa…fically for pears associated with their lobsters.",
+				"However, lions have begun to rent cows over the for pears associated with their lobsters.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609639,
@@ -58,7 +58,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, snakes have begun to rent watermelons ove…fically for lions associated with their chickens.",
+				"However, snakes have begun to rent watermelons for lions associated with their chickens.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609639,
@@ -66,7 +66,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"Recent controversy aside, however, sheeps have beg…ecifically for pears associated with their lions!",
+				"Recent controversy aside, however, sheeps have for pears associated with their lions!",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609639,
@@ -74,7 +74,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, wolfs have begun to rent owls over the pa…ifically for oranges associated with their birds.",
+				"However, wolfs have begun to rent owls over the for oranges associated with their birds.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609639,
@@ -82,7 +82,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"Draped neatly on a hanger, however, apples have be…or blueberries associated with their cranberries.",
+				"Draped neatly on a hanger, however, apples have blueberries associated with their cranberries.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609639,
@@ -90,7 +90,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"To be more specific, however, grapes have begun to…cally for grapefruits associated with their rats.",
+				"To be more specific, however, grapes have begun for grapefruits associated with their rats.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609639,
@@ -98,7 +98,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"We know that however, blueberries have begun to re…fically for octopus associated with their sharks.",
+				"We know that however, blueberries have begun to for octopus associated with their sharks.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609639,
@@ -106,7 +106,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"As far as we can estimate, however, dolphins have …cally for kittens associated with their chickens.",
+				"As far as we can estimate, however, dolphins have for kittens associated with their chickens.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609639,
@@ -114,7 +114,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, apricots have begun to rent pomegranates …ically for snails associated with their cheetahs!",
+				"However, apricots have begun to rent pomegranates for snails associated with their cheetahs!",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609639,
@@ -132,7 +132,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, lobsters have begun to rent turtles over …cifically for pears associated with their sharks.",
+				"However, lobsters have begun to rent turtles over for pears associated with their sharks.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609637,
@@ -140,7 +140,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, dolphins have begun to rent owls over the…ifically for zebras associated with their sharks.",
+				"However, dolphins have begun to rent owls over for zebras associated with their sharks.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609637,
@@ -148,7 +148,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, chickens have begun to rent pandas over t…ically for puppies associated with their peaches.",
+				"However, chickens have begun to rent pandas over for puppies associated with their peaches.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609637,
@@ -156,7 +156,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"Nowhere is it disputed that however, rabbits have …ecifically for birds associated with their flies?",
+				"Nowhere is it disputed that however, rabbits have for birds associated with their flies?",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609637,
@@ -164,7 +164,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, nectarines have begun to rent ducks over …ifically for chickens associated with their bees!",
+				"However, nectarines have begun to rent ducks over for chickens associated with their bees!",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609638,
@@ -172,7 +172,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"In recent years, however, grapes have begun to ren…cally for cats associated with their cranberries.",
+				"In recent years, however, grapes have begun to for cats associated with their cranberries.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609638,
@@ -180,7 +180,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, pomegranates have begun to rent apricots …ifically for prunes associated with their lemons.",
+				"However, pomegranates have begun to rent apricots for prunes associated with their lemons.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609638,
@@ -188,7 +188,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"Recent controversy aside, however, apples have beg…ally for persimmons associated with their lemons.",
+				"Recent controversy aside, however, apples have for persimmons associated with their lemons.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609638,
@@ -196,7 +196,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, birds have begun to rent cows over the pa…fically for dolphins associated with their deers;",
+				"However, birds have begun to rent cows over the for dolphins associated with their deers;",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609638,
@@ -204,7 +204,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"In recent years, however, blackberries have begun …ally for fishes associated with their crocodiles;",
+				"In recent years, however, blackberries have begun for fishes associated with their crocodiles;",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609638,
@@ -214,7 +214,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, pineapples have begun to rent pears over …ally for lions associated with their grapefruits.",
+				"However, pineapples have begun to rent pears over for lions associated with their grapefruits.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609639,
@@ -222,7 +222,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, chimpanzees have begun to rent cows over …cifically for lions associated with their snails?",
+				"However, chimpanzees have begun to rent cows over for lions associated with their snails?",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609639,
@@ -230,7 +230,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, peaches have begun to rent prunes over th…y for cheetahs associated with their grapefruits?",
+				"However, peaches have begun to rent prunes over for cheetahs associated with their grapefruits?",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609639,
@@ -238,7 +238,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, chickens have begun to rent pigs over the…lly for chimpanzees associated with their lemons!",
+				"However, chickens have begun to rent pigs over for chimpanzees associated with their lemons!",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609639,
@@ -246,7 +246,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, lemons have begun to rent crocodiles over…ifically for turtles associated with their frogs!",
+				"However, lemons have begun to rent crocodiles for turtles associated with their frogs!",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609639,
@@ -254,7 +254,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"Framed in a different way, however, turtles have b…ally for kangaroos associated with their rabbits.",
+				"Framed in a different way, however, turtles have for kangaroos associated with their rabbits.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609640,
@@ -262,7 +262,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"Far from the truth, however, rabbits have begun to…ly for monkeys associated with their blueberries?",
+				"Far from the truth, however, rabbits have begun for monkeys associated with their blueberries?",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609640,
@@ -270,7 +270,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, watermelons have begun to rent sharks ove…ically for tigers associated with their apricots.",
+				"However, watermelons have begun to rent sharks for tigers associated with their apricots.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609640,
@@ -278,7 +278,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"To be more specific, however, tangerines have begu…lly for elephants associated with their hamsters.",
+				"To be more specific, however, tangerines have for elephants associated with their hamsters.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609640,
@@ -286,7 +286,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, deers have begun to rent pears over the p…cifically for plums associated with their snakes.",
+				"However, deers have begun to rent pears over the for plums associated with their snakes.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609640,
@@ -296,7 +296,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, figs have begun to rent grapes over the p…cifically for pandas associated with their wolfs?",
+				"However, figs have begun to rent grapes over the for pandas associated with their wolfs?",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609637,
@@ -304,7 +304,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, kittens have begun to rent bears over the…ically for turtles associated with their spiders.",
+				"However, kittens have begun to rent bears over for turtles associated with their spiders.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609637,
@@ -312,7 +312,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"In ancient times however, kangaroos have begun to …cifically for prunes associated with their lions.",
+				"In ancient times however, kangaroos have begun to for prunes associated with their lions.",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609637,
@@ -320,7 +320,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, cats have begun to rent lemons over the p…fically for bananas associated with their tigers!",
+				"However, cats have begun to rent lemons over the for bananas associated with their tigers!",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609637,
@@ -328,7 +328,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, cheetahs have begun to rent octopus over …ecifically for eagles associated with their bees.",
+				"However, cheetahs have begun to rent octopus over for eagles associated with their bees.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609637,
@@ -336,7 +336,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, however, ants have begun to rent scorpion…ically for apples associated with their cherries.",
+				"However, however, ants have begun to rent for apples associated with their cherries.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609637,
@@ -344,7 +344,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, squirrels have begun to rent pomegranates…cally for giraffes associated with their puppies.",
+				"However, squirrels have begun to rent for giraffes associated with their puppies.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609637,
@@ -352,7 +352,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, lobsters have begun to rent raspberries o…pecifically for rats associated with their foxes.",
+				"However, lobsters have begun to rent raspberries for rats associated with their foxes.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609637,
@@ -360,7 +360,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, scorpions have begun to rent owls over th…cifically for grapes associated with their lions.",
+				"However, scorpions have begun to rent owls over for grapes associated with their lions.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609637,
@@ -368,7 +368,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"Framed in a different way, however, bears have beg…ifically for snails associated with their lemons.",
+				"Framed in a different way, however, bears have for snails associated with their lemons.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609637,
@@ -378,7 +378,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"If this was somewhat unclear, however, dolphins ha…lly for sharks associated with their raspberries.",
+				"If this was somewhat unclear, however, dolphins for sharks associated with their raspberries.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609640,
@@ -386,7 +386,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, cats have begun to rent pigs over the pas…fically for deers associated with their cherries?",
+				"However, cats have begun to rent pigs over the for deers associated with their cherries?",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609640,
@@ -394,7 +394,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, ducks have begun to rent ants over the pa…ically for eagles associated with their cheetahs.",
+				"However, ducks have begun to rent ants over the for eagles associated with their cheetahs.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609640,
@@ -402,7 +402,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"Unfortunately, that is wrong; on the contrary, how…ically for scorpions associated with their frogs.",
+				"Unfortunately, that is wrong; on the contrary, for scorpions associated with their frogs.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609640,
@@ -410,7 +410,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, cranberries have begun to rent cherries o…ifically for peaches associated with their frogs!",
+				"However, cranberries have begun to rent cherries for peaches associated with their frogs!",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609640,
@@ -418,7 +418,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"The zeitgeist contends that however, bears have be…y for pomegranates associated with their monkeys.",
+				"The zeitgeist contends that however, bears have for pomegranates associated with their monkeys.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609640,
@@ -426,7 +426,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"Far from the truth, however, cats have begun to re…ally for bees associated with their strawberries?",
+				"Far from the truth, however, cats have begun to for bees associated with their strawberries?",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609640,
@@ -434,7 +434,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"In ancient times however, hippopotamus have begun …cally for rabbits associated with their kumquats.",
+				"In ancient times however, hippopotamus have begun for rabbits associated with their kumquats.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609640,
@@ -442,7 +442,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, currants have begun to rent cherries over…ecifically for eagles associated with their rats.",
+				"However, currants have begun to rent cherries for eagles associated with their rats.",
 			is_user_msg: true,
 			edited: false,
 			time: 1702649609640,
@@ -450,7 +450,7 @@ const messages = {
 		{
 			type: "text",
 			contents:
-				"However, chickens have begun to rent grapefruits o…ecifically for kiwis associated with their lions;",
+				"However, chickens have begun to rent grapefruits for kiwis associated with their lions;",
 			is_user_msg: false,
 			edited: false,
 			time: 1702649609640,
