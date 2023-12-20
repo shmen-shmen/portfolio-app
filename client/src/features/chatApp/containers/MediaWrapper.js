@@ -5,14 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPlaybackRate } from "../chatSlice";
 import "./MediaWrapper.scss";
 
-const MediaWrapper = ({
-	type,
-	contents,
-	draft,
-	duration,
-	number,
-	messageInputRef,
-}) => {
+const MediaWrapper = ({ type, contents, draft, duration, messageInputRef }) => {
 	const dispatch = useDispatch();
 	const { mediaPlaybackRate } = useSelector((state) => state.chat);
 	const mediaRef = useRef(null);

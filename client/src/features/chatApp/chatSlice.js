@@ -5,10 +5,10 @@ import { startRecording } from "./mediaRecorder.js";
 
 const initialState = {
 	contacts,
-	// user: generateUser(),
 	user,
-	// messages: getMessages(10),
+	// user: generateUser(),
 	messages,
+	// messages: getMessages(10),
 	activeContactId: null,
 	inputHeight: null,
 	typing: "",
