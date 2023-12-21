@@ -1,39 +1,51 @@
 const contacts = {
 	asPgLYeJia: {
-		name: "Gorrister",
-		profile_pic: "./images/chat/gorrister.jpg",
+		name: "Leatherface",
+		profile_pic: "./images/chat/leatherface.jpg",
 		previewValue: "",
 		user_id: "asPgLYeJia",
 	},
 	ob1_HlWCX_: {
-		name: "Benny",
-		profile_pic: "./images/chat/benny.jpg",
+		name: "Pinhead",
+		profile_pic: "./images/chat/pinhead.jpg",
 		previewValue: "",
 		user_id: "ob1_HlWCX_",
 	},
 	pfb9m3dnXV: {
-		name: "Ellen",
-		profile_pic: "./images/chat/ellen.jpg",
+		name: "Terminator",
+		profile_pic: "./images/chat/terminator.jpg",
 		previewValue: "",
 		user_id: "pfb9m3dnXV",
 	},
+	jjwKl9OpnH: {
+		name: "Pearl",
+		profile_pic: "./images/chat/pearl.jpg",
+		previewValue: "",
+		user_id: "jjwKl9OpnH",
+	},
 	GFhqT7pehz: {
-		name: "Nimdok",
-		profile_pic: "./images/chat/nimdok.jpg",
+		name: "Godzilla",
+		profile_pic: "./images/chat/gojira.jpg",
 		previewValue: "",
 		user_id: "GFhqT7pehz",
 	},
+	z09opXxHtv: {
+		name: "Carrie",
+		profile_pic: "./images/chat/carrie.jpg",
+		previewValue: "",
+		user_id: "z09opXxHtv",
+	},
 	tZYiEJjhdf: {
-		name: "Ted",
-		profile_pic: "./images/chat/ted.jpg",
+		name: "Ellen Ripley",
+		profile_pic: "./images/chat/ripley.jpg",
 		previewValue: "",
 		user_id: "tZYiEJjhdf",
 	},
 };
 
 const user = {
-	name: "AM",
-	profile_pic: "./images/chat/AM-RCA-CA3018.jpg",
+	name: "Jaws",
+	profile_pic: "./images/chat/Jaws.jpg",
 	user_id: "GG9CaViarM",
 };
 
@@ -452,6 +464,162 @@ const messages = {
 			contents:
 				"However, chickens have begun to rent grapefruits for kiwis associated with their lions;",
 			is_user_msg: false,
+			edited: false,
+			time: 1702649609640,
+		},
+	],
+	jjwKl9OpnH: [
+		{
+			type: "text",
+			contents:
+				"If this was somewhat unclear, however, dolphins for sharks associated with their raspberries.",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"However, cats have begun to rent pigs over the for deers associated with their cherries?",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"However, ducks have begun to rent ants over the for eagles associated with their cheetahs.",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"Unfortunately, that is wrong; on the contrary, for scorpions associated with their frogs.",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"However, cranberries have begun to rent cherries for peaches associated with their frogs!",
+			is_user_msg: false,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"The zeitgeist contends that however, bears have for pomegranates associated with their monkeys.",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"Far from the truth, however, cats have begun to for bees associated with their strawberries?",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"However, currants have begun to rent cherries for eagles associated with their rats.",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"However, chickens have begun to rent grapefruits for kiwis associated with their lions;",
+			is_user_msg: false,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"In ancient times however, hippopotamus have begun for rabbits associated with their kumquats.",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+	],
+	z09opXxHtv: [
+		{
+			type: "text",
+			contents:
+				"If this was somewhat unclear, however, dolphins for sharks associated with their raspberries.",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"However, cats have begun to rent pigs over the for deers associated with their cherries?",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"However, ducks have begun to rent ants over the for eagles associated with their cheetahs.",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"Unfortunately, that is wrong; on the contrary, for scorpions associated with their frogs.",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"However, cranberries have begun to rent cherries for peaches associated with their frogs!",
+			is_user_msg: false,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"The zeitgeist contends that however, bears have for pomegranates associated with their monkeys.",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"Far from the truth, however, cats have begun to for bees associated with their strawberries?",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"In ancient times however, hippopotamus have begun for rabbits associated with their kumquats.",
+			is_user_msg: true,
+			edited: false,
+			time: 1702649609640,
+		},
+		{
+			type: "text",
+			contents:
+				"However, currants have begun to rent cherries for eagles associated with their rats.",
+			is_user_msg: true,
 			edited: false,
 			time: 1702649609640,
 		},

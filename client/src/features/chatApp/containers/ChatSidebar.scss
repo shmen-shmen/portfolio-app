@@ -53,8 +53,9 @@
 
 		.Contact__pic {
 			display: block;
-			width: 70px;
+			width: 85px;
 			aspect-ratio: 1 / 1;
+			object-fit: cover;
 		}
 
 		.Contact__details {
