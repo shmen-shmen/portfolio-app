@@ -45,7 +45,7 @@ const contacts = {
 
 const user = {
 	name: "Jaws",
-	profile_pic: "./images/chat/Jaws.jpg",
+	profile_pic: "./images/chat/jaws.jpg",
 	user_id: "GG9CaViarM",
 };
 
