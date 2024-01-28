@@ -14,7 +14,7 @@ const AppSelector = () => {
 					key={"sythesizer-key"}
 					className="nav-button nav"
 				>
-					Sythesizer
+					KABASHI SONIC 10000
 				</a>
 				<NavLink
 					to={"/chatApp"}
@@ -22,7 +22,7 @@ const AppSelector = () => {
 					key={"chatApp-key"}
 					className="nav-button nav"
 				>
-					Chat App
+					THE MESSENGER
 				</NavLink>
 				<NavLink
 					to={"/weatherHere"}
@@ -30,9 +30,9 @@ const AppSelector = () => {
 					key={"weatherHere-key"}
 					className="nav-button nav"
 				>
-					The Weather Here
+					THE WEATHER HERE
 				</NavLink>
-				<NavLink
+				{/* <NavLink
 					to={"/twentyFiveClock"}
 					id={"twentyFiveClock-id"}
 					key={"twentyFiveClock-key"}
@@ -47,31 +47,31 @@ const AppSelector = () => {
 					className="nav-button nav"
 				>
 					random quote machine
-				</NavLink>
-				<NavLink
+				</NavLink> */}
+				{/* <NavLink
 					to={"/calculator"}
 					id={"calculator-id"}
 					key={"calculator-key"}
 					className="nav-button nav"
 				>
 					calculator
-				</NavLink>
-				<NavLink
+				</NavLink> */}
+				{/* <NavLink
 					to={"/drumMachine"}
 					id={"drumMachine-id"}
 					key={"drumMachine-key"}
 					className="nav-button nav"
 				>
 					farm machine
-				</NavLink>
-				<NavLink
+				</NavLink> */}
+				{/* <NavLink
 					to={"/markdownPreviewer"}
 					id={"markdownPreviewer-id"}
 					key={"markdownPreviewer-key"}
 					className="nav-button nav"
 				>
 					markdown previewer
-				</NavLink>
+				</NavLink> */}
 			</nav>
 		</div>
 	);
